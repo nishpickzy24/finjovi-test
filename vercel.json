@@ -1,0 +1,15 @@
+{
+  "rewrites": [
+    {
+      "source": "/pages/:filename",
+      "destination": "/pages/:filename.html"
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/pages/:filename.html",
+      "destination": "/pages/:filename",
+      "permanent": true
+    }
+  ]
+}
