@@ -1,7 +1,9 @@
 RewriteEngine On
 
-RewriteCond %{THE_REQUEST} \s([^.]+)\.html[\s?] [NC]
+# ✅ 1. Redirect /something.html to /something (any folder level)
+RewriteCond %{THE_REQUEST} \s/+(.+)\.html[\s?] [NC]
 RewriteRule ^ %1 [R=301,L]
 
+# ✅ 2. Internally rewrite /something to /something.html (support nested folders)
 RewriteCond %{REQUEST_FILENAME}.html -f
-RewriteRule ^([^/]+)/?$ $1.html [L]
+RewriteRule ^(.+?)/?$ $1.html [L]
