@@ -1,14 +1,14 @@
 {
   "rewrites": [
     {
-      "source": "/pages/:filename",
-      "destination": "/pages/:filename.html"
+      "source": "/stock-comparison/:name",
+      "destination": "/stock-comparison/:name.html"
     }
   ],
   "redirects": [
     {
-      "source": "/pages/:filename.html",
-      "destination": "/pages/:filename",
+      "source": "/stock-comparison/:name.html",
+      "destination": "/stock-comparison/:name",
       "permanent": true
     }
   ]
