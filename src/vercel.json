@@ -1,0 +1,6 @@
+{
+  "public": "src/public",
+  "rewrites": [
+    { "source": "/pages/:match", "destination": "/pages/:match.html" }
+  ]
+}
