@@ -6,6 +6,6 @@ Disallow: /drafts/
  
 Allow: /
  
-Sitemap: http://127.0.0.1:5500/sitemap.xml
+Sitemap: http://localhost:3000/sitemap.xml
  
  
