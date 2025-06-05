@@ -1,1 +1,0 @@
-# finjovi-test
