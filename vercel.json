@@ -2,12 +2,12 @@
   "rewrites": [
     {
       "source": "/:name",
-      "destination": "/stock-comparison/:name.html"
+      "destination": "/:name.html"
     }
   ],
   "redirects": [
     {
-      "source": "/stock-comparison/:name.html",
+      "source": "/:name.html",
       "destination": "/:name",
       "permanent": true
     }
