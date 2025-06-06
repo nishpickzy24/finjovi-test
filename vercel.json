@@ -1,15 +1,8 @@
 {
   "rewrites": [
     {
-      "source": "/stock-comparison/:name",
+      "source": "/:name",
       "destination": "/stock-comparison/:name.html"
-    }
-  ],
-  "redirects": [
-    {
-      "source": "/stock-comparison/:name.html",
-      "destination": "/stock-comparison/:name",
-      "permanent": true
     }
   ]
 }
