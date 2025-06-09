@@ -157,48 +157,42 @@
     </style>
 
     <!-- Navbar start  -->
-    <nav
-      id="navbar"
-      class="fixed top-0 left-0 right-0 bg-transparent transition-all duration-500 z-50"
-    >
-      <div
-        class="max-w-7xl mx-auto flex justify-between items-center px-6 py-4"
-      >
-        <a
-          href="#"
-          class="text-indigo-600 text-2xl font-bold flex items-center transition-colors duration-300"
-        >
-          <i class="fas fa-search-dollar mr-3 text-3xl"></i>
-          <span class="font-display font-bold">Finjovi</span>
-        </a>
-        <div class="hidden md:flex space-x-8">
-          <a
-            href="#"
-            class="text-white font-medium hover:text-indigo-300 tracking-wide transition-colors duration-300 text-sm uppercase letter-spacing-wide"
-          >
-            Home
-          </a>
-          <a
-            href="#"
-            class="text-white font-medium hover:text-indigo-300 tracking-wide transition-colors duration-300 text-sm uppercase letter-spacing-wide"
-          >
-            About
-          </a>
-          <a
-            href="#"
-            class="text-white font-medium hover:text-indigo-300 tracking-wide transition-colors duration-300 text-sm uppercase letter-spacing-wide"
-          >
-            Services
-          </a>
-          <a
-            href="#"
-            class="text-white font-medium hover:text-indigo-300 tracking-wide transition-colors duration-300 text-sm uppercase letter-spacing-wide"
-          >
-            Contact Us
-          </a>
-        </div>
-      </div>
-    </nav>
+   <nav id="navbar" class="fixed top-0 left-0 right-0 bg-transparent transition-all duration-500 z-50">
+  <div class="max-w-7xl mx-auto flex justify-between items-center px-6 py-4">
+    <!-- Logo -->
+    <a href="#" class="text-indigo-600 text-2xl font-bold flex items-center transition-colors duration-300">
+      <i class="fas fa-search-dollar mr-3 text-3xl"></i>
+      <span class="font-display font-bold">Finjovi</span>
+    </a>
+
+    <!-- Desktop Menu -->
+    <div class="hidden md:flex space-x-8">
+      <a href="#" class="text-white font-medium hover:text-indigo-300 text-sm uppercase">Home</a>
+      <a href="#" class="text-white font-medium hover:text-indigo-300 text-sm uppercase">About</a>
+      <a href="#" class="text-white font-medium hover:text-indigo-300 text-sm uppercase">Services</a>
+      <a href="#" class="text-white font-medium hover:text-indigo-300 text-sm uppercase">Contact Us</a>
+    </div>
+
+    <!-- Hamburger -->
+   <div class="md:hidden">
+  <button id="menu-btn" class="text-white text-3xl focus:outline-none">
+    &#9776;
+  </button>
+</div>
+
+  <!-- Mobile Sidebar Menu -->
+ <div
+  id="mobile-menu"
+  class="absolute left-0 top-full w-full text-white transform scale-y-0 origin-top transition-transform duration-300 "
+>
+  <div class="flex flex-col space-y-4 p-6">
+    <a href="#" class="uppercase text-sm font-medium hover:text-indigo-300">Home</a>
+    <a href="#" class="uppercase text-sm font-medium hover:text-indigo-300">About</a>
+    <a href="#" class="uppercase text-sm font-medium hover:text-indigo-300">Services</a>
+    <a href="#" class="uppercase text-sm font-medium hover:text-indigo-300">Contact Us</a>
+  </div>
+</div>
+</nav>
     <!-- Navbar end  -->
 
     <!-- Hero Section start-->
@@ -267,6 +261,16 @@
         }
       });
     </script>
+
+    <script>
+  const menuBtn = document.getElementById("menu-btn");
+  const mobileMenu = document.getElementById("mobile-menu");
+
+  menuBtn.addEventListener("click", () => {
+    mobileMenu.classList.toggle("scale-y-0");
+    mobileMenu.classList.toggle("scale-y-100");
+  });
+</script>
     <!-- navbar script start-->
 
     <!-- Main Content -->
@@ -308,22 +312,22 @@
                 </div>
                 <div class="flex justify-between items-center p-3 rounded-lg bg-slate-50/80 hover:bg-slate-100/80 transition-colors duration-200">
                   <span class="text-slate-600 font-medium text-label text-xs"
-                    >Stock Price (April 2025)</span
-                  ><span class="text-indigo-700 font-bold text-lg">$187.55</span>
+                    >Stock Price (May 2025)</span
+                  ><span class="text-indigo-700 font-bold text-lg">$215.28</span>
                 </div>
                 <div class="flex justify-between items-center p-3 rounded-lg bg-slate-50/80 hover:bg-slate-100/80 transition-colors duration-200">
                   <span class="text-slate-600 font-medium text-label text-xs"
                     >Approx. 10-Year Growth</span
-                  ><span class="text-indigo-700 font-bold text-lg">171.56%</span>
+                  ><span class="text-indigo-700 font-bold text-lg">180.61%</span>
                 </div>
                      <div class="flex justify-between items-center p-3 rounded-lg bg-slate-50/80 hover:bg-slate-100/80 transition-colors duration-200">
                   <span class="text-slate-600 font-medium text-label text-xs"
                     >Approx. 20-Year Growth</span
-                  ><span class="text-indigo-700 font-bold text-lg">269.09%</span>
+                  ><span class="text-indigo-700 font-bold text-lg">278.14%</span>
                 </div>
                 <div class="flex justify-between items-center p-3 rounded-lg bg-slate-50/80 hover:bg-slate-100/80 transition-colors duration-200">
                   <span class="text-slate-600 font-medium text-label text-xs"
-                    >Market Cap (April 2025)</span
+                    >Market Cap (May 2025)</span
                   ><span class="text-indigo-700 font-bold text-lg">$107.63 Billion</span>
                 </div>
 
@@ -345,22 +349,22 @@
                 </div>
                 <div class="flex justify-between items-center p-3 rounded-lg bg-slate-50/80 hover:bg-slate-100/80 transition-colors duration-200">
                   <span class="text-slate-600 font-medium text-label text-xs"
-                    >Stock Price (April 2025)</span
-                  ><span class="text-emerald-700 font-bold text-lg">$108.97</span>
+                    >Stock Price (May 2025)</span
+                  ><span class="text-emerald-700 font-bold text-lg">$102.72</span>
                 </div>
                 <div class="flex justify-between items-center p-3 rounded-lg bg-slate-50/80 hover:bg-slate-100/80 transition-colors duration-200">
                   <span class="text-slate-600 font-medium text-label text-xs"
                     >Approx. 10-Year Growth</span
-                  ><span class="text-emerald-700 font-bold text-lg">113.27%</span>
+                  ><span class="text-emerald-700 font-bold text-lg">108.96%</span>
                 </div>
                 <div class="flex justify-between items-center p-3 rounded-lg bg-slate-50/80 hover:bg-slate-100/80 transition-colors duration-200">
                   <span class="text-slate-600 font-medium text-label text-xs"
                     >Approx. 20-Year Growth</span
-                  ><span class="text-emerald-700 font-bold text-lg">212.32%</span>
+                  ><span class="text-emerald-700 font-bold text-lg">208.01%</span>
                 </div>
                 <div class="flex justify-between items-center p-3 rounded-lg bg-slate-50/80 hover:bg-slate-100/80 transition-colors duration-200">
                   <span class="text-slate-600 font-medium text-label text-xs"
-                    >Market Cap (April 2025)</span
+                    >Market Cap (May 2025)</span
                   ><span class="text-emerald-700 font-bold text-lg">$54.97 Billion</span>
                 </div>
               </div>
@@ -387,8 +391,8 @@
     <!--Stock graph script -->
     <script>
       const labels = ["2005","2006","2007","2008","2009","2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023","2024","2025"];
-      const data1 = [6.83,-8.76,-1.42,-35.35,65.97,22.35,-3.13,20.42,19.2,15.9,2.35,37.14,25.49,-3,41.16,25.2,22.38,-5.65,24.56,11.65,-7.37];
-      const data2 = [7.97,18.74,12.33,-25.03,8.03,8.13,19.82,9.64,11.64,36.83,-1.08,11.81,21.34,7.07,33.74,-7.99,13.03,10.83,-10.9,15.4,18.94];
+      const data1 = [6.83,-8.76,-1.42,-35.35,65.97,22.35,-3.13,20.42,19.2,15.9,2.35,37.14,25.49,-3,41.16,25.2,22.38,-5.65,24.56,11.65,1.68];
+      const data2 = [7.97,18.74,12.33,-25.03,8.03,8.13,19.82,9.64,11.64,36.83,-1.08,11.81,21.34,7.07,33.74,-7.99,13.03,10.83,-10.9,15.4,14.63];
       const label1 = "ADI";
       const label2 = "AEP";    
 
@@ -485,8 +489,8 @@
                       
             <tr>
                 <td class="px-4 py-4 border text-center">2025</td>
-                <td class="px-4 py-4 border text-center value">-7.37%</td>
-                <td class="px-4 py-4 border text-center value">+18.94%</td>
+                <td class="px-4 py-4 border text-center value">+1.68%</td>
+                <td class="px-4 py-4 border text-center value">+14.63%</td>
             </tr>
 
             <tr>
@@ -644,6 +648,12 @@
             
            
             <tr>
+                <td class="px-4 py-4 border text-center">May 2025</td>
+                <td class="px-4 py-4 border text-center value">-9.46%</td>
+                <td class="px-4 py-4 border text-center value">+2.99%</td>
+            </tr>
+
+            <tr>
                 <td class="px-4 py-4 border text-center">April 2025</td>
                 <td class="px-4 py-4 border text-center value">+2.19%</td>
                 <td class="px-4 py-4 border text-center value">+0.03%</td>
@@ -777,12 +787,6 @@
 
             <tr>
                 <td class="px-4 py-4 border text-center">June 2023</td>
-                <td class="px-4 py-4 border text-center value">-7.83%</td>
-                <td class="px-4 py-4 border text-center value">-2.59%</td>
-            </tr>
-
-            <tr>
-                <td class="px-4 py-4 border text-center">May 2023</td>
                 <td class="px-4 py-4 border text-center value">+0.00%</td>
                 <td class="px-4 py-4 border text-center value">+0.00%</td>
             </tr>
