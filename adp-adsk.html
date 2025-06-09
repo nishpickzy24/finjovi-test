@@ -1,492 +1,487 @@
-
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-               <title>ADP vs ADSK</title>
-        <meta name="description" content="Historical performance comparison of ADP (Automatic Data Processing, Inc.) and ADSK (Autodesk, Inc.) over the past years and months.">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>ADP vs ADSK</title>
+        <meta name="description" content="Historical performance comparison of ADP (Automatic Data Processing) and ADSK (Autodesk) over the past years and months.">
         <meta property="og:title" content="ADP vs ADSK">
-        <meta property="og:description" content="Historical performance comparison of ADP (Automatic Data Processing, Inc.) and ADSK (Autodesk, Inc.) over the past years and months.">
+        <meta property="og:description" content="Historical performance comparison of ADP (Automatic Data Processing) and ADSK (Autodesk) over the past years and months.">
         <meta name="twitter:title" content="ADP vs ADSK">
-        <meta name="twitter:description" content="Historical performance comparison of ADP (Automatic Data Processing, Inc.) and ADSK (Autodesk, Inc.) over the past years and months.">
+        <meta name="twitter:description" content="Historical performance comparison of ADP (Automatic Data Processing) and ADSK (Autodesk) over the past years and months.">
 
-    <link rel="icon" type="image/png" href="./images/favicon.png">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script
-      src="https://kit.fontawesome.com/a076d05399.js"
-      crossorigin="anonymous"
-    ></script>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-  </head>
+  <link rel="icon" type="image/png" href="./images/favicon.png">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
 
-  <body
-    class="bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 text-slate-800 min-h-screen cursor-default scrollbar-hide overflow-auto"
-  >
-    <style>
-      :root {
-        --primary-blue: #1e40af;
-        --primary-blue-light: #3b82f6;
-        --primary-green: #059669;
-        --primary-green-light: #10b981;
-        --accent-purple: #7c3aed;
-        --accent-orange: #ea580c;
-        --text-primary: #0f172a;
-        --text-secondary: #475569;
-        --text-muted: #64748b;
-        --background-card: #ffffff;
-        --background-overlay: rgba(15, 23, 42, 0.7);
-        --shadow-card: 0 10px 25px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-        --shadow-card-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-        --border-light: #e2e8f0;
-        --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-        --gradient-tertiary: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    <!-- Visit Count  -->
+
+  <script>
+    async function getIPAndSendVisit() {
+      let keyword = location.pathname.split('/').pop();
+      keyword = keyword.replace('.html', '');
+
+      const timestamp = new Date().toISOString().replace('T', ' ').slice(0, 19);
+
+      try {
+        const res = await fetch('https://api.ipify.org?format=json');
+        const { ip } = await res.json();
+
+        await fetch('https://jayvenka.com/public/cvisits.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ keyword, ip, timestamp })
+        });
+      } catch (err) {
       }
+    }
 
-      body {
-        font-family: 'Inter', sans-serif;
-        font-weight: 400;
-        line-height: 1.6;
-        letter-spacing: -0.025em;
-      }
+    window.addEventListener('load', getIPAndSendVisit);
+  </script>
+</head>
 
-      body::-webkit-scrollbar {
-        display: none;
-      }
+<body
+  class="bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 text-slate-800 min-h-screen cursor-default scrollbar-hide overflow-auto">
+  <style>
+    :root {
+      --primary-blue: #1e40af;
+      --primary-blue-light: #3b82f6;
+      --primary-green: #059669;
+      --primary-green-light: #10b981;
+      --accent-purple: #7c3aed;
+      --accent-orange: #ea580c;
+      --text-primary: #0f172a;
+      --text-secondary: #475569;
+      --text-muted: #64748b;
+      --background-card: #ffffff;
+      --background-overlay: rgba(15, 23, 42, 0.7);
+      --shadow-card: 0 10px 25px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      --shadow-card-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      --border-light: #e2e8f0;
+      --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      --gradient-tertiary: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    }
 
-      .font-display {
-        font-family: 'Playfair Display', serif;
-      }
+    body {
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      line-height: 1.6;
+      letter-spacing: -0.025em;
+    }
 
-      .text-gradient-primary {
-        background: var(--gradient-primary);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-      }
+    body::-webkit-scrollbar {
+      display: none;
+    }
 
-      .text-gradient-secondary {
-        background: var(--gradient-secondary);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-      }
+    .font-display {
+      font-family: 'Playfair Display', serif;
+    }
 
-      .bg-gradient-card {
-        background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
-      }
+    .text-gradient-primary {
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
 
-      .shadow-elegant {
-        box-shadow: var(--shadow-card);
-      }
+    .text-gradient-secondary {
+      background: var(--gradient-secondary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
 
-      .shadow-elegant-hover {
-        box-shadow: var(--shadow-card-hover);
-      }
+    .bg-gradient-card {
+      background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+    }
 
-      .border-gradient {
-        border: 1px solid transparent;
-        background: linear-gradient(white, white) padding-box,
-                    var(--gradient-primary) border-box;
-      }
+    .shadow-elegant {
+      box-shadow: var(--shadow-card);
+    }
 
-      .navbar-backdrop {
-        backdrop-filter: blur(20px);
-        background: rgba(255, 255, 255, 0.9);
-      }
+    .shadow-elegant-hover {
+      box-shadow: var(--shadow-card-hover);
+    }
 
-      .hero-text-shadow {
-        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      }
+    .border-gradient {
+      border: 1px solid transparent;
+      background: linear-gradient(white, white) padding-box,
+        var(--gradient-primary) border-box;
+    }
 
-      .metric-card {
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      }
+    .navbar-backdrop {
+      backdrop-filter: blur(20px);
+      background: rgba(255, 255, 255, 0.9);
+    }
 
-      .metric-card:hover {
-        transform: translateY(-2px);
-        box-shadow: var(--shadow-card-hover);
-      }
+    .hero-text-shadow {
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
 
-      .chart-container {
-        background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
-        border: 1px solid rgba(148, 163, 184, 0.1);
-      }
+    .metric-card {
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
 
-      /* Enhanced scrollbar styling */
-      .scrollbar-hide {
-        scrollbar-width: none;
-        -ms-overflow-style: none;
-      }
+    .metric-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-card-hover);
+    }
 
-      /* Typography improvements */
-      .text-display-1 {
-        font-family: 'Playfair Display', serif;
-        font-weight: 800;
-        font-size: clamp(2.5rem, 8vw, 6rem);
-        line-height: 1.1;
-        letter-spacing: -0.05em;
-      }
+    .chart-container {
+      background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+      border: 1px solid rgba(148, 163, 184, 0.1);
+    }
 
-      .text-display-2 {
-        font-family: 'Playfair Display', serif;
-        font-weight: 700;
-        font-size: clamp(1.75rem, 5vw, 3.5rem);
-        line-height: 1.2;
-        letter-spacing: -0.03em;
-      }
+    /* Enhanced scrollbar styling */
+    .scrollbar-hide {
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
 
-      .text-body-large {
-        font-size: 1.125rem;
-        font-weight: 400;
-        line-height: 1.7;
-        color: var(--border-light);
-      }
+    /* Typography improvements */
+    .text-display-1 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 800;
+      font-size: clamp(2.5rem, 8vw, 6rem);
+      line-height: 1.1;
+      letter-spacing: -0.05em;
+    }
 
-      .text-label {
-        font-size: 0.875rem;
-        font-weight: 600;
-        letter-spacing: 0.05em;
-        text-transform: uppercase;
-      }
-    </style>
+    .text-display-2 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: clamp(1.75rem, 5vw, 3.5rem);
+      line-height: 1.2;
+      letter-spacing: -0.03em;
+    }
 
-    <!-- Navbar start  -->
-   <nav id="navbar" class="fixed top-0 left-0 right-0 bg-transparent transition-all duration-500 z-50">
-  <div class="max-w-7xl mx-auto flex justify-between items-center px-6 py-4">
-    <!-- Logo -->
-    <a href="#" class="text-indigo-600 text-2xl font-bold flex items-center transition-colors duration-300">
-      <i class="fas fa-search-dollar mr-3 text-3xl"></i>
-      <span class="font-display font-bold">Finjovi</span>
-    </a>
+    .text-body-large {
+      font-size: 1.125rem;
+      font-weight: 400;
+      line-height: 1.7;
+      color: var(--border-light);
+    }
 
-    <!-- Desktop Menu -->
-    <div class="hidden md:flex space-x-8">
-      <a href="#" class="text-white font-medium hover:text-indigo-300 text-sm uppercase">Home</a>
-      <a href="#" class="text-white font-medium hover:text-indigo-300 text-sm uppercase">About</a>
-      <a href="#" class="text-white font-medium hover:text-indigo-300 text-sm uppercase">Services</a>
-      <a href="#" class="text-white font-medium hover:text-indigo-300 text-sm uppercase">Contact Us</a>
-    </div>
+    .text-label {
+      font-size: 0.875rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+  </style>
 
-    <!-- Hamburger -->
-   <div class="md:hidden">
-  <button id="menu-btn" class="text-white text-3xl focus:outline-none">
-    &#9776;
-  </button>
-</div>
+  <!-- Navbar start  -->
+  <nav id="navbar" class="fixed top-0 left-0 right-0 bg-transparent transition-all duration-500 z-50">
+    <div class="max-w-7xl mx-auto flex justify-between items-center px-6 py-4">
+      <!-- Logo -->
+      <a href="#" class="text-indigo-600 text-2xl font-bold flex items-center transition-colors duration-300">
+        <i class="fas fa-search-dollar mr-3 text-3xl"></i>
+        <span class="font-display font-bold">Finjovi</span>
+      </a>
 
-  <!-- Mobile Sidebar Menu -->
- <div
-  id="mobile-menu"
-  class="absolute left-0 top-full w-full text-white transform scale-y-0 origin-top transition-transform duration-300 "
->
-  <div class="flex flex-col space-y-4 p-6">
-    <a href="#" class="uppercase text-sm font-medium hover:text-indigo-300">Home</a>
-    <a href="#" class="uppercase text-sm font-medium hover:text-indigo-300">About</a>
-    <a href="#" class="uppercase text-sm font-medium hover:text-indigo-300">Services</a>
-    <a href="#" class="uppercase text-sm font-medium hover:text-indigo-300">Contact Us</a>
-  </div>
-</div>
-</nav>
-    <!-- Navbar end  -->
-
-    <!-- Hero Section start-->
-    <div class="relative w-full h-screen bg-cover bg-center">
-      <!-- Hero Section Background start-->
-      <div class="absolute w-full h-screen flex lg:flex-row flex-col">
-        <div
-          class="relative w-full h-screen bg-cover bg-center"
-          style="background-image: url('./images/ADP.png')"
-        ></div>
-        <div
-          class="relative w-full h-screen bg-cover bg-center"
-          style="background-image: url('./images/ADSK.png')"
-        ></div>
+      <!-- Desktop Menu -->
+      <div class="hidden md:flex space-x-8">
+        <a href="#" class="text-white font-medium hover:text-indigo-300 text-sm uppercase">Home</a>
+        <a href="#" class="text-white font-medium hover:text-indigo-300 text-sm uppercase">About</a>
+        <a href="#" class="text-white font-medium hover:text-indigo-300 text-sm uppercase">Services</a>
+        <a href="#" class="text-white font-medium hover:text-indigo-300 text-sm uppercase">Contact Us</a>
       </div>
 
-      <!-- Hero Section Background end-->
-      <div class="absolute inset-0 bg-gradient-to-r from-slate-900/70 via-slate-800/60 to-slate-900/70 flex items-center">
-        <div class="max-w-7xl mx-auto px-6 text-white">
-          <h4
-            class="text-indigo-400 text-lg font-semibold uppercase mb-8 text-center tracking-wider text-label"
-          >
-            Welcome To Finjovi
-          </h4>
-          <h1
-            class="text-display-1 font-display font-bold uppercase mb-8 text-center hero-text-shadow"
-          >
-            Compare  ADP vs ADSK
-          </h1>
-          <p class="mb-6 text-body-large text-center max-w-3xl mx-auto text-slate-200">
-            Compare Automatic Data Processing, Inc. and Autodesk, Inc. stock with 20 years of historical data and charts
-          </p>
+      <!-- Hamburger -->
+      <div class="md:hidden">
+        <button id="menu-btn" class="text-white text-3xl focus:outline-none">
+          &#9776;
+        </button>
+      </div>
+
+      <!-- Mobile Sidebar Menu -->
+      <div id="mobile-menu"
+        class="absolute left-0 top-full w-full text-white transform scale-y-0 origin-top transition-transform duration-300 ">
+        <div class="flex flex-col space-y-4 p-6">
+          <a href="#" class="uppercase text-sm font-medium hover:text-indigo-300">Home</a>
+          <a href="#" class="uppercase text-sm font-medium hover:text-indigo-300">About</a>
+          <a href="#" class="uppercase text-sm font-medium hover:text-indigo-300">Services</a>
+          <a href="#" class="uppercase text-sm font-medium hover:text-indigo-300">Contact Us</a>
         </div>
       </div>
+  </nav>
+  <!-- Navbar end  -->
+
+  <!-- Hero Section start-->
+  <div class="relative w-full h-screen bg-cover bg-center">
+    <!-- Hero Section Background start-->
+    <div class="absolute w-full h-screen flex lg:flex-row flex-col">
+      <div class="relative w-full h-screen bg-cover bg-center" style="background-image: url('./images/ADP.png')"></div>
+      <div class="relative w-full h-screen bg-cover bg-center" style="background-image: url('./images/ADSK.png')"></div>
     </div>
-    <!-- Hero Section end-->
 
-    <!-- navbar script start-->
-    <script>
-      window.addEventListener("scroll", function () {
-        const navbar = document.getElementById("navbar");
-        if (window.scrollY > 50) {
-          navbar.classList.remove("bg-transparent");
-          navbar.classList.add("navbar-backdrop", "shadow-lg");
-          navbar.querySelectorAll("a").forEach((link) => {
-            if (!link.querySelector('i')) {
-              link.classList.remove("text-white");
-              link.classList.add("text-slate-700");
-            } else {
-              link.classList.remove("text-indigo-600");
-              link.classList.add("text-indigo-700");
-            }
-          });
-        } else {
-          navbar.classList.remove("navbar-backdrop", "shadow-lg");
-          navbar.classList.add("bg-transparent");
-          navbar.querySelectorAll("a").forEach((link) => {
-            if (!link.querySelector('i')) {
-              link.classList.remove("text-slate-700");
-              link.classList.add("text-white");
-            } else {
-              link.classList.remove("text-indigo-700");
-              link.classList.add("text-indigo-600");
-            }
-          });
-        }
-      });
-    </script>
+    <!-- Hero Section Background end-->
+    <div class="absolute inset-0 bg-gradient-to-r from-slate-900/70 via-slate-800/60 to-slate-900/70 flex items-center">
+      <div class="max-w-7xl mx-auto px-6 text-white">
+        <h4 class="text-indigo-400 text-lg font-semibold uppercase mb-8 text-center tracking-wider text-label">
+          Welcome To Finjovi
+        </h4>
+        <h1 class="text-display-1 font-display font-bold uppercase mb-8 text-center hero-text-shadow">
+          Compare ADP vs ADSK
+        </h1>
+        <p class="mb-6 text-body-large text-center max-w-3xl mx-auto text-slate-200">
+          Compare Automatic Data Processing and Autodesk stock with 20 years of historical data and charts
+        </p>
+      </div>
+    </div>
+  </div>
+  <!-- Hero Section end-->
 
-    <script>
-  const menuBtn = document.getElementById("menu-btn");
-  const mobileMenu = document.getElementById("mobile-menu");
+  <!-- navbar script start-->
+  <script>
+    window.addEventListener("scroll", function () {
+      const navbar = document.getElementById("navbar");
+      if (window.scrollY > 50) {
+        navbar.classList.remove("bg-transparent");
+        navbar.classList.add("navbar-backdrop", "shadow-lg");
+        navbar.querySelectorAll("a").forEach((link) => {
+          if (!link.querySelector('i')) {
+            link.classList.remove("text-white");
+            link.classList.add("text-slate-700");
+          } else {
+            link.classList.remove("text-indigo-600");
+            link.classList.add("text-indigo-700");
+          }
+        });
+      } else {
+        navbar.classList.remove("navbar-backdrop", "shadow-lg");
+        navbar.classList.add("bg-transparent");
+        navbar.querySelectorAll("a").forEach((link) => {
+          if (!link.querySelector('i')) {
+            link.classList.remove("text-slate-700");
+            link.classList.add("text-white");
+          } else {
+            link.classList.remove("text-indigo-700");
+            link.classList.add("text-indigo-600");
+          }
+        });
+      }
+    });
+  </script>
 
-  menuBtn.addEventListener("click", () => {
-    mobileMenu.classList.toggle("scale-y-0");
-    mobileMenu.classList.toggle("scale-y-100");
-  });
-</script>
-    <!-- navbar script start-->
+  <script>
+    const menuBtn = document.getElementById("menu-btn");
+    const mobileMenu = document.getElementById("mobile-menu");
 
-    <!-- Main Content -->
-    <!-- heading -->
-    <main class="p-10 text-center mt-20">
-      <h1
-        class="text-display-2 font-display font-bold text-gradient-primary mb-4"
-      >
-        Compare ADP vs ADSK
-      </h1>
-      <div class="w-24 h-1 bg-gradient-to-r from-indigo-500 to-purple-600 mx-auto rounded-full"></div>
-    </main>
+    menuBtn.addEventListener("click", () => {
+      mobileMenu.classList.toggle("scale-y-0");
+      mobileMenu.classList.toggle("scale-y-100");
+    });
+  </script>
+  <!-- navbar script start-->
 
-    <!--Compare table-->
-    <div
-      class="max-w-7xl mx-auto mt-16 p-8 shadow-elegant bg-gradient-card rounded-2xl border border-slate-200/50"
-    >
-      <div class="grid grid-cols-1 lg:grid-cols-1 gap-6">
-        <!-- Apple + Amazon Comparison Table  -->
-        <div class="border-gradient rounded-xl p-8 bg-white/50 backdrop-blur-sm">
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-12 relative">
-            <!-- Vertical Divider Line for Desktop -->
+  <!-- Main Content -->
+  <!-- heading -->
+  <main class="p-10 text-center mt-20">
+    <h1 class="text-display-2 font-display font-bold text-gradient-primary mb-4">
+      Compare ADP vs ADSK
+    </h1>
+    <div class="w-24 h-1 bg-gradient-to-r from-indigo-500 to-purple-600 mx-auto rounded-full"></div>
+  </main>
+
+  <!--Compare table-->
+  <div class="max-w-7xl mx-auto mt-16 p-8 shadow-elegant bg-gradient-card rounded-2xl border border-slate-200/50">
+    <div class="grid grid-cols-1 lg:grid-cols-1 gap-6">
+      <!-- Apple + Amazon Comparison Table  -->
+      <div class="border-gradient rounded-xl p-8 bg-white/50 backdrop-blur-sm">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 relative">
+          <!-- Vertical Divider Line for Desktop -->
+          <div
+            class="hidden md:block absolute inset-y-0 left-1/2 w-px bg-gradient-to-b from-transparent via-slate-300 to-transparent">
+          </div>
+
+          <!-- Apple (AAPL) -->
+          <div class="metric-card">
             <div
-              class="hidden md:block absolute inset-y-0 left-1/2 w-px bg-gradient-to-b from-transparent via-slate-300 to-transparent"
-            ></div>
-
-            <!-- Apple (AAPL) -->
-            <div class="metric-card">
-              <div
-                class="text-indigo-700 text-center font-bold text-2xl border-b-2 border-indigo-200 pb-4 mb-6 font-display"
-              >
+              class="text-indigo-700 text-center font-bold text-2xl border-b-2 border-indigo-200 pb-4 mb-6 font-display">
               ADP
-              </div>
-              <div class="grid grid-cols-1 gap-y-6 text-sm">
-                <div class="flex justify-between items-center p-3 rounded-lg bg-slate-50/80 hover:bg-slate-100/80 transition-colors duration-200">
-                  <span class="text-slate-600 font-medium text-label text-xs"
-                    >Stock Price (May 2005)</span
-                  ><span class="text-indigo-700 font-bold text-lg">$43.44</span>
-                </div>
-                <div class="flex justify-between items-center p-3 rounded-lg bg-slate-50/80 hover:bg-slate-100/80 transition-colors duration-200">
-                  <span class="text-slate-600 font-medium text-label text-xs"
-                    >Stock Price (May 2025)</span
-                  ><span class="text-indigo-700 font-bold text-lg">$325.18</span>
-                </div>
-                <div class="flex justify-between items-center p-3 rounded-lg bg-slate-50/80 hover:bg-slate-100/80 transition-colors duration-200">
-                  <span class="text-slate-600 font-medium text-label text-xs"
-                    >Approx. 10-Year Growth</span
-                  ><span class="text-indigo-700 font-bold text-lg">189.01%</span>
-                </div>
-                     <div class="flex justify-between items-center p-3 rounded-lg bg-slate-50/80 hover:bg-slate-100/80 transition-colors duration-200">
-                  <span class="text-slate-600 font-medium text-label text-xs"
-                    >Approx. 20-Year Growth</span
-                  ><span class="text-indigo-700 font-bold text-lg">309.87%</span>
-                </div>
-                <div class="flex justify-between items-center p-3 rounded-lg bg-slate-50/80 hover:bg-slate-100/80 transition-colors duration-200">
-                  <span class="text-slate-600 font-medium text-label text-xs"
-                    >Market Cap (May 2025)</span
-                  ><span class="text-indigo-700 font-bold text-lg">$132.21 Billion</span>
-                </div>
-
-              </div>
             </div>
-
-            <!-- Amazon (AMZN) -->
-            <div class="metric-card">
+            <div class="grid grid-cols-1 gap-y-6 text-sm">
               <div
-                class="text-emerald-700 text-center font-bold text-2xl border-b-2 border-emerald-200 pb-4 mb-6 font-display"
-              >
-                ADSK
+                class="flex justify-between items-center p-3 rounded-lg bg-slate-50/80 hover:bg-slate-100/80 transition-colors duration-200">
+                <span class="text-slate-600 font-medium text-label text-xs">Stock Price (May 2005)</span><span
+                  class="text-indigo-700 font-bold text-lg">$43.44</span>
               </div>
-              <div class="grid grid-cols-1 gap-y-6 text-sm">
-                <div class="flex justify-between items-center p-3 rounded-lg bg-slate-50/80 hover:bg-slate-100/80 transition-colors duration-200">
-                  <span class="text-slate-600 font-medium text-label text-xs"
-                    >Stock Price (May 2005)</span
-                  ><span class="text-emerald-700 font-bold text-lg">$31.85</span>
-                </div>
-                <div class="flex justify-between items-center p-3 rounded-lg bg-slate-50/80 hover:bg-slate-100/80 transition-colors duration-200">
-                  <span class="text-slate-600 font-medium text-label text-xs"
-                    >Stock Price (May 2025)</span
-                  ><span class="text-emerald-700 font-bold text-lg">$297.49</span>
-                </div>
-                <div class="flex justify-between items-center p-3 rounded-lg bg-slate-50/80 hover:bg-slate-100/80 transition-colors duration-200">
-                  <span class="text-slate-600 font-medium text-label text-xs"
-                    >Approx. 10-Year Growth</span
-                  ><span class="text-emerald-700 font-bold text-lg">204.50%</span>
-                </div>
-                <div class="flex justify-between items-center p-3 rounded-lg bg-slate-50/80 hover:bg-slate-100/80 transition-colors duration-200">
-                  <span class="text-slate-600 font-medium text-label text-xs"
-                    >Approx. 20-Year Growth</span
-                  ><span class="text-emerald-700 font-bold text-lg">286.72%</span>
-                </div>
-                <div class="flex justify-between items-center p-3 rounded-lg bg-slate-50/80 hover:bg-slate-100/80 transition-colors duration-200">
-                  <span class="text-slate-600 font-medium text-label text-xs"
-                    >Market Cap (May 2025)</span
-                  ><span class="text-emerald-700 font-bold text-lg">$64.26 Billion</span>
-                </div>
+              <div
+                class="flex justify-between items-center p-3 rounded-lg bg-slate-50/80 hover:bg-slate-100/80 transition-colors duration-200">
+                <span class="text-slate-600 font-medium text-label text-xs">Stock Price (May 2025)</span><span
+                  class="text-indigo-700 font-bold text-lg">$325.18</span>
+              </div>
+              <div
+                class="flex justify-between items-center p-3 rounded-lg bg-slate-50/80 hover:bg-slate-100/80 transition-colors duration-200">
+                <span class="text-slate-600 font-medium text-label text-xs">Approx. 10-Year Growth</span><span
+                  class="text-indigo-700 font-bold text-lg">189.01%</span>
+              </div>
+              <div
+                class="flex justify-between items-center p-3 rounded-lg bg-slate-50/80 hover:bg-slate-100/80 transition-colors duration-200">
+                <span class="text-slate-600 font-medium text-label text-xs">Approx. 20-Year Growth</span><span
+                  class="text-indigo-700 font-bold text-lg">309.87%</span>
+              </div>
+              <div
+                class="flex justify-between items-center p-3 rounded-lg bg-slate-50/80 hover:bg-slate-100/80 transition-colors duration-200">
+                <span class="text-slate-600 font-medium text-label text-xs">Market Cap (May 2025)</span><span
+                  class="text-indigo-700 font-bold text-lg">$132.25 Billion</span>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Amazon (AMZN) -->
+          <div class="metric-card">
+            <div
+              class="text-emerald-700 text-center font-bold text-2xl border-b-2 border-emerald-200 pb-4 mb-6 font-display">
+              ADSK
+            </div>
+            <div class="grid grid-cols-1 gap-y-6 text-sm">
+              <div
+                class="flex justify-between items-center p-3 rounded-lg bg-slate-50/80 hover:bg-slate-100/80 transition-colors duration-200">
+                <span class="text-slate-600 font-medium text-label text-xs">Stock Price (May 2005)</span><span
+                  class="text-emerald-700 font-bold text-lg">$31.85</span>
+              </div>
+              <div
+                class="flex justify-between items-center p-3 rounded-lg bg-slate-50/80 hover:bg-slate-100/80 transition-colors duration-200">
+                <span class="text-slate-600 font-medium text-label text-xs">Stock Price (May 2025)</span><span
+                  class="text-emerald-700 font-bold text-lg">$297.49</span>
+              </div>
+              <div
+                class="flex justify-between items-center p-3 rounded-lg bg-slate-50/80 hover:bg-slate-100/80 transition-colors duration-200">
+                <span class="text-slate-600 font-medium text-label text-xs">Approx. 10-Year Growth</span><span
+                  class="text-emerald-700 font-bold text-lg">204.50%</span>
+              </div>
+              <div
+                class="flex justify-between items-center p-3 rounded-lg bg-slate-50/80 hover:bg-slate-100/80 transition-colors duration-200">
+                <span class="text-slate-600 font-medium text-label text-xs">Approx. 20-Year Growth</span><span
+                  class="text-emerald-700 font-bold text-lg">286.72%</span>
+              </div>
+              <div
+                class="flex justify-between items-center p-3 rounded-lg bg-slate-50/80 hover:bg-slate-100/80 transition-colors duration-200">
+                <span class="text-slate-600 font-medium text-label text-xs">Market Cap (May 2025)</span><span
+                  class="text-emerald-700 font-bold text-lg">$63.17 Billion</span>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
 
-    <!--Stock graph-->
-    <div
-      class="bg-gradient-card rounded-2xl shadow-elegant p-10 w-full max-w-7xl mx-auto mt-20 mb-10 border border-slate-200/50"
-    >
-      <h2
-        class="text-3xl font-bold text-center mb-8 text-slate-800 font-display"
-      >
-        ADP  vs ADSK Stock Comparison (2005-2025)
-      </h2>
+  <!--Stock graph-->
+  <div
+    class="bg-gradient-card rounded-2xl shadow-elegant p-10 w-full max-w-7xl mx-auto mt-20 mb-10 border border-slate-200/50">
+    <h2 class="text-3xl font-bold text-center mb-8 text-slate-800 font-display">
+      ADP vs ADSK Stock Comparison (2005-2025)
+    </h2>
 
-      <div class="flex justify-center">
-        <canvas id="stockChart" class="w-full max-w-6xl max-h-[400px]"></canvas>
-      </div>
+    <div class="flex justify-center">
+      <canvas id="stockChart" class="w-full max-w-6xl max-h-[400px]"></canvas>
     </div>
-    <!--Stock graph script -->
-    <script>
-      const labels = ["2005","2006","2007","2008","2009","2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023","2024","2025"];
-      const data1 = [5.92,8.1,4,-6.3,9.71,11.62,18.18,7.64,41.94,21.77,4.2,28.3,15.73,15.44,33.71,5.97,48.71,-0.25,0.25,28.16,12.99];
-      const data2 = [32.42,-5.36,22.68,-59.27,22.87,48.81,-22.77,14.74,36.22,21.95,2.35,22.72,37.61,20.06,42.26,62.56,-5.27,-34.14,31.5,26.25,0.95];
-      const label1 = "ADP";
-      const label2 = "ADSK";    
+  </div>
+  <!--Stock graph script -->
+  <script>
+    const labels = ["2005","2006","2007","2008","2009","2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023","2024","2025"];
+    const data1 = [5.92,8.1,4,-6.3,9.71,11.62,18.18,7.64,41.94,21.77,4.2,28.3,15.73,15.44,33.71,5.97,48.71,-0.25,0.25,28.16,12.99];
+    const data2 = [32.42,-5.36,22.68,-59.27,22.87,48.81,-22.77,14.74,36.22,21.95,2.35,22.72,37.61,20.06,42.26,62.56,-5.27,-34.14,31.5,26.25,0.95];
+    const label1 = "ADP";
+    const label2 = "ADSK";
 
-      const ctx = document.getElementById("stockChart").getContext("2d");
-      const stockChart = new Chart(ctx, {
-        type: "line",
-        data: {
-          labels: labels,
-          datasets: [
-            {
-              label: label1,
-              data: data1,
-              borderColor: "rgb(59, 130, 246)",
-              tension: 0.1,
-              pointRadius: 1,
-            },
-            {
-              label: label2,
-              data: data2,
-              borderColor: "rgb(239, 68, 68)",
-              tension: 0.1,
-              pointRadius: 1,
-            },
-          ],
-        },
-        options: {
-          responsive: true,
-          plugins: {
-            legend: {
-              position: "bottom",
-              labels: {
-                usePointStyle: true,
-                pointStyle: "rect", // Square shape
-                color: "#374151",
-                font: { size: 14 },
-              },
-              onClick: (e) => {} // Disable toggle behavior
-            },
-            tooltip: {
-              mode: "index",
-              intersect: false,
-              backgroundColor: "rgba(31, 41, 55, 0.9)",
-              titleColor: "#ffffff",
-              bodyColor: "#ffffff",
-            },
+    const ctx = document.getElementById("stockChart").getContext("2d");
+    const stockChart = new Chart(ctx, {
+      type: "line",
+      data: {
+        labels: labels,
+        datasets: [
+          {
+            label: label1,
+            data: data1,
+            borderColor: "rgb(59, 130, 246)",
+            tension: 0.1,
+            pointRadius: 1,
           },
-          interaction: {
-            mode: "nearest",
-            axis: "x",
+          {
+            label: label2,
+            data: data2,
+            borderColor: "rgb(239, 68, 68)",
+            tension: 0.1,
+            pointRadius: 1,
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: "bottom",
+            labels: {
+              usePointStyle: true,
+              pointStyle: "rect", // Square shape
+              color: "#374151",
+              font: { size: 14 },
+            },
+            onClick: (e) => { } // Disable toggle behavior
+          },
+          tooltip: {
+            mode: "index",
             intersect: false,
-          },
-          scales: {
-            x: {
-              ticks: { color: "#6b7280" },
-              grid: { color: "#e5e7eb" },
-            },
-            y: {
-              beginAtZero: false,
-              ticks: { color: "#6b7280" },
-              grid: { color: "#e5e7eb" },
-            },
+            backgroundColor: "rgba(31, 41, 55, 0.9)",
+            titleColor: "#ffffff",
+            bodyColor: "#ffffff",
           },
         },
-      });
-    </script>
+        interaction: {
+          mode: "nearest",
+          axis: "x",
+          intersect: false,
+        },
+        scales: {
+          x: {
+            ticks: { color: "#6b7280" },
+            grid: { color: "#e5e7eb" },
+          },
+          y: {
+            beginAtZero: false,
+            ticks: { color: "#6b7280" },
+            grid: { color: "#e5e7eb" },
+          },
+        },
+      },
+    });
+  </script>
 
-    <!--table Start-->
-    <div
-      class="max-w-7xl mx-auto mt-20 mb-20 p-10 bg-gradient-card rounded-2xl shadow-elegant border border-slate-200/50"
-    >
-      <h2
-        class="text-3xl font-bold mb-8 text-slate-800 flex items-center justify-center font-display"
-      >
-        <i class="fa-solid fa-calendar text-indigo-600 mr-4 text-2xl"></i>
-        Yearly Performance
-      </h2>
-      <!--Yearly Performance start-->
-      <div class="overflow-x-auto rounded-xl">
-        <table
-          class="min-w-full table-auto text-sm text-left text-slate-700 mb-5 bg-white/80 rounded-xl overflow-hidden shadow-lg"
-        >
-          <thead class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white">
-            <tr>
-              <th class="px-6 py-4 border-b text-base text-center font-semibold">Year</th>
-              <th class="px-6 py-4 border-b text-base text-center font-semibold">
-                ADP
-              </th>
-              <th class="px-6 py-4 border-b text-base text-center font-semibold">
-                ADSK
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-                      
+  <!--table Start-->
+  <div
+    class="max-w-7xl mx-auto mt-20 mb-20 p-10 bg-gradient-card rounded-2xl shadow-elegant border border-slate-200/50">
+    <h2 class="text-3xl font-bold mb-8 text-slate-800 flex items-center justify-center font-display">
+      <i class="fa-solid fa-calendar text-indigo-600 mr-4 text-2xl"></i>
+      Yearly Performance
+    </h2>
+    <!--Yearly Performance start-->
+    <div class="overflow-x-auto rounded-xl">
+      <table
+        class="min-w-full table-auto text-sm text-left text-slate-700 mb-5 bg-white/80 rounded-xl overflow-hidden shadow-lg">
+        <thead class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white">
+          <tr>
+            <th class="px-6 py-4 border-b text-base text-center font-semibold">Year</th>
+            <th class="px-6 py-4 border-b text-base text-center font-semibold">
+              ADP
+            </th>
+            <th class="px-6 py-4 border-b text-base text-center font-semibold">
+              ADSK
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          
             <tr>
                 <td class="px-4 py-4 border text-center">2025</td>
                 <td class="px-4 py-4 border text-center value">+12.99%</td>
@@ -612,41 +607,37 @@
                 <td class="px-4 py-4 border text-center value">+5.92%</td>
                 <td class="px-4 py-4 border text-center value">+32.42%</td>
             </tr>
-          </tbody>
-        </table>
-      </div>
-      <!--Yearly Performance End-->
+        </tbody>
+      </table>
     </div>
+    <!--Yearly Performance End-->
+  </div>
 
-    <div
-      class="max-w-7xl mx-auto mt-20 mb-20 p-10 bg-gradient-card rounded-2xl shadow-elegant border border-slate-200/50"
-    >
-      <!--Monthly performance Start-->
-      <h2
-        class="text-3xl font-bold text-slate-800 mb-8 flex items-center justify-center font-display"
-      >
-        <i class="fa-solid fa-calendar text-indigo-600 mr-4 text-2xl"></i>
-        Monthly Performance
-      </h2>
+  <div
+    class="max-w-7xl mx-auto mt-20 mb-20 p-10 bg-gradient-card rounded-2xl shadow-elegant border border-slate-200/50">
+    <!--Monthly performance Start-->
+    <h2 class="text-3xl font-bold text-slate-800 mb-8 flex items-center justify-center font-display">
+      <i class="fa-solid fa-calendar text-indigo-600 mr-4 text-2xl"></i>
+      Monthly Performance
+    </h2>
 
-      <div class="overflow-x-auto rounded-xl mt-5">
-        <table
-          class="min-w-full table-auto text-sm text-left text-slate-700 bg-white/80 rounded-xl overflow-hidden shadow-lg mb-5"
-        >
-          <thead class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white">
-            <tr>
-              <th class="px-6 py-4 border-b text-base text-center font-semibold">Year</th>
-              <th class="px-6 py-4 border-b text-base text-center font-semibold">
-                ADP                
-              </th>
-              <th class="px-6 py-4 border-b text-base text-center font-semibold">
-                ADSK
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            
-           
+    <div class="overflow-x-auto rounded-xl mt-5">
+      <table
+        class="min-w-full table-auto text-sm text-left text-slate-700 bg-white/80 rounded-xl overflow-hidden shadow-lg mb-5">
+        <thead class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white">
+          <tr>
+            <th class="px-6 py-4 border-b text-base text-center font-semibold">Year</th>
+            <th class="px-6 py-4 border-b text-base text-center font-semibold">
+              ADP
+            </th>
+            <th class="px-6 py-4 border-b text-base text-center font-semibold">
+              ADSK
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+
+          
             <tr>
                 <td class="px-4 py-4 border text-center">May 2025</td>
                 <td class="px-4 py-4 border text-center value">-8.25%</td>
@@ -790,165 +781,138 @@
                 <td class="px-4 py-4 border text-center value">+0.00%</td>
                 <td class="px-4 py-4 border text-center value">+0.00%</td>
             </tr>
-          </tbody>
-        </table>
-      </div>
-      <!--Monthly performance End-->
+        </tbody>
+      </table>
     </div>
-    <script>
-      document.querySelectorAll(".value").forEach((cell) => {
-        const value = cell.textContent.trim();
-        if (value.startsWith("+")) {
-          cell.classList.add("text-emerald-800", "bg-emerald-100", "border", "border-emerald-200", "rounded-md");
-        } else if (value.startsWith("-")) {
-          cell.classList.add("text-red-800", "bg-red-100", "border", "border-red-200", "rounded-md");
-        }
-      });
-    </script>
+    <!--Monthly performance End-->
+  </div>
+  <script>
+    document.querySelectorAll(".value").forEach((cell) => {
+      const value = cell.textContent.trim();
+      if (value.startsWith("+")) {
+        cell.classList.add("text-emerald-800", "bg-emerald-100", "border", "border-emerald-200", "rounded-md");
+      } else if (value.startsWith("-")) {
+        cell.classList.add("text-red-800", "bg-red-100", "border", "border-red-200", "rounded-md");
+      }
+    });
+  </script>
 
 
-    <!-- Footer start -->
-    <footer class="bg-gradient-to-r from-slate-900 to-slate-800 py-16 mt-10">
-      <div class="max-w-7xl mx-auto px-4">
-        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-10">
-          <!-- Logo & Description -->
-          <div>
-            <h4 class="text-white text-3xl font-bold mb-6 flex items-center font-display">
-              <i class="fas fa-search-dollar mr-3 text-3xl text-indigo-400"></i>Finjovi
-            </h4>
-            <ul class="space-y-5 text-sm text-slate-300">
-              <li class="flex items-center">
-                <i
-                  class="fas fa-map-marker-alt text-indigo-400 text-sm mr-4"
-                ></i
-                >123 Street New York.USA
-              </li>
-              <li class="flex items-center">
-                <i class="fas fa-envelope text-indigo-400 text-sm mr-4"></i
-                >info@example.com
-              </li>
-              <li class="flex items-center">
-                <i class="fa fa-phone-alt text-indigo-400 text-sm mr-4"></i
-                >(+012) 3456 7890
-              </li>
-              <li class="flex items-center">
-                <i
-                  class="fas fa-fax text-indigo-400 text-sm mr-4"
-                ></i
-                >(+012) 3456 7890
-              </li>
-            </ul>
-          </div>
+  <!-- Footer start -->
+  <footer class="bg-gradient-to-r from-slate-900 to-slate-800 py-16 mt-10">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-10">
+        <!-- Logo & Description -->
+        <div>
+          <h4 class="text-white text-3xl font-bold mb-6 flex items-center font-display">
+            <i class="fas fa-search-dollar mr-3 text-3xl text-indigo-400"></i>Finjovi
+          </h4>
+          <ul class="space-y-5 text-sm text-slate-300">
+            <li class="flex items-center">
+              <i class="fas fa-map-marker-alt text-indigo-400 text-sm mr-4"></i>123 Street New York.USA
+            </li>
+            <li class="flex items-center">
+              <i class="fas fa-envelope text-indigo-400 text-sm mr-4"></i>info@example.com
+            </li>
+            <li class="flex items-center">
+              <i class="fa fa-phone-alt text-indigo-400 text-sm mr-4"></i>(+012) 3456 7890
+            </li>
+            <li class="flex items-center">
+              <i class="fas fa-fax text-indigo-400 text-sm mr-4"></i>(+012) 3456 7890
+            </li>
+          </ul>
+        </div>
 
-          <!-- Quick Link -->
-          <div>
-            <h4 class="text-white text-xl font-bold mb-6 font-display">
-              Quick Link
-            </h4>
-            <ul class="space-y-3 text-sm text-slate-300">
-              <li>
-                <a
-                  href="#"
-                  class="hover:text-indigo-400 transition-colors duration-300"
-                  >About Us</a
-                >
-              </li>
-              <li>
-                <a
-                  href="#"
-                  class="hover:text-indigo-400 transition-colors duration-300"
-                  >Contact Us</a
-                >
-              </li>
-              <li>
-                <a
-                  href="#"
-                  class="hover:text-indigo-400 transition-colors duration-300"
-                  >Our Services</a
-                >
-              </li>
-              <li>
-                <a
-                  href="#"
-                  class="hover:text-indigo-400 transition-colors duration-300"
-                  >Terms & Condition</a
-                >
-              </li>
-              <li>
-                <a
-                  href="#"
-                  class="hover:text-indigo-400 transition-colors duration-300"
-                  >Support</a
-                >
-              </li>
-            </ul>
-          </div>
+        <!-- Quick Link -->
+        <div>
+          <h4 class="text-white text-xl font-bold mb-6 font-display">
+            Quick Link
+          </h4>
+          <ul class="space-y-3 text-sm text-slate-300">
+            <li>
+              <a href="#" class="hover:text-indigo-400 transition-colors duration-300">About Us</a>
+            </li>
+            <li>
+              <a href="#" class="hover:text-indigo-400 transition-colors duration-300">Contact Us</a>
+            </li>
+            <li>
+              <a href="#" class="hover:text-indigo-400 transition-colors duration-300">Our Services</a>
+            </li>
+            <li>
+              <a href="#" class="hover:text-indigo-400 transition-colors duration-300">Terms & Condition</a>
+            </li>
+            <li>
+              <a href="#" class="hover:text-indigo-400 transition-colors duration-300">Support</a>
+            </li>
+          </ul>
+        </div>
 
-          <!-- Popular Link -->
-          <div>
-            <h4 class="text-white text-xl font-bold mb-6 font-display">
-              Popular Link
-            </h4>
-            <ul class="space-y-4 text-sm text-gray-300">
-                 <li><a href="./aapl-abnb.html" class="hover:text-white">
-                <i class="fas fa-angle-right mr-3"></i>Apple Inc. vs Airbnb, Inc.
+        <!-- Popular Link -->
+        <div>
+          <h4 class="text-white text-xl font-bold mb-6 font-display">
+            Popular Link
+          </h4>
+          <ul class="space-y-4 text-sm text-gray-300">
+            <li><a href="./aapl-abnb.html" class="hover:text-white">
+                <i class="fas fa-angle-right mr-3"></i>Apple vs Airbnb
             </a></li>
 <li><a href="./aapl-adbe.html" class="hover:text-white">
-                <i class="fas fa-angle-right mr-3"></i>Apple Inc. vs Adobe Inc.
+                <i class="fas fa-angle-right mr-3"></i>Apple vs Adobe
             </a></li>
 <li><a href="./aapl-adi.html" class="hover:text-white">
-                <i class="fas fa-angle-right mr-3"></i>Apple Inc. vs Analog Devices, Inc.
+                <i class="fas fa-angle-right mr-3"></i>Apple vs Analog Devices
             </a></li>
 <li><a href="./aapl-adp.html" class="hover:text-white">
-                <i class="fas fa-angle-right mr-3"></i>Apple Inc. vs Automatic Data Processing, Inc.
+                <i class="fas fa-angle-right mr-3"></i>Apple vs Automatic Data Processing
             </a></li>
 <li><a href="./aapl-adsk.html" class="hover:text-white">
-                <i class="fas fa-angle-right mr-3"></i>Apple Inc. vs Autodesk, Inc.
+                <i class="fas fa-angle-right mr-3"></i>Apple vs Autodesk
             </a></li>
-              </ul>
-          </div>
+          </ul>
+        </div>
 
-          <div>
-            <h4 class="text-white text-xl font-bold mb-6 font-display">
-              Popular Link
-            </h4>
-            <ul class="space-y-4 text-sm text-gray-300">
-                 <li><a href="./aapl-aep.html" class="hover:text-white">
-                <i class="fas fa-angle-right mr-3"></i>Apple Inc. vs American Electric Power Company, Inc.
+        <div>
+          <h4 class="text-white text-xl font-bold mb-6 font-display">
+            Popular Link
+          </h4>
+          <ul class="space-y-4 text-sm text-gray-300">
+            <li><a href="./aapl-aep.html" class="hover:text-white">
+                <i class="fas fa-angle-right mr-3"></i>Apple vs American Electric Power
             </a></li>
 <li><a href="./aapl-amat.html" class="hover:text-white">
-                <i class="fas fa-angle-right mr-3"></i>Apple Inc. vs Applied Materials, Inc.
+                <i class="fas fa-angle-right mr-3"></i>Apple vs Applied Materials
             </a></li>
 <li><a href="./aapl-amd.html" class="hover:text-white">
-                <i class="fas fa-angle-right mr-3"></i>Apple Inc. vs Advanced Micro Devices, Inc.
+                <i class="fas fa-angle-right mr-3"></i>Apple vs AMD
             </a></li>
 <li><a href="./aapl-amgn.html" class="hover:text-white">
-                <i class="fas fa-angle-right mr-3"></i>Apple Inc. vs Amgen Inc.
+                <i class="fas fa-angle-right mr-3"></i>Apple vs Amgen
             </a></li>
 <li><a href="./adbe-abnb.html" class="hover:text-white">
-                <i class="fas fa-angle-right mr-3"></i>Adobe Inc. vs Airbnb, Inc.
+                <i class="fas fa-angle-right mr-3"></i>Adobe vs Airbnb
             </a></li>
-              </ul>
-          </div>
-
+          </ul>
         </div>
-      </div>
-    </footer>
 
-    <!-- Footer Bottom -->
-    <div class="bg-slate-950 py-6">
-      <div class="container mx-auto text-center">
-        <div class="row">
-          <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-            <p class="m-0 text-slate-400 text-sm">
-              &copy;
-              <a class="text-indigo-400 font-semibold" href="#">finjovi.com</a>
-              All Right Reserved.
-            </p>
-          </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Footer Bottom -->
+  <div class="bg-slate-950 py-6">
+    <div class="container mx-auto text-center">
+      <div class="row">
+        <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+          <p class="m-0 text-slate-400 text-sm">
+            &copy;
+            <a class="text-indigo-400 font-semibold" href="#">finjovi.com</a>
+            All Right Reserved.
+          </p>
         </div>
       </div>
     </div>
-    <!-- Footer end -->
-  </body>
+  </div>
+  <!-- Footer end -->
+</body>
+
 </html>

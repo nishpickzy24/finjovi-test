@@ -4,10 +4,48 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Finjovi</title>
-    <link rel="icon" type="image/png" href="./images/favicon.png">
+
+ <script>
+  window.onload = function () {
+    const section = document.getElementById('popular-section');
+    const container = document.getElementById('popular-comparisons');
+
+    fetch('https://jayvenka.com/public/getPopular.php')
+      .then(response => response.json())
+      .then(result => {
+        if (!result.success || !Array.isArray(result.data) || result.data.length === 0) {
+          section.style.display = "none";
+          return;
+        }
+
+        result.data.forEach(item => {
+          const stock1 = item.stock1?.name || item.stock1?.symbol;
+          const stock2 = item.stock2?.name || item.stock2?.symbol;
+          const filename = item.filename || "#";
+
+          const card = document.createElement('div');
+          card.className = "p-6 border rounded-xl shadow hover:shadow-lg transition cursor-pointer";
+          card.innerHTML = `
+            <a href="/${filename}.html">
+              <h4 class="font-semibold text-lg mb-2">${stock1} vs ${stock2}</h4>
+            </a>
+          `;
+
+          container.appendChild(card);
+        });
+      })
+      .catch(error => {
+        section.style.display = "none";
+      });
+  };
+</script>
+
+
+  <link rel="icon" type="image/png" href="./images/favicon.png">
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
 <body class="bg-gray-50 text-gray-900 overflow-auto scrollbar-hide">
+
 
  <!-- Navbar start -->
 <nav id="navbar" class="fixed top-0 left-0 right-0 bg-transparent transition duration-300 z-50">
@@ -42,19 +80,6 @@
 </nav>
 <!-- Navbar end -->
 
-<!-- Hero Section start -->
-<div class="relative w-full h-screen bg-cover bg-center" style="background-image: url('./images/stock.jpg');">
-  <div class="absolute inset-0 bg-black bg-opacity-60 flex items-center">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-white text-center">
-      <h4 class="text-indigo-400 text-sm sm:text-base md:text-lg font-bold uppercase mb-6">Welcome To Finjovi</h4>
-      <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold uppercase mb-6">Compare Stocks Side by Side</h1>
-      <p class="text-sm sm:text-base md:text-lg lg:text-xl max-w-3xl mx-auto">
-        Real-time stock comparison to help you make smart investment decisions.
-      </p>
-    </div>
-  </div>
-</div>
-<!-- Hero Section end -->
 
 <!-- Navbar script start -->
 <script>
@@ -86,6 +111,21 @@
 </script>
 <!-- Navbar script end -->
 
+<!-- Hero Section start -->
+<div class="relative w-full h-screen bg-cover bg-center" style="background-image: url('./images/stock.jpg');">
+  <div class="absolute inset-0 bg-black bg-opacity-60 flex items-center">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-white text-center">
+      <h4 class="text-indigo-400 text-sm sm:text-base md:text-lg font-bold uppercase mb-6">Welcome To Finjovi</h4>
+      <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold uppercase mb-6">Compare Stocks Side by Side</h1>
+      <p class="text-sm sm:text-base md:text-lg lg:text-xl max-w-3xl mx-auto">
+        Real-time stock comparison to help you make smart investment decisions.
+      </p>
+    </div>
+  </div>
+</div>
+<!-- Hero Section end -->
+
+
 <!-- Explore Highlights Section -->
 <section class="py-20 bg-gradient-to-br from-white via-blue-50 to-blue-100 mt-10">
   <div class="max-w-5xl mx-auto px-4 text-center">
@@ -116,38 +156,17 @@
 
 
   <!-- Featured Comparison -->
-<section class="bg-white py-16">
+
+  <section id="popular-section" class="bg-white py-16">
   <div class="max-w-7xl mx-auto px-4">
-    <h3 class="text-3xl font-bold text-gray-800 mb-10 text-center"> Popular Comparisons</h3>
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-      <div class="p-6 border rounded-xl shadow hover:shadow-lg transition">
-        <h4 class="font-semibold text-lg mb-2">Apple vs Amazon</h4>
-        <p class="text-gray-600 text-sm">Tech innovation meets global retail dominance.</p>
-      </div>
-      <div class="p-6 border rounded-xl shadow hover:shadow-lg transition">
-        <h4 class="font-semibold text-lg mb-2">Visa vs Mastercard</h4>
-        <p class="text-gray-600 text-sm">Battle of the payment processors.</p>
-      </div>
-      <div class="p-6 border rounded-xl shadow hover:shadow-lg transition">
-        <h4 class="font-semibold text-lg mb-2">Microsoft vs Alphabet</h4>
-        <p class="text-gray-600 text-sm">Cloud, AI, and digital empire showdowns.</p>
-      </div>
-      <div class="p-6 border rounded-xl shadow hover:shadow-lg transition">
-        <h4 class="font-semibold text-lg mb-2">Walmart vs Costco</h4>
-        <p class="text-gray-600 text-sm">Retail juggernauts compared.</p>
-      </div>
-      <div class="p-6 border rounded-xl shadow hover:shadow-lg transition">
-        <h4 class="font-semibold text-lg mb-2">Tesla vs NVIDIA</h4>
-        <p class="text-gray-600 text-sm">Electric mobility meets AI computing.</p>
-      </div>
-      <div class="p-6 border rounded-xl shadow hover:shadow-lg transition">
-        <h4 class="font-semibold text-lg mb-2">Intel vs AMD</h4>
-        <p class="text-gray-600 text-sm">Silicon wars: CPU and GPU powerhouses.</p>
-      </div>
+    <h3 class="text-3xl font-bold text-gray-800 mb-10 text-center">Popular Comparisons</h3>
+    <div id="popular-comparisons" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+      <!-- Cards will be injected here -->
     </div>
   </div>
 </section>
 
+<!-- Featured Comparison -->
 
   <!-- Why Choose Us -->
   <section class="py-16 bg-gray-100 text-center">
@@ -201,19 +220,19 @@
             </h4>
             <ul class="space-y-4 text-sm text-gray-300">
                  <li><a href="./aapl-abnb.html" class="hover:text-white">
-                <i class="fas fa-angle-right mr-3"></i>Apple Inc. vs Airbnb, Inc.
+                <i class="fas fa-angle-right mr-3"></i>Apple vs Airbnb
             </a></li>
-<li><a href="./aapl-adbe.html" class="hover:text-white">
-                <i class="fas fa-angle-right mr-3"></i>Apple Inc. vs Adobe Inc.
+                             <li><a href="./aapl-adbe.html" class="hover:text-white">
+                <i class="fas fa-angle-right mr-3"></i>Apple vs Adobe
             </a></li>
 <li><a href="./aapl-adi.html" class="hover:text-white">
-                <i class="fas fa-angle-right mr-3"></i>Apple Inc. vs Analog Devices, Inc.
+                <i class="fas fa-angle-right mr-3"></i>Apple vs Analog Devices
             </a></li>
 <li><a href="./aapl-adp.html" class="hover:text-white">
-                <i class="fas fa-angle-right mr-3"></i>Apple Inc. vs Automatic Data Processing, Inc.
+                <i class="fas fa-angle-right mr-3"></i>Apple vs Automatic Data Processing
             </a></li>
 <li><a href="./aapl-adsk.html" class="hover:text-white">
-                <i class="fas fa-angle-right mr-3"></i>Apple Inc. vs Autodesk, Inc.
+                <i class="fas fa-angle-right mr-3"></i>Apple vs Autodesk
             </a></li>
               </ul>
           </div>
@@ -223,20 +242,20 @@
               Popular Link
             </h4>
             <ul class="space-y-4 text-sm text-gray-300">
-                 <li><a href="./aapl-aep.html" class="hover:text-white">
-                <i class="fas fa-angle-right mr-3"></i>Apple Inc. vs American Electric Power Company, Inc.
+                               <li><a href="./aapl-aep.html" class="hover:text-white">
+                <i class="fas fa-angle-right mr-3"></i>Apple vs American Electric Power
             </a></li>
 <li><a href="./aapl-amat.html" class="hover:text-white">
-                <i class="fas fa-angle-right mr-3"></i>Apple Inc. vs Applied Materials, Inc.
+                <i class="fas fa-angle-right mr-3"></i>Apple vs Applied Materials
             </a></li>
 <li><a href="./aapl-amd.html" class="hover:text-white">
-                <i class="fas fa-angle-right mr-3"></i>Apple Inc. vs Advanced Micro Devices, Inc.
+                <i class="fas fa-angle-right mr-3"></i>Apple vs AMD
             </a></li>
 <li><a href="./aapl-amgn.html" class="hover:text-white">
-                <i class="fas fa-angle-right mr-3"></i>Apple Inc. vs Amgen Inc.
+                <i class="fas fa-angle-right mr-3"></i>Apple vs Amgen
             </a></li>
 <li><a href="./adbe-abnb.html" class="hover:text-white">
-                <i class="fas fa-angle-right mr-3"></i>Adobe Inc. vs Airbnb, Inc.
+                <i class="fas fa-angle-right mr-3"></i>Adobe vs Airbnb
             </a></li>
               </ul>
           </div>
