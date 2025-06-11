@@ -201,7 +201,7 @@
   </div>
 
   <!-- Mobile Menu -->
-  <div id="mobile-menu" class="hidden text-white w-full absolute top-full left-0 z-40">
+  <div id="mobile-menu" class="hidden text-white w-full absolute top-full left-0 z-40" style="background-color: rgba(0, 0, 0, 0.398)">
     <div class="flex flex-col space-y-4 p-6">
       <a href="/" class="uppercase text-sm font-medium hover:text-indigo-300">Home</a>
       <a href="#" class="uppercase text-sm font-medium hover:text-indigo-300">About</a>
@@ -570,6 +570,26 @@
     <!--Yearly Performance End-->
   </div>
 
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-7xl mx-auto px-4 pt-1 pb-2">
+  <!-- Left Card -->
+  <div class="bg-white rounded-lg shadow-sm p-4 border border-slate-200 transform transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+      <div
+        class="flex justify-between items-center p-3 rounded-lg transition-colors duration-200">
+        <span class="text-slate-600 font-medium text-label text-xs">20-Year Average Return for ADI</span>
+        <span class="text-indigo-700 font-bold text-lg">13.91%</span>
+      </div>
+  </div>
+
+  <!-- Right Card -->
+  <div class="bg-white rounded-lg shadow-sm p-4 border border-slate-200 transform transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+      <div
+        class="flex justify-between items-center p-3 rounded-lg transition-colors duration-200">
+        <span class="text-slate-600 font-medium text-label text-xs">20-Year Average Return for AEP</span>
+        <span class="text-indigo-700 font-bold text-lg">10.40%</span>
+      </div>
+  </div>
+</div>
+
   <div
     class="max-w-7xl mx-auto mt-20 mb-20 p-10 bg-gradient-card rounded-2xl shadow-elegant border border-slate-200/50">
     <!--Monthly performance Start-->
@@ -743,6 +763,28 @@
     </div>
     <!--Monthly performance End-->
   </div>
+
+     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-7xl mx-auto px-4 pt-1 pb-2">
+  <!-- Left Card -->
+  <div class="bg-white rounded-lg shadow-sm p-4 border border-slate-200 transform transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+      <div
+        class="flex justify-between items-center p-3 rounded-lg transition-colors duration-200">
+        <span class="text-slate-600 font-medium text-label text-xs">24 Months Average Return for ADI</span>
+        <span class="text-indigo-700 font-bold text-lg">-1.18%</span>
+      </div>
+  </div>
+
+  <!-- Right Card -->
+  <div class="bg-white rounded-lg shadow-sm p-4 border border-slate-200 transform transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+      <div
+        class="flex justify-between items-center p-3 rounded-lg transition-colors duration-200">
+        <span class="text-slate-600 font-medium text-label text-xs">24 Months Average Return for AEP</span>
+        <span class="text-indigo-700 font-bold text-lg">-0.97%</span>
+      </div>
+  </div>
+</div>
+
+
   <script>
     document.querySelectorAll(".value").forEach((cell) => {
       const value = cell.textContent.trim();
