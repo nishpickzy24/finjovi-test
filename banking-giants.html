@@ -6,9 +6,13 @@
     <title>Finjovi</title>
 
     <script>
-      window.onload = function () {
+      window.onload = loadCategory
+
+      function loadCategory() {
+
         const section = document.getElementById("popular-section");
         const container = document.getElementById("popular-comparisons");
+        container.innerHTML = ""; // Clear old content
 
         //shimmer loader
         const shimmer = document.createElement("div");
@@ -22,23 +26,39 @@
         `;
         container.appendChild(shimmer);
 
-        fetch("https://jayvenka.com/public/getPopular.php")
+        fetch(
+          "https://jayvenka.com/public/getStockInfo.php?category=Healthcare"
+        )
           .then((response) => response.json())
-          .then((result) => {
+          .then((data) => {
             shimmer.remove(); //  Hide shimmer
-            if (
-              !result.success ||
-              !Array.isArray(result.data) ||
-              result.data.length === 0
-            ) {
+
+            if (!Array.isArray(data) || data.length < 2) {
               section.style.display = "none";
               return;
             }
 
-            result.data.forEach((item) => {
-              const stock1 = item.stock1?.name || item.stock1?.symbol;
-              const stock2 = item.stock2?.name || item.stock2?.symbol;
-              const filename = item.filename || "#";
+            // Generate all unique pairs
+            const allPairs = [];
+            for (let i = 0; i < data.length; i++) {
+              for (let j = i + 1; j < data.length; j++) {
+                allPairs.push([data[i], data[j]]);
+              }
+            }
+
+            // Shuffle the pairs randomly
+            // for (let i = allPairs.length - 1; i > 0; i--) {
+            //   const j = Math.floor(Math.random() * (i + 1));
+            //   [allPairs[i], allPairs[j]] = [allPairs[j], allPairs[i]];
+            // }
+
+            // Take first 12 pairs
+            const selectedPairs = allPairs.slice(0, 12);
+
+            selectedPairs.forEach(([s1, s2]) => {
+              const stock1 = s1.stockname || s1.symbol;
+              const stock2 = s2.stockname || s2.symbol;
+              const filename = `${s1.symbol.toLowerCase()}-${s2.symbol.toLowerCase()}`;
 
               const card = document.createElement("div");
               card.innerHTML = `
@@ -46,16 +66,16 @@
                 class="block p-6 border rounded-xl shadow hover:shadow-lg transition cursor-pointer no-underline text-inherit">
                     <h4 class="font-semibold text-lg mb-2">${stock1} vs ${stock2}</h4>
                 </a> `;
-
               container.appendChild(card);
             });
+
+            section.style.display = "block";
           })
           .catch((error) => {
-            shimmer.remove(); //  Hide shimmer
+            shimmer.remove();
             section.style.display = "none";
           });
-      };
-
+      }
     </script>
 
     <link rel="icon" type="image/png" href="./images/favicon.png" />
@@ -74,7 +94,7 @@
         class="max-w-7xl mx-auto flex justify-between items-center px-4 sm:px-6 py-4"
       >
         <a
-          href="#"
+          href="/"
           class="text-indigo-500 text-2xl font-extrabold flex items-center"
         >
           <i class="fas fa-search-dollar mr-2"></i>Finjovi
@@ -177,7 +197,7 @@
     <div
       id="hero"
       class="relative w-full h-screen bg-cover bg-center"
-      style="background-image: url('./images/stock.jpg')"
+      style="background-image: url('./images/banking.png')"
     >
       <div class="absolute inset-0 bg-black bg-opacity-60 flex items-center">
         <div
@@ -203,67 +223,6 @@
       </div>
     </div>
     <!-- Hero Section end -->
-
-    <!-- Explore Highlights Section -->
-    <section
-      class="py-20 bg-gradient-to-br from-white via-blue-50 to-blue-100 mt-10"
-    >
-      <div class="max-w-5xl mx-auto px-4 text-center">
-        <h2 class="text-3xl font-bold text-gray-800 mb-6">
-          📊 Explore Stock Comparisons Instantly
-        </h2>
-        <p class="text-gray-600 mb-12">
-          View dynamic comparisons between top-performing stocks, curated
-          categories, and real-time visual insights — no input needed.
-        </p>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div
-            class="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition"
-          >
-            <h3 class="text-lg font-semibold text-blue-700 mb-2">
-              Tech Titans
-            </h3>
-            <p class="text-gray-600 text-sm mb-4">
-              Compare leading tech companies like Apple, Google, and Microsoft.
-            </p>
-            <a href="./tech-titans"
-              class="text-blue-600 font-medium hover:underline cursor-pointer"
-              >View Comparison →</a
-            >
-          </div>
-          <div
-            class="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition"
-          >
-            <h3 class="text-lg font-semibold text-purple-700 mb-2">
-              Banking Giants
-            </h3>
-            <p class="text-gray-600 text-sm mb-4">
-              Explore differences between JPMorgan, Goldman Sachs, and more.
-            </p>
-            <a href="./banking-giants"
-            class="text-purple-600 font-medium hover:underline"
-              >View Comparison →</a
-            >
-          </div>
-          <div
-            class="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition"
-          >
-            <h3 class="text-lg font-semibold text-green-700 mb-2">
-              Energy Leaders
-            </h3>
-            <p class="text-gray-600 text-sm mb-4">
-              See how Exxon, Chevron, and Shell stack up in performance and
-              growth.
-            </p>
-            <a href="./energy-leaders" 
-              class="text-green-600 font-medium hover:underline"
-              >View Comparison →</a
-            >
-          </div>
-        </div>
-      </div>
-    </section>
 
     <!-- Featured Comparison -->
 

@@ -42,8 +42,7 @@
 
               const card = document.createElement("div");
               card.innerHTML = `
-                <a href="/${filename}.html" 
-                class="block p-6 border rounded-xl shadow hover:shadow-lg transition cursor-pointer no-underline text-inherit">
+                <a href="/${filename}.html" class="block p-6 border rounded-xl shadow hover:shadow-lg transition cursor-pointer no-underline text-inherit">
                     <h4 class="font-semibold text-lg mb-2">${stock1} vs ${stock2}</h4>
                 </a> `;
 
@@ -56,6 +55,88 @@
           });
       };
 
+      function loadCategory(category) {
+        window.scrollTo({ top: 0, behavior: 'smooth' }); // Scroll to top
+        const categoryImages = {
+          technology: "technology.png",
+          energy: "energy.png",
+          banking: "banking.png",
+        };
+
+        const hero = document.getElementById("hero");
+        hero.style.backgroundImage = `url('./images/${
+          categoryImages[category.toLowerCase()]
+        }')`;
+
+        const section = document.getElementById("popular-section");
+        const container = document.getElementById("popular-comparisons");
+        container.innerHTML = ""; // Clear old content
+
+        //shimmer loader
+        const shimmer = document.createElement("div");
+        shimmer.id = "shimmer-loader";
+        shimmer.className =
+          "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6";
+        shimmer.innerHTML = `
+            <div class="animate-pulse bg-gray-200 h-24 rounded-xl"></div>
+            <div class="animate-pulse bg-gray-200 h-24 rounded-xl"></div>
+            <div class="animate-pulse bg-gray-200 h-24 rounded-xl"></div>
+        `;
+        container.appendChild(shimmer);
+
+        fetch(
+          "https://jayvenka.com/public/getStockInfo.php?category=" +
+            encodeURIComponent(category)
+        )
+          .then((response) => response.json())
+          .then((data) => {
+            shimmer.remove(); //  Hide shimmer
+
+            if (!Array.isArray(data) || data.length < 2) {
+              section.style.display = "none";
+              return;
+            }
+
+            // Generate all unique pairs
+            const allPairs = [];
+            for (let i = 0; i < data.length; i++) {
+              for (let j = i + 1; j < data.length; j++) {
+                allPairs.push([data[i], data[j]]);
+              }
+            }
+
+            // Shuffle the pairs randomly
+            // for (let i = allPairs.length - 1; i > 0; i--) {
+            //   const j = Math.floor(Math.random() * (i + 1));
+            //   [allPairs[i], allPairs[j]] = [allPairs[j], allPairs[i]];
+            // }
+
+            // Take first 12 pairs
+            const selectedPairs = allPairs.slice(0, 12);
+
+            selectedPairs.forEach(([s1, s2]) => {
+              const stock1 = s1.stockname || s1.symbol;
+              const stock2 = s2.stockname || s2.symbol;
+              const filename = `${s1.symbol.toLowerCase()}-${s2.symbol.toLowerCase()}`;
+
+              const card = document.createElement("div");
+              card.className =
+                "p-6 border rounded-xl shadow hover:shadow-lg transition cursor-pointer";
+              card.innerHTML = `
+                <a href="/${filename}.html">
+                <h4 class="font-semibold text-lg mb-2">${stock1} vs ${stock2}</h4>
+                </a>
+                `;
+              container.appendChild(card);
+            });
+
+            section.style.display = "block";
+          })
+          .catch((error) => {
+            shimmer.remove();
+            section.style.display = "none";
+          });
+      }
     </script>
 
     <link rel="icon" type="image/png" href="./images/favicon.png" />
@@ -227,7 +308,8 @@
             <p class="text-gray-600 text-sm mb-4">
               Compare leading tech companies like Apple, Google, and Microsoft.
             </p>
-            <a href="./tech-titans"
+            <a
+              onclick="loadCategory('Technology')"
               class="text-blue-600 font-medium hover:underline cursor-pointer"
               >View Comparison →</a
             >
@@ -241,8 +323,7 @@
             <p class="text-gray-600 text-sm mb-4">
               Explore differences between JPMorgan, Goldman Sachs, and more.
             </p>
-            <a href="./banking-giants"
-            class="text-purple-600 font-medium hover:underline"
+            <a onclick="loadCategory('Banking')" class="text-purple-600 font-medium hover:underline"
               >View Comparison →</a
             >
           </div>
@@ -256,8 +337,7 @@
               See how Exxon, Chevron, and Shell stack up in performance and
               growth.
             </p>
-            <a href="./energy-leaders" 
-              class="text-green-600 font-medium hover:underline"
+            <a onclick="loadCategory('Energy')" class="text-green-600 font-medium hover:underline"
               >View Comparison →</a
             >
           </div>
