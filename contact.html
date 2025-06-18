@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Finjovi</title>
+
+    <link rel="icon" type="image/png" href="./images/favicon.png" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* 
+  h1, h2 {
+    font-family: 'Playfair Display', serif;
+  } */
+    </style>
+
+
+
+
+
+
+</head>
+
+<body class="bg-gray-50 text-gray-900 overflow-auto scrollbar-hide">
+
+    <div>
+        <!-- Navbar start -->
+        <nav id="navbar" class="fixed top-0 left-0 right-0 bg-transparent transition duration-300 z-50">
+            <div class="max-w-7xl mx-auto flex justify-between items-center px-4 sm:px-6 py-4">
+                <a href="/" class="brand-logo text-indigo-500 text-2xl font-extrabold flex items-center">
+                    <i></i>Finjovi
+                </a>
+
+                <!-- Desktop menu -->
+                <div class="hidden md:flex space-x-6">
+                    <a href="/" class="text-white font-medium hover:text-indigo-400">Home</a>
+                    <a href="#" class="text-white font-medium hover:text-indigo-400">Contact Us</a>
+                </div>
+
+                <!-- Mobile hamburger -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="text-white focus:outline-none text-2xl">
+                        &#9776;
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile dropdown -->
+            <div id="mobile-menu" class="md:hidden hidden px-4 pb-4">
+                <a href="/" class="block py-2 text-white font-medium hover:text-indigo-400">Home</a>
+                <a href="#" class="block py-2 text-white font-medium hover:text-indigo-400">Contact Us</a>
+            </div>
+        </nav>
+        <!-- Navbar end -->
+
+        <!-- Navbar script start -->
+        <script>
+            const menuBtn = document.getElementById("mobile-menu-button");
+            const menu = document.getElementById("mobile-menu");
+
+            menuBtn.addEventListener("click", () => {
+                menu.classList.toggle("hidden");
+            });
+
+            window.onscroll = function () {
+                if (menu && !menu.classList.contains("hidden")) {
+                    menu.classList.add("hidden");
+                }
+            };
+
+            window.addEventListener("scroll", function () {
+                const navbar = document.getElementById("navbar");
+                if (window.scrollY > 50) {
+                    navbar.classList.remove("bg-transparent");
+                    navbar.classList.add("bg-white", "shadow");
+                    menuBtn.classList.remove("text-white");
+                    menuBtn.classList.add("text-black");
+                    navbar.querySelectorAll("a:not(.brand-logo)").forEach((link) => {
+                        link.classList.remove("text-white");
+                        link.classList.add("text-gray-800");
+                    });
+                } else {
+                    navbar.classList.remove("bg-white", "shadow");
+                    menuBtn.classList.remove("text-black");
+                    menuBtn.classList.add("text-white");
+                    navbar.classList.add("bg-transparent");
+                    navbar.querySelectorAll("a:not(.brand-logo)").forEach((link) => {
+                        link.classList.remove("text-gray-800");
+                        link.classList.add("text-white");
+                    });
+                }
+            });
+        </script>
+
+
+
+
+        <div id="hero" class="relative w-full h-screen bg-cover bg-center"
+            style="background-image: url('images/contact.jpg')">
+            <div class="absolute inset-0 bg-black bg-opacity-60 flex items-center">
+                <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-white text-center">
+                    <h4 class="text-indigo-400 text-sm sm:text-base md:text-lg font-bold uppercase mb-6">
+                        Welcome To Finjovi
+                    </h4>
+                    <h1 class="text-2xl sm:text-2xl md:text-3xl lg:text-4xl font-bold uppercase mb-6">
+                        We are dedicated to delivering quality, creativity, and innovation in everything we do
+                    </h1>
+                    <p class="text-sm sm:text-base md:text-lg lg:text-xl max-w-3xl mx-auto">
+                        Real-time stock comparison to help you make smart investment
+                        decisions.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+
+        <div
+            class="bg-gradient-to-br from-white via-blue-50 to-blue-100 grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8" style="padding-top: 40px;">
+
+            <style>
+                .section-hover {
+                    transition: all 0.3s ease;
+                }
+
+                .section-hover:hover {
+                    transform: translateY(-5px);
+
+                    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+
+                }
+            </style>
+
+
+            <!-- About Us -->
+            <div class="section-hover order-1 md:order-1 px-4 md:px-8 lg:px-13 py-4 max-w-4xl mx-auto shadow-md rounded"
+                style=" margin: 20px;background-color: white;border-radius: 13px;margin-bottom: 0px; ">
+                <h2 class="text-xl md:text-2xl font-bold uppercase mb-4 text-center md:text-left">About Us</h2>
+                <p class="text-justify leading-relaxed text-sm md:text-base">
+                    We empower investors with reliable stock market insights, real-time data, and smart financial tools.
+                    Whether you're a beginner learning the basics or an experienced trader looking for advanced
+                    analytics.
+                    <br>
+                    Our platform offers up-to-date market trends, stock screeners, portfolio tracking, expert analysis,
+                    and more. We believe in financial transparency, user-first design, and helping our community grow in
+                    their investment journey.
+                </p>
+            </div>
+
+            <!-- Stock Overview-->
+
+            <div class="section-hover order-3 md:order-2 md:row-span-2 shadow-md px-4 md:px-8 lg:px-10 py-4
+ roundedpx-4 md:px-8 lg:px-10 py-4 max-w-4xl mx-auto lg:ml-5"
+                style="margin: 20px;background-color: white; border-radius: 13px">
+                <h2 class="text-xl md:text-2xl font-bold uppercase mb-4 text-center md:text-left">Stocks</h2>
+                <p class="text-justify leading-relaxed text-sm md:text-base">Stocks, also known as shares or equities,
+                    represent ownership in a company. When you buy a stock, you become a part-owner of that company and
+                    gain the right to share in its profits, usually through dividends or stock price appreciation.
+                    Stocks are traded on stock exchanges like the New York Stock Exchange (NYSE) or NASDAQ, where
+                    investors buy and sell them based on market demand. Investing in stocks is one of the most popular
+                    ways to build wealth over time, but it also comes with risks, as stock prices can fluctuate due to
+                    company performance, economic conditions, and global event
+                    <br><br>
+                    Companies list their stocks in the market to raise capital. This money is used for expansion,
+                    research, paying debts, or developing new products. Instead of taking loans, they offer ownership to
+                    the public. In return, investors get a chance to share in the company’s success.
+
+                    <br><br>
+                    Stock prices change constantly based on supply and demand. If many people want to buy a stock, its
+                    price goes up. If more people want to sell, the price goes down. Factors like company performance,
+                    earnings reports, government policies, global events, or even social media trends can influence a
+                    stock’s value.
+                </p>
+
+            </div>
+
+
+            <!-- Contact Us -->
+            <div class="section-hover order-2 md:order-3 px-4 md:px-10 lg:px-13 py-4 max-w-2xl mx-auto shadow-md rounded"
+                style="margin: 20px;background-color: white; border-radius: 13px">
+                <h2 class="text-xl md:text-2xl font-bold uppercase mb-4 text-center md:text-left">Contact Us</h2>
+                <p class="mb-4 text-justify">We’d love to hear from you! Whether you have a question, feedback, or want
+                    to work with us, feel free to reach out.</p>
+
+                <ul class="space-y-2 text-base md:text-lg p-0 m-0">
+                    <li>📧 <strong>Email:</strong> info@example.com</li>
+                    <li>📞 <strong>Phone:</strong> (+012) 3456 7890</li>
+                    <li>🏢 <strong>Address:</strong> 123 Street, New York, USA</li>
+                </ul>
+
+                <p class="mt-4">You can also follow us on social media for updates and news.</p>
+            </div>
+        </div>
+
+
+
+
+
+        <footer class="bg-gray-900 py-12 mt-10">
+            <div class="max-w-7xl mx-auto px-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-10">
+                    <!-- Logo & Description -->
+                    <div>
+                        <h4 class="text-white text-3xl font-bold mb-6 flex items-center">
+                            <i></i>Finjovi
+                        </h4>
+                        <ul class="space-y-5 text-sm text-gray-300">
+                            <li class="flex items-center">
+                                <i class="fas fa-map-marker-alt text-indigo-400 text-sm mr-4"></i>123 Street New
+                                York.USA
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-envelope text-indigo-500 text-sm mr-4"></i>info@example.com
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fa fa-phone-alt text-indigo-500 text-sm mr-4"></i>(+012) 3456 7890
+                            </li>
+
+                        </ul>
+
+                        <!-- Social Icons -->
+                        <!-- <div class="flex space-x-6 mt-8 text-center">
+              <a
+                href="#"
+                class="text-indigo-500 hover:text-indigo-700 transition-transform transform hover:scale-110"
+                aria-label="Instagram"
+                ><i class="fab fa-instagram fa-lg"></i
+              ></a>
+              <a
+                href="#"
+                class="text-indigo-500 hover:text-indigo-700 transition-transform transform hover:scale-110"
+                aria-label="Facebook"
+                ><i class="fab fa-facebook fa-lg"></i
+              ></a>
+              <a
+                href="#"
+                class="text-indigo-500 hover:text-indigo-700 transition-transform transform hover:scale-110"
+                aria-label="Twitter"
+                ><i class="fab fa-twitter fa-lg"></i
+              ></a>
+            </div> -->
+                    </div>
+
+                    <!-- Comparison Links -->
+
+                    <div>
+                        <h4 class="text-white text-xl font-bold mb-6 font-display">
+                            Popular Link
+                        </h4>
+                        <ul class="space-y-4 text-sm text-gray-300">
+                        <li>
+                <a href="./abnb-adsk.html" class="hover:text-white">
+                    <i class="fas fa-angle-right mr-3"></i>Airbnb vs Autodesk
+                </a>
+            </li>
+<li>
+                <a href="./aapl-abnb.html" class="hover:text-white">
+                    <i class="fas fa-angle-right mr-3"></i>Apple vs Airbnb
+                </a>
+            </li>
+<li>
+                <a href="./aapl-adsk.html" class="hover:text-white">
+                    <i class="fas fa-angle-right mr-3"></i>Apple vs Autodesk
+                </a>
+            </li>
+<li>
+                <a href="./adp-adsk.html" class="hover:text-white">
+                    <i class="fas fa-angle-right mr-3"></i>ADP vs Autodesk
+                </a>
+            </li>
+<li>
+                <a href="./abnb-adp.html" class="hover:text-white">
+                    <i class="fas fa-angle-right mr-3"></i>Airbnb vs ADP
+                </a>
+            </li>
+<li>
+                <a href="./abnb-amgn.html" class="hover:text-white">
+                    <i class="fas fa-angle-right mr-3"></i>Airbnb vs Amgen
+                </a>
+            </li>
+                    </ul>
+                    </div>
+
+                    <div>
+                        <h4 class="text-white text-xl font-bold mb-6 font-display">
+                            Popular Link
+                        </h4>
+             <ul class="space-y-4 text-sm text-gray-300">
+                        <li>
+                <a href="./abnb-adbe.html" class="hover:text-white">
+                    <i class="fas fa-angle-right mr-3"></i>Airbnb vs Adobe
+                </a>
+            </li>
+<li>
+                <a href="./aapl-adbe.html" class="hover:text-white">
+                    <i class="fas fa-angle-right mr-3"></i>Apple vs Adobe
+                </a>
+            </li>
+<li>
+                <a href="./adsk-amat.html" class="hover:text-white">
+                    <i class="fas fa-angle-right mr-3"></i>Autodesk vs Applied Materials
+                </a>
+            </li>
+<li>
+                <a href="./abnb-amd.html" class="hover:text-white">
+                    <i class="fas fa-angle-right mr-3"></i>Airbnb vs AMD
+                </a>
+            </li>
+<li>
+                <a href="./aapl-amgn.html" class="hover:text-white">
+                    <i class="fas fa-angle-right mr-3"></i>Apple vs Amgen
+                </a>
+            </li>
+<li>
+                <a href="./abnb-adi.html" class="hover:text-white">
+                    <i class="fas fa-angle-right mr-3"></i>Airbnb vs Analog Devices
+                </a>
+            </li>
+                    </ul>
+                    </div>
+
+                    <!-- Company Links -->
+                    <div>
+                        <h4 class="text-white text-xl font-bold mb-6 font-display">
+                            Company</h4>
+                        <ul class="space-y-4 text-sm text-gray-300">
+                            <li>
+                                <a href="#" class="hover:text-white"><i class="fas fa-angle-right mr-3"></i>Home</a>
+                            </li>
+                            <li>
+                                <a href="#" class="hover:text-white"><i class="fas fa-angle-right mr-3"></i>Contact Us</a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Bottom Footer -->
+
+            </div>
+        </footer>
+
+        <!-- Footer Bottom -->
+        <div class="bg-slate-950 py-5">
+            <div class="container mx-auto text-center">
+                <div class="row">
+                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                        <p class="m-0 text-slate-400 text-sm">
+                            &copy;
+                            <a class="text-indigo-400 font-semibold" href="#">finjovi.com</a>
+                            All Right Reserved.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+</body>
+
+</html>
