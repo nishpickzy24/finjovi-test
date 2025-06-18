@@ -187,59 +187,74 @@
       }
     </style>
 
-    <!-- Navbar start  -->
+  <!-- Navbar start -->
+    <nav id="navbar" class="fixed top-0 left-0 right-0 bg-transparent transition duration-300 z-50">
+        <div class="max-w-7xl mx-auto flex justify-between items-center px-4 sm:px-6 py-4">
+            <a href="/" class="brand-logo text-indigo-500 text-2xl font-extrabold flex items-center">
+                <i></i>Finjovi
+            </a>
 
-    <nav
-      id="navbar"
-      class="fixed top-0 left-0 right-0 bg-transparent transition duration-300 z-50"
-    >
-      <div
-        class="max-w-7xl mx-auto flex justify-between items-center px-4 sm:px-6 py-4"
-      >
-        <a
-          href="/"
-          class="text-indigo-500 text-2xl font-extrabold flex items-center"
-        >
-          <i></i>Finjovi
-        </a>
+            <!-- Desktop menu -->
+            <div class="hidden md:flex space-x-6">
+                <a href="/" class="text-white font-medium hover:text-indigo-400">Home</a>
+                <a href="#" class="text-white font-medium hover:text-indigo-400">Contact Us</a>
+            </div>
 
-        <!-- Desktop menu -->
-        <div class="hidden md:flex space-x-6">
-          <a href="/" class="text-white font-medium hover:text-indigo-400"
-            >Home</a
-          >
-          <a href="#" class="text-white font-medium hover:text-indigo-400"
-            >Contact Us</a
-          >
+            <!-- Mobile hamburger -->
+            <div class="md:hidden">
+                <button id="mobile-menu-button" class="text-white focus:outline-none text-2xl">
+                    &#9776;
+                </button>
+            </div>
         </div>
 
-        <!-- Mobile hamburger -->
-        <div class="md:hidden">
-          <button
-            id="mobile-menu-button"
-            class="text-white focus:outline-none text-2xl"
-          >
-            &#9776;
-          </button>
+        <!-- Mobile dropdown -->
+        <div id="mobile-menu" class="md:hidden hidden px-4 pb-4">
+            <a href="/" class="block py-2 text-white font-medium hover:text-indigo-400">Home</a>
+            <a href="#" class="block py-2 text-white font-medium hover:text-indigo-400">Contact Us</a>
         </div>
-      </div>
-
-      <!-- Mobile dropdown -->
-      <div id="mobile-menu" class="md:hidden hidden px-4 pb-4">
-        <a
-          href="/"
-          class="block py-2 text-white font-medium hover:text-indigo-400"
-          >Home</a
-        >
-        <a
-          href="#"
-          class="block py-2 text-white font-medium hover:text-indigo-400"
-          >Contact Us</a
-        >
-      </div>
     </nav>
+    <!-- Navbar end -->
 
-    <!-- Navbar end  -->
+    <!-- Navbar script start -->
+    <script>
+        const menuBtn = document.getElementById("mobile-menu-button");
+        const menu = document.getElementById("mobile-menu");
+
+        menuBtn.addEventListener("click", () => {
+            menu.classList.toggle("hidden");
+        });
+
+        window.onscroll = function () {
+            if (menu && !menu.classList.contains("hidden")) {
+                menu.classList.add("hidden");
+            }
+        };
+
+        window.addEventListener("scroll", function () {
+            const navbar = document.getElementById("navbar");
+            if (window.scrollY > 50) {
+                navbar.classList.remove("bg-transparent");
+                navbar.classList.add("bg-white", "shadow");
+                menuBtn.classList.remove("text-white");
+                menuBtn.classList.add("text-black");
+                navbar.querySelectorAll("a:not(.brand-logo)").forEach((link) => {
+                    link.classList.remove("text-white");
+                    link.classList.add("text-gray-800");
+                });
+            } else {
+                navbar.classList.remove("bg-white", "shadow");
+                menuBtn.classList.remove("text-black");
+                menuBtn.classList.add("text-white");
+                navbar.classList.add("bg-transparent");
+                navbar.querySelectorAll("a:not(.brand-logo)").forEach((link) => {
+                    link.classList.remove("text-gray-800");
+                    link.classList.add("text-white");
+                });
+            }
+        });
+    </script>
+    <!-- Navbar script end -->
 
     <!-- Hero Section start-->
     <div class="relative w-full h-screen bg-cover bg-center">
@@ -1114,48 +1129,6 @@
     </div>
     <!-- Footer end -->
 
-    <script>
-      const navbar = document.getElementById("navbar");
-      const menuBtn = document.getElementById("menu-btn");
-      const mobileMenu = document.getElementById("mobile-menu");
-
-      // Toggle mobile menu visibility
-      menuBtn.addEventListener("click", () => {
-        mobileMenu.classList.toggle("hidden");
-      });
-
-      window.onscroll = function () {
-        if (mobileMenu && !mobileMenu.classList.contains("hidden")) {
-          mobileMenu.classList.add("hidden");
-        }
-      };
-
-      // Scroll behavior for desktop navbar only
-      window.addEventListener("scroll", function () {
-        const isMobileMenuOpen = !mobileMenu.classList.contains("hidden");
-
-        if (window.scrollY > 50 && !isMobileMenuOpen) {
-          navbar.classList.remove("bg-transparent");
-          navbar.classList.add("navbar-backdrop", "shadow-lg");
-          menuBtn.classList.remove("text-white");
-          menuBtn.classList.add("text-black");
-
-          document.querySelectorAll(".nav-link").forEach((link) => {
-            link.classList.remove("text-white");
-            link.classList.add("text-slate-700");
-          });
-        } else if (!isMobileMenuOpen) {
-          navbar.classList.remove("navbar-backdrop", "shadow-lg");
-          menuBtn.classList.remove("text-black");
-          menuBtn.classList.add("text-white");
-          navbar.classList.add("bg-transparent");
-
-          document.querySelectorAll(".nav-link").forEach((link) => {
-            link.classList.remove("text-slate-700");
-            link.classList.add("text-white");
-          });
-        }
-      });
-    </script>
+  
   </body>
 </html>
