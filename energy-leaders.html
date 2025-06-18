@@ -6,7 +6,57 @@
     <title>Finjovi</title>
 
     <script>
-      window.onload = loadCategory
+    //  window.onload = loadCategory
+
+      window.onload = function () {
+        const section = document.getElementById("popular-section");
+        const container = document.getElementById("popular-comparisons");
+
+        //shimmer loader
+        const shimmer = document.createElement("div");
+        shimmer.id = "shimmer-loader";
+        shimmer.className =
+          "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6";
+        shimmer.innerHTML = `
+            <div class="animate-pulse bg-gray-200 h-24 rounded-xl"></div>
+            <div class="animate-pulse bg-gray-200 h-24 rounded-xl"></div>
+            <div class="animate-pulse bg-gray-200 h-24 rounded-xl"></div>
+        `;
+        container.appendChild(shimmer);
+
+        fetch("https://jayvenka.com/public/getPopular.php")
+          .then((response) => response.json())
+          .then((result) => {
+            shimmer.remove(); //  Hide shimmer
+            if (
+              !result.success ||
+              !Array.isArray(result.data) ||
+              result.data.length === 0
+            ) {
+              section.style.display = "none";
+              return;
+            }
+
+            result.data.forEach((item) => {
+              const stock1 = item.stock1?.name || item.stock1?.symbol;
+              const stock2 = item.stock2?.name || item.stock2?.symbol;
+              const filename = item.filename || "#";
+
+              const card = document.createElement("div");
+              card.innerHTML = `
+                <a href="/${filename}" 
+                class="block p-6 border rounded-xl shadow hover:shadow-lg transition cursor-pointer no-underline text-inherit">
+                    <h4 class="font-semibold text-lg mb-2">${stock1} vs ${stock2}</h4>
+                </a> `;
+
+              container.appendChild(card);
+            });
+          })
+          .catch((error) => {
+            shimmer.remove(); //  Hide shimmer
+            section.style.display = "none";
+          });
+      };
 
       function loadCategory() {
 

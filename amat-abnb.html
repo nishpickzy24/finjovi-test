@@ -1,444 +1,553 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=0.7" />
-  <title>AMAT vs ABNB</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=0.7" />
+    <title>AMAT vs ABNB</title>
         <meta name="description" content="Historical performance comparison of AMAT (Applied Materials) and ABNB (Airbnb) over the past years and months.">
         <meta property="og:title" content="AMAT vs ABNB">
         <meta property="og:description" content="Historical performance comparison of AMAT (Applied Materials) and ABNB (Airbnb) over the past years and months.">
         <meta name="twitter:title" content="AMAT vs ABNB">
         <meta name="twitter:description" content="Historical performance comparison of AMAT (Applied Materials) and ABNB (Airbnb) over the past years and months.">
-  <link rel="icon" type="image/png" href="./images/favicon.png">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700;800;900&display=swap"
-    rel="stylesheet">
+    <link rel="icon" type="image/png" href="./images/favicon.png" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script
+      src="https://kit.fontawesome.com/a076d05399.js"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
 
     <!-- Visit Count  -->
 
-  <script>
-    async function getIPAndSendVisit() {
-      let keyword = location.pathname.split('/').pop();
-      keyword = keyword.replace('.html', '');
+    <script>
+      async function getIPAndSendVisit() {
+        let keyword = location.pathname.split("/").pop();
+        keyword = keyword.replace(".html", "");
 
-      const timestamp = new Date().toISOString().replace('T', ' ').slice(0, 19);
+        const timestamp = new Date()
+          .toISOString()
+          .replace("T", " ")
+          .slice(0, 19);
 
-      try {
-        const res = await fetch('https://api.ipify.org?format=json');
-        const { ip } = await res.json();
+        try {
+          const res = await fetch("https://api.ipify.org?format=json");
+          const { ip } = await res.json();
 
-        await fetch('https://jayvenka.com/public/cvisits.php', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ keyword, ip, timestamp })
-        });
-      } catch (err) {
+          await fetch("https://jayvenka.com/public/cvisits.php", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ keyword, ip, timestamp }),
+          });
+        } catch (err) {}
       }
-    }
 
-     window.onload = getIPAndSendVisit;
-  </script>
-</head>
+      window.onload = getIPAndSendVisit;
+    </script>
+  </head>
 
-<body
-  class="bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 text-slate-800 min-h-screen cursor-default scrollbar-hide overflow-auto">
-  <style>
-    :root {
-      --primary-blue: #1e40af;
-      --primary-blue-light: #3b82f6;
-      --primary-green: #059669;
-      --primary-green-light: #10b981;
-      --accent-purple: #7c3aed;
-      --accent-orange: #ea580c;
-      --text-primary: #0f172a;
-      --text-secondary: #475569;
-      --text-muted: #64748b;
-      --background-card: #ffffff;
-      --background-overlay: rgba(15, 23, 42, 0.7);
-      --shadow-card: 0 10px 25px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-      --shadow-card-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-      --border-light: #e2e8f0;
-      --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-      --gradient-tertiary: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-    }
+  <body
+    class="bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 text-slate-800 min-h-screen cursor-default scrollbar-hide overflow-auto"
+  >
+    <style>
+      :root {
+        --primary-blue: #1e40af;
+        --primary-blue-light: #3b82f6;
+        --primary-green: #059669;
+        --primary-green-light: #10b981;
+        --accent-purple: #7c3aed;
+        --accent-orange: #ea580c;
+        --text-primary: #0f172a;
+        --text-secondary: #475569;
+        --text-muted: #64748b;
+        --background-card: #ffffff;
+        --background-overlay: rgba(15, 23, 42, 0.7);
+        --shadow-card: 0 10px 25px -3px rgba(0, 0, 0, 0.1),
+          0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        --shadow-card-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+          0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        --border-light: #e2e8f0;
+        --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        --gradient-tertiary: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+      }
 
-    body {
-      font-family: 'Inter', sans-serif;
-      font-weight: 400;
-      line-height: 1.6;
-      letter-spacing: -0.025em;
-    }
+      body {
+        font-family: "Inter", sans-serif;
+        font-weight: 400;
+        line-height: 1.6;
+        letter-spacing: -0.025em;
+      }
 
-    body::-webkit-scrollbar {
-      display: none;
-    }
+      body::-webkit-scrollbar {
+        display: none;
+      }
 
-    .font-display {
-      font-family: 'Playfair Display', serif;
-    }
+      .font-display {
+        font-family: "Playfair Display", serif;
+      }
 
-    .text-gradient-primary {
-      background: var(--gradient-primary);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
+      .text-gradient-primary {
+        background: var(--gradient-primary);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
 
-    .text-gradient-secondary {
-      background: var(--gradient-secondary);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
+      .text-gradient-secondary {
+        background: var(--gradient-secondary);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
 
-    .bg-gradient-card {
-      background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
-    }
+      .bg-gradient-card {
+        background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+      }
 
-    .shadow-elegant {
-      box-shadow: var(--shadow-card);
-    }
+      .shadow-elegant {
+        box-shadow: var(--shadow-card);
+      }
 
-    .shadow-elegant-hover {
-      box-shadow: var(--shadow-card-hover);
-    }
+      .shadow-elegant-hover {
+        box-shadow: var(--shadow-card-hover);
+      }
 
-    .border-gradient {
-      border: 1px solid transparent;
-      background: linear-gradient(white, white) padding-box,
-        var(--gradient-primary) border-box;
-    }
+      .border-gradient {
+        border: 1px solid transparent;
+        background: linear-gradient(white, white) padding-box,
+          var(--gradient-primary) border-box;
+      }
 
-    .navbar-backdrop {
-      backdrop-filter: blur(20px);
-      background: rgba(255, 255, 255, 0.9);
-    }
+      .navbar-backdrop {
+        backdrop-filter: blur(20px);
+        background: rgba(255, 255, 255, 0.9);
+      }
 
-    .hero-text-shadow {
-      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
+      .hero-text-shadow {
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
 
-    .metric-card {
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
+      .metric-card {
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
 
-    .metric-card:hover {
-      transform: translateY(-2px);
-      box-shadow: var(--shadow-card-hover);
-    }
+      .metric-card:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-card-hover);
+      }
 
-    .chart-container {
-      background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
-      border: 1px solid rgba(148, 163, 184, 0.1);
-    }
+      .chart-container {
+        background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+        border: 1px solid rgba(148, 163, 184, 0.1);
+      }
 
-    /* Enhanced scrollbar styling */
-    .scrollbar-hide {
-      scrollbar-width: none;
-      -ms-overflow-style: none;
-    }
+      /* Enhanced scrollbar styling */
+      .scrollbar-hide {
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+      }
 
-    /* Typography improvements */
-    .text-display-1 {
-      font-family: 'Playfair Display', serif;
-      font-weight: 800;
-      font-size: clamp(2.5rem, 8vw, 6rem);
-      line-height: 1.1;
-      letter-spacing: -0.05em;
-    }
+      /* Typography improvements */
+      .text-display-1 {
+        font-family: "Playfair Display", serif;
+        font-weight: 800;
+        font-size: clamp(2.5rem, 8vw, 6rem);
+        line-height: 1.1;
+        letter-spacing: -0.05em;
+      }
 
-    .text-display-2 {
-      font-family: 'Playfair Display', serif;
-      font-weight: 700;
-      font-size: clamp(1.75rem, 5vw, 3.5rem);
-      line-height: 1.2;
-      letter-spacing: -0.03em;
-    }
+      .text-display-2 {
+        font-family: "Playfair Display", serif;
+        font-weight: 700;
+        font-size: clamp(1.75rem, 5vw, 3.5rem);
+        line-height: 1.2;
+        letter-spacing: -0.03em;
+      }
 
-    .text-body-large {
-      font-size: 1.125rem;
-      font-weight: 400;
-      line-height: 1.7;
-      color: var(--border-light);
-    }
+      .text-body-large {
+        font-size: 1.125rem;
+        font-weight: 400;
+        line-height: 1.7;
+        color: var(--border-light);
+      }
 
-    .text-label {
-      font-size: 0.875rem;
-      font-weight: 600;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-    }
-  </style>
+      .text-label {
+        font-size: 0.875rem;
+        font-weight: 600;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+      }
+    </style>
 
-  <!-- Navbar start  -->
+    <!-- Navbar start  -->
 
-    <nav id="navbar" class="fixed top-0 left-0 right-0 bg-transparent transition-all duration-500 z-50">
-  <div class="max-w-7xl mx-auto flex justify-between items-center px-6 py-4">
-    <!-- Logo -->
-    <a href="/" class="text-indigo-600 text-2xl font-bold flex items-center transition-colors duration-300">
-      <i class="fas fa-search-dollar mr-3 text-3xl"></i>
-      <span class="font-display font-bold">Finjovi</span>
-    </a>
+    <nav
+      id="navbar"
+      class="fixed top-0 left-0 right-0 bg-transparent transition duration-300 z-50"
+    >
+      <div
+        class="max-w-7xl mx-auto flex justify-between items-center px-4 sm:px-6 py-4"
+      >
+        <a
+          href="/"
+          class="text-indigo-500 text-2xl font-extrabold flex items-center"
+        >
+          <i></i>Finjovi
+        </a>
 
-    <!-- Desktop Menu -->
-    <div class="hidden md:flex space-x-8">
-      <a href="/" class="nav-link text-white hover:text-indigo-300 text-sm uppercase">Home</a>
-      <a href="#" class="nav-link text-white hover:text-indigo-300 text-sm uppercase">About</a>
-      <a href="#" class="nav-link text-white hover:text-indigo-300 text-sm uppercase">Services</a>
-      <a href="#" class="nav-link text-white hover:text-indigo-300 text-sm uppercase">Contact Us</a>
-    </div>
+        <!-- Desktop menu -->
+        <div class="hidden md:flex space-x-6">
+          <a href="/" class="text-white font-medium hover:text-indigo-400"
+            >Home</a
+          >
+          <a href="#" class="text-white font-medium hover:text-indigo-400"
+            >Contact Us</a
+          >
+        </div>
 
-    <!-- Hamburger -->
-    <div class="md:hidden">
-      <button id="menu-btn" class="text-white text-3xl focus:outline-none">&#9776;</button>
-    </div>
-  </div>
+        <!-- Mobile hamburger -->
+        <div class="md:hidden">
+          <button
+            id="mobile-menu-button"
+            class="text-white focus:outline-none text-2xl"
+          >
+            &#9776;
+          </button>
+        </div>
+      </div>
 
-  <!-- Mobile Menu -->
-  <div id="mobile-menu" class="hidden text-white w-full absolute top-full left-0 z-40" style="background-color: rgba(0, 0, 0, 0.398)">
-    <div class="flex flex-col space-y-4 p-6">
-      <a href="/" class="uppercase text-sm font-medium hover:text-indigo-300">Home</a>
-      <a href="#" class="uppercase text-sm font-medium hover:text-indigo-300">About</a>
-      <a href="#" class="uppercase text-sm font-medium hover:text-indigo-300">Services</a>
-      <a href="#" class="uppercase text-sm font-medium hover:text-indigo-300">Contact Us</a>
-    </div>
-  </div>
-</nav>
+      <!-- Mobile dropdown -->
+      <div id="mobile-menu" class="md:hidden hidden px-4 pb-4">
+        <a
+          href="/"
+          class="block py-2 text-white font-medium hover:text-indigo-400"
+          >Home</a
+        >
+        <a
+          href="#"
+          class="block py-2 text-white font-medium hover:text-indigo-400"
+          >Contact Us</a
+        >
+      </div>
+    </nav>
 
-  <!-- Navbar end  -->
+    <!-- Navbar end  -->
 
-  <!-- Hero Section start-->
-  <div class="relative w-full h-screen bg-cover bg-center">
-    <!-- Hero Section Background start-->
-    <div class="absolute w-full h-screen flex lg:flex-row flex-col">
-      <div class="relative w-full h-screen bg-cover bg-center" style="background-image: url('./images/AMAT.jpg')"></div>
-      <div class="relative w-full h-screen bg-cover bg-center" style="background-image: url('./images/ABNB.jpg')"></div>
-    </div>
+    <!-- Hero Section start-->
+    <div class="relative w-full h-screen bg-cover bg-center">
+      <!-- Hero Section Background start-->
+      <div class="absolute w-full h-screen flex lg:flex-row flex-col">
+        <div
+          class="relative w-full h-screen bg-cover bg-center"
+          style="background-image: url('./images/AMAT.jpg')"
+        ></div>
+        <div
+          class="relative w-full h-screen bg-cover bg-center"
+          style="background-image: url('./images/ABNB.jpg')"
+        ></div>
+      </div>
 
-    <!-- Hero Section Background end-->
-    <div class="absolute inset-0 bg-gradient-to-r from-slate-900/70 via-slate-800/60 to-slate-900/70 flex items-center">
-      <div class="max-w-7xl mx-auto px-6 text-white">
-        <h4 class="text-indigo-400 text-lg font-semibold uppercase mb-8 text-center tracking-wider text-label">
-          Welcome To Finjovi
-        </h4>
-        <h1 class="text-display-1 font-display font-bold uppercase mb-8 text-center hero-text-shadow">
-          Compare AMAT vs ABNB
-        </h1>
-        <p class="mb-6 text-body-large text-center max-w-3xl mx-auto text-slate-200">
-          Compare Applied Materials and Airbnb stock with 20 years of historical data and charts
-        </p>
+      <!-- Hero Section Background end-->
+      <div
+        class="absolute inset-0 bg-gradient-to-r from-slate-900/70 via-slate-800/60 to-slate-900/70 flex items-center"
+      >
+        <div class="max-w-7xl mx-auto px-6 text-white">
+          <h4
+            class="text-indigo-400 text-lg font-semibold uppercase mb-8 text-center tracking-wider text-label"
+          >
+            Welcome To Finjovi
+          </h4>
+          <h1
+            class="text-display-1 font-display font-bold uppercase mb-8 text-center hero-text-shadow"
+          >
+            Compare AMAT vs ABNB
+          </h1>
+          <p
+            class="mb-6 text-body-large text-center max-w-3xl mx-auto text-slate-200"
+          >
+            Compare Applied Materials and Airbnb stock with 20 years of historical
+            data and charts
+          </p>
+        </div>
       </div>
     </div>
-  </div>
-  <!-- Hero Section end-->
+    <!-- Hero Section end-->
 
-  <!-- Main Content -->
-  <!-- heading -->
-  <main class="p-10 text-center mt-20">
-    <h1 class="text-display-2 font-display font-bold text-gradient-primary mb-4">
-      Compare AMAT vs ABNB
-    </h1>
-    <div class="w-24 h-1 bg-gradient-to-r from-indigo-500 to-purple-600 mx-auto rounded-full"></div>
-  </main>
+    <!-- Main Content -->
+    <!-- heading -->
+    <main class="p-10 text-center mt-20">
+      <h2
+        class="text-display-2 font-display font-bold text-gradient-primary mb-4"
+      >
+        Compare AMAT vs ABNB
+      </h2>
+      <div
+        class="w-24 h-1 bg-gradient-to-r from-indigo-500 to-purple-600 mx-auto rounded-full"
+      ></div>
+    </main>
 
-  <!--Compare table-->
-  <div class="max-w-7xl mx-auto mt-16 p-8 shadow-elegant bg-gradient-card rounded-2xl border border-slate-200/50">
-    <div class="grid grid-cols-1 lg:grid-cols-1 gap-6">
-      <!-- Apple + Amazon Comparison Table  -->
-      <div class="border-gradient rounded-xl p-8 bg-white/50 backdrop-blur-sm">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 relative">
-          <!-- Vertical Divider Line for Desktop -->
-          <div
-            class="hidden md:block absolute inset-y-0 left-1/2 w-px bg-gradient-to-b from-transparent via-slate-300 to-transparent">
-          </div>
-
-          <!-- Apple (AAPL) -->
-          <div class="metric-card">
+    <!--Compare table-->
+    <div
+      class="max-w-7xl mx-auto mt-16 p-8 shadow-elegant bg-gradient-card rounded-2xl border border-slate-200/50"
+    >
+      <div class="grid grid-cols-1 lg:grid-cols-1 gap-6">
+        <!-- Apple + Amazon Comparison Table  -->
+        <div
+          class="border-gradient rounded-xl p-8 bg-white/50 backdrop-blur-sm"
+        >
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-12 relative">
+            <!-- Vertical Divider Line for Desktop -->
             <div
-              class="text-indigo-700 text-center font-bold text-2xl border-b-2 border-indigo-200 pb-4 mb-6 font-display">
-              AMAT
-            </div>
-            <div class="grid grid-cols-1 gap-y-6 text-sm">
-              <div
-                class="flex justify-between items-center p-3 rounded-lg bg-slate-50/80 hover:bg-slate-100/80 transition-colors duration-200">
-                <span class="text-slate-600 font-medium text-label text-xs">Stock Price (May 2005)</span><span
-                  class="text-indigo-700 font-bold text-lg">$14.97</span>
-              </div>
-              <div
-                class="flex justify-between items-center p-3 rounded-lg bg-slate-50/80 hover:bg-slate-100/80 transition-colors duration-200">
-                <span class="text-slate-600 font-medium text-label text-xs">Stock Price (May 2025)</span><span
-                  class="text-indigo-700 font-bold text-lg">$159.04</span>
-              </div>
-              <div
-                class="flex justify-between items-center p-3 rounded-lg bg-slate-50/80 hover:bg-slate-100/80 transition-colors duration-200">
-                <span class="text-slate-600 font-medium text-label text-xs">Approx. 10-Year Growth</span><span
-                  class="text-indigo-700 font-bold text-lg">343.41%</span>
-              </div>
-              <div
-                class="flex justify-between items-center p-3 rounded-lg bg-slate-50/80 hover:bg-slate-100/80 transition-colors duration-200">
-                <span class="text-slate-600 font-medium text-label text-xs">Approx. 20-Year Growth</span><span
-                  class="text-indigo-700 font-bold text-lg">398.24%</span>
-              </div>
-              <div
-                class="flex justify-between items-center p-3 rounded-lg bg-slate-50/80 hover:bg-slate-100/80 transition-colors duration-200">
-                <span class="text-slate-600 font-medium text-label text-xs">Market Cap (May 2025)</span><span
-                  class="text-indigo-700 font-bold text-lg">$126.21 Billion</span>
-              </div>
+              class="hidden md:block absolute inset-y-0 left-1/2 w-px bg-gradient-to-b from-transparent via-slate-300 to-transparent"
+            ></div>
 
+            <!-- Apple (AAPL) -->
+            <div class="metric-card">
+              <div
+                class="text-indigo-700 text-center font-bold text-2xl border-b-2 border-indigo-200 pb-4 mb-6 font-display"
+              >
+                AMAT
+              </div>
+              <div class="grid grid-cols-1 gap-y-6 text-sm">
+                <div
+                  class="flex justify-between items-center p-3 rounded-lg bg-slate-50/80 hover:bg-slate-100/80 transition-colors duration-200"
+                >
+                  <span class="text-slate-600 font-medium text-label text-xs"
+                    >Stock Price (May 2005)</span
+                  ><span class="text-indigo-700 font-bold text-lg"
+                    >$14.97</span
+                  >
+                </div>
+                <div
+                  class="flex justify-between items-center p-3 rounded-lg bg-slate-50/80 hover:bg-slate-100/80 transition-colors duration-200"
+                >
+                  <span class="text-slate-600 font-medium text-label text-xs"
+                    >Stock Price (May 2025)</span
+                  ><span class="text-indigo-700 font-bold text-lg"
+                    >$159.04</span
+                  >
+                </div>
+                <div
+                  class="flex justify-between items-center p-3 rounded-lg bg-slate-50/80 hover:bg-slate-100/80 transition-colors duration-200"
+                >
+                  <span class="text-slate-600 font-medium text-label text-xs"
+                    >Approx. 10-Year Growth</span
+                  ><span class="text-indigo-700 font-bold text-lg"
+                    >343.41%</span
+                  >
+                </div>
+                <div
+                  class="flex justify-between items-center p-3 rounded-lg bg-slate-50/80 hover:bg-slate-100/80 transition-colors duration-200"
+                >
+                  <span class="text-slate-600 font-medium text-label text-xs"
+                    >Approx. 20-Year Growth</span
+                  ><span class="text-indigo-700 font-bold text-lg"
+                    >398.24%</span
+                  >
+                </div>
+                <div
+                  class="flex justify-between items-center p-3 rounded-lg bg-slate-50/80 hover:bg-slate-100/80 transition-colors duration-200"
+                >
+                  <span class="text-slate-600 font-medium text-label text-xs"
+                    >Market Cap (May 2025)</span
+                  ><span class="text-indigo-700 font-bold text-lg"
+                    >$126.21 Billion</span
+                  >
+                </div>
+              </div>
             </div>
-          </div>
 
-          <!-- Amazon (AMZN) -->
-          <div class="metric-card">
-            <div
-              class="text-emerald-700 text-center font-bold text-2xl border-b-2 border-emerald-200 pb-4 mb-6 font-display">
-              ABNB
-            </div>
-            <div class="grid grid-cols-1 gap-y-6 text-sm">
+            <!-- Amazon (AMZN) -->
+            <div class="metric-card">
               <div
-                class="flex justify-between items-center p-3 rounded-lg bg-slate-50/80 hover:bg-slate-100/80 transition-colors duration-200">
-                <span class="text-slate-600 font-medium text-label text-xs">Stock Price (December 2020)</span><span
-                  class="text-emerald-700 font-bold text-lg">$146.00</span>
+                class="text-emerald-700 text-center font-bold text-2xl border-b-2 border-emerald-200 pb-4 mb-6 font-display"
+              >
+                ABNB
               </div>
-              <div
-                class="flex justify-between items-center p-3 rounded-lg bg-slate-50/80 hover:bg-slate-100/80 transition-colors duration-200">
-                <span class="text-slate-600 font-medium text-label text-xs">Stock Price (May 2025)</span><span
-                  class="text-emerald-700 font-bold text-lg">$125.50</span>
-              </div>
-              <div
-                class="flex justify-between items-center p-3 rounded-lg bg-slate-50/80 hover:bg-slate-100/80 transition-colors duration-200">
-                <span class="text-slate-600 font-medium text-label text-xs">Approx. 10-Year Growth</span><span
-                  class="text-emerald-700 font-bold text-lg">26.78%</span>
-              </div>
-              <div
-                class="flex justify-between items-center p-3 rounded-lg bg-slate-50/80 hover:bg-slate-100/80 transition-colors duration-200">
-                <span class="text-slate-600 font-medium text-label text-xs">Approx. 20-Year Growth</span><span
-                  class="text-emerald-700 font-bold text-lg">26.78%</span>
-              </div>
-              <div
-                class="flex justify-between items-center p-3 rounded-lg bg-slate-50/80 hover:bg-slate-100/80 transition-colors duration-200">
-                <span class="text-slate-600 font-medium text-label text-xs">Market Cap (May 2025)</span><span
-                  class="text-emerald-700 font-bold text-lg">$80.00 Billion</span>
+              <div class="grid grid-cols-1 gap-y-6 text-sm">
+                <div
+                  class="flex justify-between items-center p-3 rounded-lg bg-slate-50/80 hover:bg-slate-100/80 transition-colors duration-200"
+                >
+                  <span class="text-slate-600 font-medium text-label text-xs"
+                    >Stock Price (December 2020)</span
+                  ><span class="text-emerald-700 font-bold text-lg"
+                    >$146.00</span
+                  >
+                </div>
+                <div
+                  class="flex justify-between items-center p-3 rounded-lg bg-slate-50/80 hover:bg-slate-100/80 transition-colors duration-200"
+                >
+                  <span class="text-slate-600 font-medium text-label text-xs"
+                    >Stock Price (May 2025)</span
+                  ><span class="text-emerald-700 font-bold text-lg"
+                    >$125.50</span
+                  >
+                </div>
+                <div
+                  class="flex justify-between items-center p-3 rounded-lg bg-slate-50/80 hover:bg-slate-100/80 transition-colors duration-200"
+                >
+                  <span class="text-slate-600 font-medium text-label text-xs"
+                    >Approx. 10-Year Growth</span
+                  ><span class="text-emerald-700 font-bold text-lg"
+                    >26.78%</span
+                  >
+                </div>
+                <div
+                  class="flex justify-between items-center p-3 rounded-lg bg-slate-50/80 hover:bg-slate-100/80 transition-colors duration-200"
+                >
+                  <span class="text-slate-600 font-medium text-label text-xs"
+                    >Approx. 20-Year Growth</span
+                  ><span class="text-emerald-700 font-bold text-lg"
+                    >26.78%</span
+                  >
+                </div>
+                <div
+                  class="flex justify-between items-center p-3 rounded-lg bg-slate-50/80 hover:bg-slate-100/80 transition-colors duration-200"
+                >
+                  <span class="text-slate-600 font-medium text-label text-xs"
+                    >Market Cap (May 2025)</span
+                  ><span class="text-emerald-700 font-bold text-lg"
+                    >$80.00 Billion</span
+                  >
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <!--Stock graph-->
-  <div
-    class="bg-gradient-card rounded-2xl shadow-elegant p-10 w-full max-w-7xl mx-auto mt-20 mb-10 border border-slate-200/50">
-    <h2 class="text-3xl font-bold text-center mb-8 text-slate-800 font-display">
-      AMAT vs ABNB Stock Comparison (2005-2025)
-    </h2>
+    <!--Stock graph-->
+    <div
+      class="bg-gradient-card rounded-2xl shadow-elegant p-10 w-full max-w-7xl mx-auto mt-20 mb-10 border border-slate-200/50"
+    >
+      <h2
+        class="text-3xl font-bold text-center mb-8 text-slate-800 font-display"
+      >
+        AMAT vs ABNB Stock Comparison (2005-2025)
+      </h2>
 
-    <div class="flex justify-center">
-      <canvas id="stockChart" class="w-full max-w-6xl max-h-[400px]"></canvas>
+      <div class="flex justify-center">
+        <canvas id="stockChart" class="w-full max-w-6xl max-h-[400px]"></canvas>
+      </div>
     </div>
-  </div>
-  <!--Stock graph script -->
-  <script>
-    const labels = ["2005","2006","2007","2008","2009","2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023","2024","2025"];
-    const data1 = [19.59,1.7,-2.45,-40.95,33.33,0.46,-21.93,10.29,53.26,44.76,-23.64,77.6,61.51,-37.28,85.66,40.62,82.43,-38.55,69.1,6.17,-3.85];
-    const data2 = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1.44,19.65,-50.49,60.35,-2.28,-1.89];
-    const label1 = "AMAT";
-    const label2 = "ABNB";
+    <!--Stock graph script -->
+    <script>
+      const labels = ["2005","2006","2007","2008","2009","2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023","2024","2025"];
+      const data1 = [19.59,1.7,-2.45,-40.95,33.33,0.46,-21.93,10.29,53.26,44.76,-23.64,77.6,61.51,-37.28,85.66,40.62,82.43,-38.55,69.1,6.17,-3.85];
+      const data2 = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1.44,19.65,-50.49,60.35,-2.28,-1.89];
+      const label1 = "AMAT";
+      const label2 = "ABNB";
 
-    const ctx = document.getElementById("stockChart").getContext("2d");
-    const stockChart = new Chart(ctx, {
-      type: "line",
-      data: {
-        labels: labels,
-        datasets: [
-          {
-            label: label1,
-            data: data1,
-            borderColor: "rgb(59, 130, 246)",
-            tension: 0.1,
-            pointRadius: 1,
-          },
-          {
-            label: label2,
-            data: data2,
-            borderColor: "rgb(239, 68, 68)",
-            tension: 0.1,
-            pointRadius: 1,
-          },
-        ],
-      },
-      options: {
-        responsive: true,
-        plugins: {
-          legend: {
-            position: "bottom",
-            labels: {
-              usePointStyle: true,
-              pointStyle: "rect", // Square shape
-              color: "#374151",
-              font: { size: 14 },
+      const ctx = document.getElementById("stockChart").getContext("2d");
+      const stockChart = new Chart(ctx, {
+        type: "line",
+        data: {
+          labels: labels,
+          datasets: [
+            {
+              label: label1,
+              data: data1,
+              borderColor: "rgb(59, 130, 246)",
+              tension: 0.1,
+              pointRadius: 1,
             },
-            onClick: (e) => { } // Disable toggle behavior
+            {
+              label: label2,
+              data: data2,
+              borderColor: "rgb(239, 68, 68)",
+              tension: 0.1,
+              pointRadius: 1,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: {
+              position: "bottom",
+              labels: {
+                usePointStyle: true,
+                pointStyle: "rect", // Square shape
+                color: "#374151",
+                font: { size: 14 },
+              },
+              onClick: (e) => {}, // Disable toggle behavior
+            },
+            tooltip: {
+              mode: "index",
+              intersect: false,
+              backgroundColor: "rgba(31, 41, 55, 0.9)",
+              titleColor: "#ffffff",
+              bodyColor: "#ffffff",
+            },
           },
-          tooltip: {
-            mode: "index",
+          interaction: {
+            mode: "nearest",
+            axis: "x",
             intersect: false,
-            backgroundColor: "rgba(31, 41, 55, 0.9)",
-            titleColor: "#ffffff",
-            bodyColor: "#ffffff",
+          },
+          scales: {
+            x: {
+              ticks: { color: "#6b7280" },
+              grid: { color: "#e5e7eb" },
+            },
+            y: {
+              beginAtZero: false,
+              ticks: { color: "#6b7280" },
+              grid: { color: "#e5e7eb" },
+            },
           },
         },
-        interaction: {
-          mode: "nearest",
-          axis: "x",
-          intersect: false,
-        },
-        scales: {
-          x: {
-            ticks: { color: "#6b7280" },
-            grid: { color: "#e5e7eb" },
-          },
-          y: {
-            beginAtZero: false,
-            ticks: { color: "#6b7280" },
-            grid: { color: "#e5e7eb" },
-          },
-        },
-      },
-    });
-  </script>
+      });
+    </script>
 
-  <!--table Start-->
-  <div
-    class="max-w-7xl mx-auto mt-20 mb-20 p-10 bg-gradient-card rounded-2xl shadow-elegant border border-slate-200/50">
-    <h2 class="text-3xl font-bold mb-8 text-slate-800 flex items-center justify-center font-display">
-      <i class="fa-solid fa-calendar text-indigo-600 mr-4 text-2xl"></i>
-      Yearly Performance
-    </h2>
-    <!--Yearly Performance start-->
-    <div class="overflow-x-auto rounded-xl">
-      <table
-        class="min-w-full table-auto text-sm text-left text-slate-700 mb-5 bg-white/80 rounded-xl overflow-hidden shadow-lg">
-        <thead class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white">
-          <tr>
-            <th class="px-6 py-4 border-b text-base text-center font-semibold">Year</th>
-            <th class="px-6 py-4 border-b text-base text-center font-semibold">
-              AMAT
-            </th>
-            <th class="px-6 py-4 border-b text-base text-center font-semibold">
-              ABNB
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          
+    <!--table Start-->
+    <div
+      class="max-w-7xl mx-auto mt-20 mb-20 p-10 bg-gradient-card rounded-2xl shadow-elegant border border-slate-200/50"
+    >
+      <h2
+        class="text-3xl font-bold mb-8 text-slate-800 flex items-center justify-center font-display"
+      >
+        <i class="fa-solid fa-calendar text-indigo-600 mr-4 text-2xl"></i>
+        20 Years Performance
+      </h2>
+      <!--Yearly Performance start-->
+      <div class="overflow-x-auto rounded-xl">
+        <table
+          class="min-w-full table-auto text-sm text-left text-slate-700 mb-5 bg-white/80 rounded-xl overflow-hidden shadow-lg"
+        >
+          <thead
+            class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white"
+          >
+            <tr>
+              <th
+                class="px-6 py-4 border-b text-base text-center font-semibold"
+              >
+                Year
+              </th>
+              <th
+                class="px-6 py-4 border-b text-base text-center font-semibold"
+              >
+                AMAT
+              </th>
+              <th
+                class="px-6 py-4 border-b text-base text-center font-semibold"
+              >
+                ABNB
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            
             <tr>
                 <td class="px-4 py-4 border text-center">2025</td>
                 <td class="px-4 py-4 border text-center value">-3.85%</td>
@@ -564,57 +673,82 @@
                 <td class="px-4 py-4 border text-center value">+19.59%</td>
                 <td class="px-4 py-4 border text-center value">+0.00%</td>
             </tr>
-        </tbody>
-      </table>
+          </tbody>
+        </table>
+      </div>
+      <!--Yearly Performance End-->
     </div>
-    <!--Yearly Performance End-->
-  </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-7xl mx-auto px-4 pt-1 pb-2">
-  <!-- Left Card -->
-  <div class="bg-white rounded-lg shadow-sm p-4 border border-slate-200 transform transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+    <div
+      class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-7xl mx-auto px-4 pt-1 pb-2"
+    >
+      <!-- Left Card -->
       <div
-        class="flex justify-between items-center p-3 rounded-lg transition-colors duration-200">
-        <span class="text-slate-600 font-medium text-label text-xs">20-Year Average Return for AMAT</span>
-        <span class="text-indigo-700 font-bold text-lg">19.91%</span>
+        class="bg-white rounded-lg shadow-sm p-4 border border-slate-200 transform transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+      >
+        <div
+          class="flex justify-between items-center p-3 rounded-lg transition-colors duration-200"
+        >
+          <span class="text-slate-600 font-medium text-label text-xs"
+            >20-Year Average Return for AMAT</span
+          >
+          <span class="font-bold text-lg text-green-600">19.91%</span>
+        </div>
       </div>
-  </div>
 
-  <!-- Right Card -->
-  <div class="bg-white rounded-lg shadow-sm p-4 border border-slate-200 transform transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+      <!-- Right Card -->
       <div
-        class="flex justify-between items-center p-3 rounded-lg transition-colors duration-200">
-        <span class="text-slate-600 font-medium text-label text-xs">20-Year Average Return for ABNB</span>
-        <span class="text-indigo-700 font-bold text-lg">4.46%</span>
+        class="bg-white rounded-lg shadow-sm p-4 border border-slate-200 transform transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+      >
+        <div
+          class="flex justify-between items-center p-3 rounded-lg transition-colors duration-200"
+        >
+          <span class="text-slate-600 font-medium text-label text-xs"
+            >20-Year Average Return for ABNB</span
+          >
+          <span class="font-bold text-lg text-green-600">4.46%</span>
+        </div>
       </div>
-  </div>
-</div>
+    </div>
 
-  <div
-    class="max-w-7xl mx-auto mt-20 mb-20 p-10 bg-gradient-card rounded-2xl shadow-elegant border border-slate-200/50">
-    <!--Monthly performance Start-->
-    <h2 class="text-3xl font-bold text-slate-800 mb-8 flex items-center justify-center font-display">
-      <i class="fa-solid fa-calendar text-indigo-600 mr-4 text-2xl"></i>
-      Monthly Performance
-    </h2>
+    <div
+      class="max-w-7xl mx-auto mt-20 mb-20 p-10 bg-gradient-card rounded-2xl shadow-elegant border border-slate-200/50"
+    >
+      <!--Monthly performance Start-->
+      <h2
+        class="text-3xl font-bold text-slate-800 mb-8 flex items-center justify-center font-display"
+      >
+        <i class="fa-solid fa-calendar text-indigo-600 mr-4 text-2xl"></i>
+        24 Months Performance
+      </h2>
 
-    <div class="overflow-x-auto rounded-xl mt-5">
-      <table
-        class="min-w-full table-auto text-sm text-left text-slate-700 bg-white/80 rounded-xl overflow-hidden shadow-lg mb-5">
-        <thead class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white">
-          <tr>
-            <th class="px-6 py-4 border-b text-base text-center font-semibold">Year</th>
-            <th class="px-6 py-4 border-b text-base text-center font-semibold">
-              AMAT
-            </th>
-            <th class="px-6 py-4 border-b text-base text-center font-semibold">
-              ABNB
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-
-          
+      <div class="overflow-x-auto rounded-xl mt-5">
+        <table
+          class="min-w-full table-auto text-sm text-left text-slate-700 bg-white/80 rounded-xl overflow-hidden shadow-lg mb-5"
+        >
+          <thead
+            class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white"
+          >
+            <tr>
+              <th
+                class="px-6 py-4 border-b text-base text-center font-semibold"
+              >
+                Year
+              </th>
+              <th
+                class="px-6 py-4 border-b text-base text-center font-semibold"
+              >
+                AMAT
+              </th>
+              <th
+                class="px-6 py-4 border-b text-base text-center font-semibold"
+              >
+                ABNB
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            
             <tr>
                 <td class="px-4 py-4 border text-center">May 2025</td>
                 <td class="px-4 py-4 border text-center value">-5.24%</td>
@@ -758,205 +892,242 @@
                 <td class="px-4 py-4 border text-center value">+0.00%</td>
                 <td class="px-4 py-4 border text-center value">+0.00%</td>
             </tr>
-        </tbody>
-      </table>
+          </tbody>
+        </table>
+      </div>
+      <!--Monthly performance End-->
     </div>
-    <!--Monthly performance End-->
-  </div>
 
-     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-7xl mx-auto px-4 pt-1 pb-2">
-  <!-- Left Card -->
-  <div class="bg-white rounded-lg shadow-sm p-4 border border-slate-200 transform transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+    <div
+      class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-7xl mx-auto px-4 pt-1 pb-2"
+    >
+      <!-- Left Card -->
       <div
-        class="flex justify-between items-center p-3 rounded-lg transition-colors duration-200">
-        <span class="text-slate-600 font-medium text-label text-xs">24 Months Average Return for AMAT</span>
-        <span class="text-indigo-700 font-bold text-lg">-0.49%</span>
+        class="bg-white rounded-lg shadow-sm p-4 border border-slate-200 transform transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+      >
+        <div
+          class="flex justify-between items-center p-3 rounded-lg transition-colors duration-200"
+        >
+          <span class="text-slate-600 font-medium text-label text-xs"
+            >24 Months Average Return for AMAT</span
+          >
+          <span class="font-bold text-lg text-red-600"
+            >-0.49%</span
+          >
+        </div>
       </div>
-  </div>
 
-  <!-- Right Card -->
-  <div class="bg-white rounded-lg shadow-sm p-4 border border-slate-200 transform transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+      <!-- Right Card -->
       <div
-        class="flex justify-between items-center p-3 rounded-lg transition-colors duration-200">
-        <span class="text-slate-600 font-medium text-label text-xs">24 Months Average Return for ABNB</span>
-        <span class="text-indigo-700 font-bold text-lg">0.67%</span>
-      </div>
-  </div>
-</div>
-
-
-  <script>
-    document.querySelectorAll(".value").forEach((cell) => {
-      const value = cell.textContent.trim();
-      if (value.startsWith("+")) {
-        cell.classList.add("text-emerald-800", "bg-emerald-100", "border", "border-emerald-200", "rounded-md");
-      } else if (value.startsWith("-")) {
-        cell.classList.add("text-red-800", "bg-red-100", "border", "border-red-200", "rounded-md");
-      }
-    });
-  </script>
-
-
-  <!-- Footer start -->
-  <footer class="bg-gradient-to-r from-slate-900 to-slate-800 py-16 mt-10">
-    <div class="max-w-7xl mx-auto px-4">
-      <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-10">
-        <!-- Logo & Description -->
-        <div>
-          <h4 class="text-white text-3xl font-bold mb-6 flex items-center font-display">
-            <i class="fas fa-search-dollar mr-3 text-3xl text-indigo-400"></i>Finjovi
-          </h4>
-          <ul class="space-y-5 text-sm text-slate-300">
-            <li class="flex items-center">
-              <i class="fas fa-map-marker-alt text-indigo-400 text-sm mr-4"></i>123 Street New York.USA
-            </li>
-            <li class="flex items-center">
-              <i class="fas fa-envelope text-indigo-400 text-sm mr-4"></i>info@example.com
-            </li>
-            <li class="flex items-center">
-              <i class="fa fa-phone-alt text-indigo-400 text-sm mr-4"></i>(+012) 3456 7890
-            </li>
-            <li class="flex items-center">
-              <i class="fas fa-fax text-indigo-400 text-sm mr-4"></i>(+012) 3456 7890
-            </li>
-          </ul>
-        </div>
-
-        <!-- Quick Link -->
-        <div>
-          <h4 class="text-white text-xl font-bold mb-6 font-display">
-            Quick Link
-          </h4>
-          <ul class="space-y-3 text-sm text-slate-300">
-            <li>
-              <a href="#" class="hover:text-indigo-400 transition-colors duration-300">About Us</a>
-            </li>
-            <li>
-              <a href="#" class="hover:text-indigo-400 transition-colors duration-300">Contact Us</a>
-            </li>
-            <li>
-              <a href="#" class="hover:text-indigo-400 transition-colors duration-300">Our Services</a>
-            </li>
-            <li>
-              <a href="#" class="hover:text-indigo-400 transition-colors duration-300">Terms & Condition</a>
-            </li>
-            <li>
-              <a href="#" class="hover:text-indigo-400 transition-colors duration-300">Support</a>
-            </li>
-          </ul>
-        </div>
-
-        <!-- Popular Link -->
-        <div>
-          <h4 class="text-white text-xl font-bold mb-6 font-display">
-            Popular Link
-          </h4>
-          <ul class="space-y-4 text-sm text-gray-300">
-            <li><a href="./aapl-abnb.html" class="hover:text-white">
-                <i class="fas fa-angle-right mr-3"></i>Apple vs Airbnb
-            </a></li>
-<li><a href="./aapl-adbe.html" class="hover:text-white">
-                <i class="fas fa-angle-right mr-3"></i>Apple vs Adobe
-            </a></li>
-<li><a href="./aapl-adi.html" class="hover:text-white">
-                <i class="fas fa-angle-right mr-3"></i>Apple vs Analog Devices
-            </a></li>
-<li><a href="./aapl-adp.html" class="hover:text-white">
-                <i class="fas fa-angle-right mr-3"></i>Apple vs Automatic Data Processing
-            </a></li>
-<li><a href="./aapl-adsk.html" class="hover:text-white">
-                <i class="fas fa-angle-right mr-3"></i>Apple vs Autodesk
-            </a></li>
-          </ul>
-        </div>
-
-        <div>
-          <h4 class="text-white text-xl font-bold mb-6 font-display">
-            Popular Link
-          </h4>
-          <ul class="space-y-4 text-sm text-gray-300">
-            <li><a href="./aapl-aep.html" class="hover:text-white">
-                <i class="fas fa-angle-right mr-3"></i>Apple vs American Electric Power
-            </a></li>
-<li><a href="./aapl-amat.html" class="hover:text-white">
-                <i class="fas fa-angle-right mr-3"></i>Apple vs Applied Materials
-            </a></li>
-<li><a href="./aapl-amd.html" class="hover:text-white">
-                <i class="fas fa-angle-right mr-3"></i>Apple vs AMD
-            </a></li>
-<li><a href="./aapl-amgn.html" class="hover:text-white">
-                <i class="fas fa-angle-right mr-3"></i>Apple vs Amgen
-            </a></li>
-<li><a href="./adbe-abnb.html" class="hover:text-white">
-                <i class="fas fa-angle-right mr-3"></i>Adobe vs Airbnb
-            </a></li>
-          </ul>
-        </div>
-
-      </div>
-    </div>
-  </footer>
-
-  <!-- Footer Bottom -->
-  <div class="bg-slate-950 py-6">
-    <div class="container mx-auto text-center">
-      <div class="row">
-        <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-          <p class="m-0 text-slate-400 text-sm">
-            &copy;
-            <a class="text-indigo-400 font-semibold" href="#">finjovi.com</a>
-            All Right Reserved.
-          </p>
+        class="bg-white rounded-lg shadow-sm p-4 border border-slate-200 transform transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+      >
+        <div
+          class="flex justify-between items-center p-3 rounded-lg transition-colors duration-200"
+        >
+          <span class="text-slate-600 font-medium text-label text-xs"
+            >24 Months Average Return for ABNB</span
+          >
+          <span class="font-bold text-lg text-green-600"
+            >0.67%</span
+          >
         </div>
       </div>
     </div>
-  </div>
-  <!-- Footer end -->
 
     <script>
-  const navbar = document.getElementById("navbar");
-  const menuBtn = document.getElementById("menu-btn");
-  const mobileMenu = document.getElementById("mobile-menu");
-
-  // Toggle mobile menu visibility
-  menuBtn.addEventListener("click", () => {
-    mobileMenu.classList.toggle("hidden");
-  });
-
-  
-  window.onscroll = function () {
-    if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
-      mobileMenu.classList.add('hidden')
-    }
-  }
-
-  // Scroll behavior for desktop navbar only
-  window.addEventListener("scroll", function () {
-    const isMobileMenuOpen = !mobileMenu.classList.contains("hidden");
-
-    if (window.scrollY > 50 && !isMobileMenuOpen) {
-      navbar.classList.remove("bg-transparent");
-      navbar.classList.add("navbar-backdrop", "shadow-lg");
-      menuBtn.classList.remove('text-white');
-      menuBtn.classList.add('text-black');
-
-      document.querySelectorAll(".nav-link").forEach(link => {
-        link.classList.remove("text-white");
-        link.classList.add("text-slate-700");
+      document.querySelectorAll(".value").forEach((cell) => {
+        const value = cell.textContent.trim();
+        if (value.startsWith("+")) {
+          cell.classList.add(
+            "text-emerald-800",
+            "bg-emerald-100",
+            "border",
+            "border-emerald-200",
+            "rounded-md"
+          );
+        } else if (value.startsWith("-")) {
+          cell.classList.add(
+            "text-red-800",
+            "bg-red-100",
+            "border",
+            "border-red-200",
+            "rounded-md"
+          );
+        }
       });
-    } else if (!isMobileMenuOpen) {
-      navbar.classList.remove("navbar-backdrop", "shadow-lg");
-      menuBtn.classList.remove('text-black');
-      menuBtn.classList.add('text-white');
-      navbar.classList.add("bg-transparent");
+    </script>
 
-      document.querySelectorAll(".nav-link").forEach(link => {
-        link.classList.remove("text-slate-700");
-        link.classList.add("text-white");
+    <!-- Footer -->
+    <footer class="bg-gray-900 py-12 mt-10">
+      <div class="max-w-7xl mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-10">
+          <!-- Logo & Description -->
+          <div>
+            <h4 class="text-white text-3xl font-bold mb-6 flex items-center">
+              <i></i>Finjovi
+            </h4>
+            <ul class="space-y-5 text-sm text-gray-300">
+              <li class="flex items-center">
+                <i
+                  class="fas fa-map-marker-alt text-indigo-400 text-sm mr-4"
+                ></i
+                >123 Street New York.USA
+              </li>
+              <li class="flex items-center">
+                <i class="fas fa-envelope text-indigo-500 text-sm mr-4"></i
+                >info@example.com
+              </li>
+              <li class="flex items-center">
+                <i class="fa fa-phone-alt text-indigo-500 text-sm mr-4"></i
+                >(+012) 3456 7890
+              </li>
+            </ul>
+
+            <!-- Social Icons -->
+            <!-- <div class="flex space-x-6 mt-8 text-center">
+              <a
+                href="#"
+                class="text-indigo-500 hover:text-indigo-700 transition-transform transform hover:scale-110"
+                aria-label="Instagram"
+                ><i class="fab fa-instagram fa-lg"></i
+              ></a>
+              <a
+                href="#"
+                class="text-indigo-500 hover:text-indigo-700 transition-transform transform hover:scale-110"
+                aria-label="Facebook"
+                ><i class="fab fa-facebook fa-lg"></i
+              ></a>
+              <a
+                href="#"
+                class="text-indigo-500 hover:text-indigo-700 transition-transform transform hover:scale-110"
+                aria-label="Twitter"
+                ><i class="fab fa-twitter fa-lg"></i
+              ></a>
+            </div> -->
+          </div>
+
+          <!-- Comparison Links -->
+
+          <div>
+            <h4 class="text-white text-xl font-bold mb-6 flex items-center">
+              <i></i>Popular Link
+            </h4>
+            <ul class="space-y-4 text-sm text-gray-300">
+              __comparison_links_left__
+            </ul>
+          </div>
+
+          <div>
+            <h4 class="text-white text-xl font-bold mb-6 flex items-center">
+              <i></i>Popular Link
+            </h4>
+            <ul class="space-y-4 text-sm text-gray-300">
+              __comparison_links_right__
+            </ul>
+          </div>
+
+          <!-- Company Links -->
+          <div>
+            <h4 class="text-white text-xl font-bold mb-6 flex items-center">
+              <i></i>Company
+            </h4>
+            <ul class="space-y-4 text-sm text-gray-300">
+              <li>
+                <a href="/" class="hover:text-white"
+                  ><i class="fas fa-angle-right mr-3"></i>Home</a
+                >
+              </li>
+              <li>
+                <a href="#" class="hover:text-white"
+                  ><i class="fas fa-angle-right mr-3"></i>Abouts</a
+                >
+              </li>
+              <li>
+                <a href="#" class="hover:text-white"
+                  ><i class="fas fa-angle-right mr-3"></i>Privacy Policy</a
+                >
+              </li>
+              <li>
+                <a href="#" class="hover:text-white"
+                  ><i class="fas fa-angle-right mr-3"></i>Terms & Conditions</a
+                >
+              </li>
+              <li>
+                <a href="#" class="hover:text-white"
+                  ><i class="fas fa-angle-right mr-3"></i>Support</a
+                >
+              </li>
+              <li>
+                <a href="#" class="hover:text-white"
+                  ><i class="fas fa-angle-right mr-3"></i>Help</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Bottom Footer -->
+      </div>
+    </footer>
+
+    <!-- Footer Bottom -->
+    <div class="bg-slate-950 py-5">
+      <div class="container mx-auto text-center">
+        <div class="row">
+          <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+            <p class="m-0 text-slate-400 text-sm">
+              &copy;
+              <a class="text-indigo-400 font-semibold" href="#">finjovi.com</a>
+              All Right Reserved.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Footer end -->
+
+    <script>
+      const navbar = document.getElementById("navbar");
+      const menuBtn = document.getElementById("menu-btn");
+      const mobileMenu = document.getElementById("mobile-menu");
+
+      // Toggle mobile menu visibility
+      menuBtn.addEventListener("click", () => {
+        mobileMenu.classList.toggle("hidden");
       });
-    }
-  });
-</script>
-</body>
 
+      window.onscroll = function () {
+        if (mobileMenu && !mobileMenu.classList.contains("hidden")) {
+          mobileMenu.classList.add("hidden");
+        }
+      };
+
+      // Scroll behavior for desktop navbar only
+      window.addEventListener("scroll", function () {
+        const isMobileMenuOpen = !mobileMenu.classList.contains("hidden");
+
+        if (window.scrollY > 50 && !isMobileMenuOpen) {
+          navbar.classList.remove("bg-transparent");
+          navbar.classList.add("navbar-backdrop", "shadow-lg");
+          menuBtn.classList.remove("text-white");
+          menuBtn.classList.add("text-black");
+
+          document.querySelectorAll(".nav-link").forEach((link) => {
+            link.classList.remove("text-white");
+            link.classList.add("text-slate-700");
+          });
+        } else if (!isMobileMenuOpen) {
+          navbar.classList.remove("navbar-backdrop", "shadow-lg");
+          menuBtn.classList.remove("text-black");
+          menuBtn.classList.add("text-white");
+          navbar.classList.add("bg-transparent");
+
+          document.querySelectorAll(".nav-link").forEach((link) => {
+            link.classList.remove("text-slate-700");
+            link.classList.add("text-white");
+          });
+        }
+      });
+    </script>
+  </body>
 </html>
