@@ -22,29 +22,45 @@
   <!-- Visit Count  -->
 
   <script>
-    async function getIPAndSendVisit() {
-      let keyword = location.pathname.split("/").pop();
-      keyword = keyword.replace(".html", "");
+  function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+  }
 
-      const timestamp = new Date()
-        .toISOString()
-        .replace("T", " ")
-        .slice(0, 19);
+  function setCookie(name, value, hours) {
+    const maxAgeSeconds = hours * 60 * 60;
+    document.cookie = `${name}=${value}; max-age=${maxAgeSeconds}; path=/`;
+  }
 
-      try {
-        const res = await fetch("https://api.ipify.org?format=json");
-        const { ip } = await res.json();
+  async function getIPAndSendVisit() {
+    const keyword = location.pathname.split("/").pop().replace(".html", "");
+    const cookieKey = keyword;
 
-        await fetch("https://jayvenka.com/public/cvisits.php", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ keyword, ip, timestamp }),
-        });
-      } catch (err) { }
+    if (getCookie(cookieKey)) return; // If cookie exists, skip API call
+
+    const timestamp = new Date().toISOString().replace("T", " ").slice(0, 19);
+
+    try {
+      const res = await fetch("https://api.ipify.org?format=json");
+      const { ip } = await res.json();
+
+      const payload = { keyword, ip, timestamp };
+
+      await fetch("https://jayvenka.com/public/cvisits.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      setCookie(cookieKey, crypto.randomUUID(), 24); // set for 24 hours
+    } catch (err) {
+      console.error("Error sending visit data:", err);
     }
+  }
 
-    window.onload = getIPAndSendVisit;
-  </script>
+  window.onload = getIPAndSendVisit;
+</script>
 </head>
 
 <body
@@ -150,7 +166,6 @@
 
     /* Typography improvements */
     .text-display-1 {
-      font-family: "Playfair Display", serif;
       font-weight: 800;
       font-size: clamp(2.5rem, 8vw, 6rem);
       line-height: 1.1;
@@ -158,7 +173,6 @@
     }
 
     .text-display-2 {
-      font-family: "Playfair Display", serif;
       font-weight: 700;
       font-size: clamp(1.75rem, 5vw, 3.5rem);
       line-height: 1.2;
@@ -260,7 +274,7 @@
     <!-- Hero Section Background end-->
     <div class="absolute inset-0 bg-gradient-to-r from-slate-900/70 via-slate-800/60 to-slate-900/70 flex items-center">
       <div class="max-w-7xl mx-auto px-6 text-white">
-       <h1 class="text-display-1 font-display font-bold uppercase mb-8 text-center hero-text-shadow" style="letter-spacing: 2px;">
+       <h1 class="text-display-1  font-bold mb-8 text-center hero-text-shadow" style="letter-spacing: 2px;">
   AMZN vs APP
 </h1>
         <p class="mb-6 text-body-large text-center max-w-3xl mx-auto text-slate-200">
@@ -275,7 +289,7 @@
   <!-- Main Content -->
   <!-- heading -->
   <main class="p-10 text-center mt-20">
-    <h2 class="text-display-2 font-display font-bold text-gradient-primary mb-4">
+    <h2 class="text-display-2  font-bold text-gradient-primary mb-4">
       Compare AMZN vs APP
     </h2>
     <div class="w-24 h-1 bg-gradient-to-r from-indigo-500 to-purple-600 mx-auto rounded-full"></div>
@@ -295,33 +309,33 @@
           <!-- Apple (AAPL) -->
           <div class="metric-card">
             <div
-              class="text-indigo-700 text-center font-bold text-2xl border-b-2 border-indigo-200 pb-4 mb-6 font-display">
+              class="text-indigo-700 text-center font-bold text-2xl border-b-2 border-indigo-200 pb-4 mb-6">
               AMZN
             </div>
             <div class="grid grid-cols-1 gap-y-6 text-sm">
               <div
                 class="flex justify-between items-center p-3 rounded-lg bg-slate-50/80 hover:bg-slate-100/80 transition-colors duration-200">
                 <span class="text-slate-600 font-medium text-label text-xs">Stock Price (July 2005)</span><span
-                  class="text-indigo-700 font-bold text-lg">$33.24</span>
+                  class="text-indigo-700 font-bold text-lg">$33.50</span>
               </div>
               <div
                 class="flex justify-between items-center p-3 rounded-lg bg-slate-50/80 hover:bg-slate-100/80 transition-colors duration-200">
-                <span class="text-slate-600 font-medium text-label text-xs">Stock Price (May 2025)</span><span
-                  class="text-indigo-700 font-bold text-lg">$204.84</span>
+                <span class="text-slate-600 font-medium text-label text-xs">Stock Price (June 2025)</span><span
+                  class="text-indigo-700 font-bold text-lg">$223.52</span>
               </div>
               <div
                 class="flex justify-between items-center p-3 rounded-lg bg-slate-50/80 hover:bg-slate-100/80 transition-colors duration-200">
                 <span class="text-slate-600 font-medium text-label text-xs">Approx. 10-Year Growth</span><span
-                  class="text-indigo-700 font-bold text-lg">261.26%</span>
+                  class="text-indigo-700 font-bold text-lg">267.79%</span>
               </div>
               <div
                 class="flex justify-between items-center p-3 rounded-lg bg-slate-50/80 hover:bg-slate-100/80 transition-colors duration-200">
                 <span class="text-slate-600 font-medium text-label text-xs">Approx. 20-Year Growth</span><span
-                  class="text-indigo-700 font-bold text-lg">704.86%</span>
+                  class="text-indigo-700 font-bold text-lg">711.39%</span>
               </div>
               <div
                 class="flex justify-between items-center p-3 rounded-lg bg-slate-50/80 hover:bg-slate-100/80 transition-colors duration-200">
-                <span class="text-slate-600 font-medium text-label text-xs">Market Cap (May 2025)</span><span
+                <span class="text-slate-600 font-medium text-label text-xs">Market Cap (June 2025)</span><span
                   class="text-indigo-700 font-bold text-lg">$2.21 Trillion</span>
               </div>
             </div>
@@ -330,7 +344,7 @@
           <!-- Amazon (AMZN) -->
           <div class="metric-card">
             <div
-              class="text-emerald-700 text-center font-bold text-2xl border-b-2 border-emerald-200 pb-4 mb-6 font-display">
+              class="text-emerald-700 text-center font-bold text-2xl border-b-2 border-emerald-200 pb-4 mb-6">
               APP
             </div>
             <div class="grid grid-cols-1 gap-y-6 text-sm">
@@ -341,22 +355,22 @@
               </div>
               <div
                 class="flex justify-between items-center p-3 rounded-lg bg-slate-50/80 hover:bg-slate-100/80 transition-colors duration-200">
-                <span class="text-slate-600 font-medium text-label text-xs">Stock Price (May 2025)</span><span
-                  class="text-emerald-700 font-bold text-lg">$386.87</span>
+                <span class="text-slate-600 font-medium text-label text-xs">Stock Price (June 2025)</span><span
+                  class="text-emerald-700 font-bold text-lg">$341.32</span>
               </div>
               <div
                 class="flex justify-between items-center p-3 rounded-lg bg-slate-50/80 hover:bg-slate-100/80 transition-colors duration-200">
                 <span class="text-slate-600 font-medium text-label text-xs">Approx. 10-Year Growth</span><span
-                  class="text-emerald-700 font-bold text-lg">977.15%</span>
+                  class="text-emerald-700 font-bold text-lg">964.59%</span>
               </div>
               <div
                 class="flex justify-between items-center p-3 rounded-lg bg-slate-50/80 hover:bg-slate-100/80 transition-colors duration-200">
                 <span class="text-slate-600 font-medium text-label text-xs">Approx. 20-Year Growth</span><span
-                  class="text-emerald-700 font-bold text-lg">977.15%</span>
+                  class="text-emerald-700 font-bold text-lg">964.59%</span>
               </div>
               <div
                 class="flex justify-between items-center p-3 rounded-lg bg-slate-50/80 hover:bg-slate-100/80 transition-colors duration-200">
-                <span class="text-slate-600 font-medium text-label text-xs">Market Cap (May 2025)</span><span
+                <span class="text-slate-600 font-medium text-label text-xs">Market Cap (June 2025)</span><span
                   class="text-emerald-700 font-bold text-lg">$113.49 Billion</span>
               </div>
             </div>
@@ -369,7 +383,7 @@
   <!--Stock graph-->
   <div
     class="bg-gradient-card rounded-2xl shadow-elegant p-10 w-full max-w-7xl mx-auto mt-20 mb-10 border border-slate-200/50">
-    <h2 class="text-3xl font-bold text-center mb-8 text-slate-800 font-display">
+    <h2 class="text-3xl font-bold text-center mb-8 text-slate-800">
       AMZN vs APP Stock Comparison (2005-2025)
     </h2>
 
@@ -380,8 +394,8 @@
   <!--Stock graph script -->
   <script>
     const labels = ["2005","2006","2007","2008","2009","2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023","2024","2025"];
-    const data1 = [43.27,-17.07,139.38,-46.72,147.46,34.43,-6.04,40.13,54.98,-22.02,119.07,17.72,55.17,26.32,20.06,71.6,4.64,-50.71,77.04,46.33,-6.91];
-    const data2 = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,44.57,-88.84,271.39,735.04,14.99];
+    const data1 = [38.35,-17.07,139.38,-46.72,147.46,34.43,-6.04,40.13,54.98,-22.02,119.07,17.72,55.17,26.32,20.06,71.6,4.64,-50.71,77.04,46.33,-0.38];
+    const data2 = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,44.57,-88.84,271.39,735.04,2.43];
     const label1 = "AMZN";
     const label2 = "APP";
 
@@ -451,7 +465,7 @@
   <!--table Start-->
   <div
     class="max-w-7xl mx-auto mt-20 mb-20 p-10 bg-gradient-card rounded-2xl shadow-elegant border border-slate-200/50">
-    <h2 class="text-3xl font-bold mb-8 text-slate-800 flex items-center justify-center font-display">
+    <h2 class="text-3xl font-bold mb-8 text-slate-800 flex items-center justify-center">
       <i class="fa-solid fa-calendar text-indigo-600 mr-4 text-2xl"></i>
       20 Years Performance
     </h2>
@@ -476,8 +490,8 @@
           
             <tr>
                 <td class="px-4 py-4 border text-center">2025</td>
-                <td class="px-4 py-4 border text-center value">-6.91%</td>
-                <td class="px-4 py-4 border text-center value">+14.99%</td>
+                <td class="px-4 py-4 border text-center value">-0.38%</td>
+                <td class="px-4 py-4 border text-center value">+2.43%</td>
             </tr>
 
             <tr>
@@ -596,7 +610,7 @@
 
             <tr>
                 <td class="px-4 py-4 border text-center">2005</td>
-                <td class="px-4 py-4 border text-center value">+43.27%</td>
+                <td class="px-4 py-4 border text-center value">+38.35%</td>
                 <td class="px-4 py-4 border text-center value">+0.00%</td>
             </tr>
         </tbody>
@@ -611,7 +625,7 @@
       class="bg-white rounded-lg shadow-sm p-4 border border-slate-200 transform transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
       <div class="flex justify-between items-center p-3 rounded-lg transition-colors duration-200">
         <span class="text-slate-600 font-medium text-label text-xs">20-Year Average Return for AMZN</span>
-        <span class="font-bold text-lg text-green-600">35.24%</span>
+        <span class="font-bold text-lg text-green-600">35.57%</span>
       </div>
     </div>
 
@@ -620,7 +634,7 @@
       class="bg-white rounded-lg shadow-sm p-4 border border-slate-200 transform transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
       <div class="flex justify-between items-center p-3 rounded-lg transition-colors duration-200">
         <span class="text-slate-600 font-medium text-label text-xs">20-Year Average Return for APP</span>
-        <span class="font-bold text-lg text-green-600">195.43%</span>
+        <span class="font-bold text-lg text-green-600">192.92%</span>
       </div>
     </div>
   </div>
@@ -628,7 +642,7 @@
   <div
     class="max-w-7xl mx-auto mt-20 mb-20 p-10 bg-gradient-card rounded-2xl shadow-elegant border border-slate-200/50">
     <!--Monthly performance Start-->
-    <h2 class="text-3xl font-bold text-slate-800 mb-8 flex items-center justify-center font-display">
+    <h2 class="text-3xl font-bold text-slate-800 mb-8 flex items-center justify-center">
       <i class="fa-solid fa-calendar text-indigo-600 mr-4 text-2xl"></i>
       24 Months Performance
     </h2>
@@ -651,6 +665,12 @@
         </thead>
         <tbody>
           
+            <tr>
+                <td class="px-4 py-4 border text-center">June 2025</td>
+                <td class="px-4 py-4 border text-center value">-5.81%</td>
+                <td class="px-4 py-4 border text-center value">+14.81%</td>
+            </tr>
+
             <tr>
                 <td class="px-4 py-4 border text-center">May 2025</td>
                 <td class="px-4 py-4 border text-center value">-7.22%</td>
@@ -785,12 +805,6 @@
 
             <tr>
                 <td class="px-4 py-4 border text-center">July 2023</td>
-                <td class="px-4 py-4 border text-center value">-2.59%</td>
-                <td class="px-4 py-4 border text-center value">-17.45%</td>
-            </tr>
-
-            <tr>
-                <td class="px-4 py-4 border text-center">June 2023</td>
                 <td class="px-4 py-4 border text-center value">+0.00%</td>
                 <td class="px-4 py-4 border text-center value">+0.00%</td>
             </tr>
@@ -806,7 +820,7 @@
       class="bg-white rounded-lg shadow-sm p-4 border border-slate-200 transform transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
       <div class="flex justify-between items-center p-3 rounded-lg transition-colors duration-200">
         <span class="text-slate-600 font-medium text-label text-xs">24 Months Average Return for AMZN</span>
-        <span class="font-bold text-lg text-red-600">-1.04%</span>
+        <span class="font-bold text-lg text-red-600">-1.18%</span>
       </div>
     </div>
 
@@ -815,7 +829,7 @@
       class="bg-white rounded-lg shadow-sm p-4 border border-slate-200 transform transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
       <div class="flex justify-between items-center p-3 rounded-lg transition-colors duration-200">
         <span class="text-slate-600 font-medium text-label text-xs">24 Months Average Return for APP</span>
-        <span class="font-bold text-lg text-red-600">-8.24%</span>
+        <span class="font-bold text-lg text-red-600">-6.89%</span>
       </div>
     </div>
   </div>
@@ -827,11 +841,10 @@
 
       <div>
 
-        <h3 class="text-center text-2xl md:text-4xl lg:text-[55px] font-bold mb-3 
+        <h3 class="text-center text-2xl md:text-4xl lg:text-[40px] font-bold mb-3 
            bg-clip-text text-transparent px-4 sm:px-6 lg:px-8 max-w-full" style="
-      font-family: 'Playfair Display', serif;
-      background-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      padding-bottom: 10px; padding-top: 50px;">
+        background-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding-bottom: 10px; padding-top: 50px; margin-top: 20px;">
           Related Stock Comparisons
         </h3>
 
@@ -839,26 +852,15 @@
           style="background-image: linear-gradient(90deg, rgba(102,126,234,0.1), #667eea, #764ba2, rgba(118,75,162,0.1));">
 
         <p
-          class="text-center text-gray-600 text-sm lg:text-[18px] md:text-base mb-6 max-w-3xl px-4 sm:px-6 lg:px-8 mx-auto">
+          class="text-center text-gray-600 text-sm lg:text-[18px] md:text-base mb-6 mt-10 max-w-3xl px-4 sm:px-6 lg:px-8 mx-auto">
           Explore more detailed stock comparisons to make informed investment decisions. Compare performance,
           analyze trends, and discover investment opportunities.
         </p>
 
+      </div>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-        <div class="flex justify-center mb-8">
+        <div class="flex justify-center mb-8 mt-10">
           <div class="flex items-center gap-1 text-white px-3 py-1 rounded-full  shadow-md text-center"
             style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
 
@@ -875,25 +877,18 @@
           </div>
         </div>
 
-
-
-
-
-
-
-
         <!-- capsule -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 max-w-7xl mx-auto px-4 pt-2 pb-4">
               
-    <a href="#" class="contents">
+    <a href="./aapl-adsk" class="contents">
       <div class="card group bg-gray-50 rounded-lg px-3 py-2 border border-transparent hover:border-gray-300 hover:shadow-[0_2px_4px_rgba(0,0,0,0.1)] transition-all duration-300 cursor-pointer w-full hover:-translate-y-0.5">
         <div class="flex items-center justify-between">
           <div style="margin: 15px;">
            <p class="text-sm font-medium text-gray-700 text-base font-bold group-hover:text-blue-600 transition truncate max-w-[180px] overflow-hidden whitespace-nowrap" style="margin-bottom: 5px;">
-                Apple vs Adobe
+                Autodesk vs Apple
             </p>
 
-            <p class="text-xs text-gray-500">AAPL vs ADBE</p>
+            <p class="text-xs text-gray-500">ADSK vs AAPL</p>
           </div>
           <svg xmlns="http://www.w3.org/2000/svg"
             class="w-5 h-5 text-gray-400 mr-1 transition-all duration-300 group-hover:text-blue-600 group-hover:translate-x-1"
@@ -902,100 +897,12 @@
           </svg>
           <div
           class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-[14px] font-medium rounded px-2 py-1 whitespace-nowrap shadow-lg transition-opacity duration-100 opacity-0 group-hover:opacity-100 -top-8 right-0">
-                Apple vs Adobe
+                Autodesk vs Apple
           </div>
         </div>
       </div>
     </a>
-    <a href="#" class="contents">
-      <div class="card group bg-gray-50 rounded-lg px-3 py-2 border border-transparent hover:border-gray-300 hover:shadow-[0_2px_4px_rgba(0,0,0,0.1)] transition-all duration-300 cursor-pointer w-full hover:-translate-y-0.5">
-        <div class="flex items-center justify-between">
-          <div style="margin: 15px;">
-           <p class="text-sm font-medium text-gray-700 text-base font-bold group-hover:text-blue-600 transition truncate max-w-[180px] overflow-hidden whitespace-nowrap" style="margin-bottom: 5px;">
-                Apple vs Analog Devices
-            </p>
-
-            <p class="text-xs text-gray-500">AAPL vs ADI</p>
-          </div>
-          <svg xmlns="http://www.w3.org/2000/svg"
-            class="w-5 h-5 text-gray-400 mr-1 transition-all duration-300 group-hover:text-blue-600 group-hover:translate-x-1"
-            viewBox="0 -960 960 960" fill="currentColor">
-            <path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z" />
-          </svg>
-          <div
-          class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-[14px] font-medium rounded px-2 py-1 whitespace-nowrap shadow-lg transition-opacity duration-100 opacity-0 group-hover:opacity-100 -top-8 right-0">
-                Apple vs Analog Devices
-          </div>
-        </div>
-      </div>
-    </a>
-    <a href="#" class="contents">
-      <div class="card group bg-gray-50 rounded-lg px-3 py-2 border border-transparent hover:border-gray-300 hover:shadow-[0_2px_4px_rgba(0,0,0,0.1)] transition-all duration-300 cursor-pointer w-full hover:-translate-y-0.5">
-        <div class="flex items-center justify-between">
-          <div style="margin: 15px;">
-           <p class="text-sm font-medium text-gray-700 text-base font-bold group-hover:text-blue-600 transition truncate max-w-[180px] overflow-hidden whitespace-nowrap" style="margin-bottom: 5px;">
-                Apple vs ADP
-            </p>
-
-            <p class="text-xs text-gray-500">AAPL vs ADP</p>
-          </div>
-          <svg xmlns="http://www.w3.org/2000/svg"
-            class="w-5 h-5 text-gray-400 mr-1 transition-all duration-300 group-hover:text-blue-600 group-hover:translate-x-1"
-            viewBox="0 -960 960 960" fill="currentColor">
-            <path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z" />
-          </svg>
-          <div
-          class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-[14px] font-medium rounded px-2 py-1 whitespace-nowrap shadow-lg transition-opacity duration-100 opacity-0 group-hover:opacity-100 -top-8 right-0">
-                Apple vs ADP
-          </div>
-        </div>
-      </div>
-    </a>
-    <a href="#" class="contents">
-      <div class="card group bg-gray-50 rounded-lg px-3 py-2 border border-transparent hover:border-gray-300 hover:shadow-[0_2px_4px_rgba(0,0,0,0.1)] transition-all duration-300 cursor-pointer w-full hover:-translate-y-0.5">
-        <div class="flex items-center justify-between">
-          <div style="margin: 15px;">
-           <p class="text-sm font-medium text-gray-700 text-base font-bold group-hover:text-blue-600 transition truncate max-w-[180px] overflow-hidden whitespace-nowrap" style="margin-bottom: 5px;">
-                Apple vs Autodesk
-            </p>
-
-            <p class="text-xs text-gray-500">AAPL vs ADSK</p>
-          </div>
-          <svg xmlns="http://www.w3.org/2000/svg"
-            class="w-5 h-5 text-gray-400 mr-1 transition-all duration-300 group-hover:text-blue-600 group-hover:translate-x-1"
-            viewBox="0 -960 960 960" fill="currentColor">
-            <path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z" />
-          </svg>
-          <div
-          class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-[14px] font-medium rounded px-2 py-1 whitespace-nowrap shadow-lg transition-opacity duration-100 opacity-0 group-hover:opacity-100 -top-8 right-0">
-                Apple vs Autodesk
-          </div>
-        </div>
-      </div>
-    </a>
-    <a href="#" class="contents">
-      <div class="card group bg-gray-50 rounded-lg px-3 py-2 border border-transparent hover:border-gray-300 hover:shadow-[0_2px_4px_rgba(0,0,0,0.1)] transition-all duration-300 cursor-pointer w-full hover:-translate-y-0.5">
-        <div class="flex items-center justify-between">
-          <div style="margin: 15px;">
-           <p class="text-sm font-medium text-gray-700 text-base font-bold group-hover:text-blue-600 transition truncate max-w-[180px] overflow-hidden whitespace-nowrap" style="margin-bottom: 5px;">
-                Apple vs Applied Materials
-            </p>
-
-            <p class="text-xs text-gray-500">AAPL vs AMAT</p>
-          </div>
-          <svg xmlns="http://www.w3.org/2000/svg"
-            class="w-5 h-5 text-gray-400 mr-1 transition-all duration-300 group-hover:text-blue-600 group-hover:translate-x-1"
-            viewBox="0 -960 960 960" fill="currentColor">
-            <path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z" />
-          </svg>
-          <div
-          class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-[14px] font-medium rounded px-2 py-1 whitespace-nowrap shadow-lg transition-opacity duration-100 opacity-0 group-hover:opacity-100 -top-8 right-0">
-                Apple vs Applied Materials
-          </div>
-        </div>
-      </div>
-    </a>
-    <a href="#" class="contents">
+    <a href="./aapl-amd" class="contents">
       <div class="card group bg-gray-50 rounded-lg px-3 py-2 border border-transparent hover:border-gray-300 hover:shadow-[0_2px_4px_rgba(0,0,0,0.1)] transition-all duration-300 cursor-pointer w-full hover:-translate-y-0.5">
         <div class="flex items-center justify-between">
           <div style="margin: 15px;">
@@ -1017,15 +924,15 @@
         </div>
       </div>
     </a>
-    <a href="#" class="contents">
+    <a href="./aapl-adbe" class="contents">
       <div class="card group bg-gray-50 rounded-lg px-3 py-2 border border-transparent hover:border-gray-300 hover:shadow-[0_2px_4px_rgba(0,0,0,0.1)] transition-all duration-300 cursor-pointer w-full hover:-translate-y-0.5">
         <div class="flex items-center justify-between">
           <div style="margin: 15px;">
            <p class="text-sm font-medium text-gray-700 text-base font-bold group-hover:text-blue-600 transition truncate max-w-[180px] overflow-hidden whitespace-nowrap" style="margin-bottom: 5px;">
-                Apple vs ANSYS
+                Adobe vs Apple
             </p>
 
-            <p class="text-xs text-gray-500">AAPL vs ANSS</p>
+            <p class="text-xs text-gray-500">ADBE vs AAPL</p>
           </div>
           <svg xmlns="http://www.w3.org/2000/svg"
             class="w-5 h-5 text-gray-400 mr-1 transition-all duration-300 group-hover:text-blue-600 group-hover:translate-x-1"
@@ -1034,20 +941,20 @@
           </svg>
           <div
           class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-[14px] font-medium rounded px-2 py-1 whitespace-nowrap shadow-lg transition-opacity duration-100 opacity-0 group-hover:opacity-100 -top-8 right-0">
-                Apple vs ANSYS
+                Adobe vs Apple
           </div>
         </div>
       </div>
     </a>
-    <a href="#" class="contents">
+    <a href="./aapl-amat" class="contents">
       <div class="card group bg-gray-50 rounded-lg px-3 py-2 border border-transparent hover:border-gray-300 hover:shadow-[0_2px_4px_rgba(0,0,0,0.1)] transition-all duration-300 cursor-pointer w-full hover:-translate-y-0.5">
         <div class="flex items-center justify-between">
           <div style="margin: 15px;">
            <p class="text-sm font-medium text-gray-700 text-base font-bold group-hover:text-blue-600 transition truncate max-w-[180px] overflow-hidden whitespace-nowrap" style="margin-bottom: 5px;">
-                Apple vs AppLovin
+                Apple vs Applied Materials
             </p>
 
-            <p class="text-xs text-gray-500">AAPL vs APP</p>
+            <p class="text-xs text-gray-500">AAPL vs AMAT</p>
           </div>
           <svg xmlns="http://www.w3.org/2000/svg"
             class="w-5 h-5 text-gray-400 mr-1 transition-all duration-300 group-hover:text-blue-600 group-hover:translate-x-1"
@@ -1056,7 +963,95 @@
           </svg>
           <div
           class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-[14px] font-medium rounded px-2 py-1 whitespace-nowrap shadow-lg transition-opacity duration-100 opacity-0 group-hover:opacity-100 -top-8 right-0">
-                Apple vs AppLovin
+                Apple vs Applied Materials
+          </div>
+        </div>
+      </div>
+    </a>
+    <a href="./aapl-adp" class="contents">
+      <div class="card group bg-gray-50 rounded-lg px-3 py-2 border border-transparent hover:border-gray-300 hover:shadow-[0_2px_4px_rgba(0,0,0,0.1)] transition-all duration-300 cursor-pointer w-full hover:-translate-y-0.5">
+        <div class="flex items-center justify-between">
+          <div style="margin: 15px;">
+           <p class="text-sm font-medium text-gray-700 text-base font-bold group-hover:text-blue-600 transition truncate max-w-[180px] overflow-hidden whitespace-nowrap" style="margin-bottom: 5px;">
+                ADP vs Apple
+            </p>
+
+            <p class="text-xs text-gray-500">ADP vs AAPL</p>
+          </div>
+          <svg xmlns="http://www.w3.org/2000/svg"
+            class="w-5 h-5 text-gray-400 mr-1 transition-all duration-300 group-hover:text-blue-600 group-hover:translate-x-1"
+            viewBox="0 -960 960 960" fill="currentColor">
+            <path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z" />
+          </svg>
+          <div
+          class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-[14px] font-medium rounded px-2 py-1 whitespace-nowrap shadow-lg transition-opacity duration-100 opacity-0 group-hover:opacity-100 -top-8 right-0">
+                ADP vs Apple
+          </div>
+        </div>
+      </div>
+    </a>
+    <a href="./adbe-adp" class="contents">
+      <div class="card group bg-gray-50 rounded-lg px-3 py-2 border border-transparent hover:border-gray-300 hover:shadow-[0_2px_4px_rgba(0,0,0,0.1)] transition-all duration-300 cursor-pointer w-full hover:-translate-y-0.5">
+        <div class="flex items-center justify-between">
+          <div style="margin: 15px;">
+           <p class="text-sm font-medium text-gray-700 text-base font-bold group-hover:text-blue-600 transition truncate max-w-[180px] overflow-hidden whitespace-nowrap" style="margin-bottom: 5px;">
+                ADP vs Adobe
+            </p>
+
+            <p class="text-xs text-gray-500">ADP vs ADBE</p>
+          </div>
+          <svg xmlns="http://www.w3.org/2000/svg"
+            class="w-5 h-5 text-gray-400 mr-1 transition-all duration-300 group-hover:text-blue-600 group-hover:translate-x-1"
+            viewBox="0 -960 960 960" fill="currentColor">
+            <path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z" />
+          </svg>
+          <div
+          class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-[14px] font-medium rounded px-2 py-1 whitespace-nowrap shadow-lg transition-opacity duration-100 opacity-0 group-hover:opacity-100 -top-8 right-0">
+                ADP vs Adobe
+          </div>
+        </div>
+      </div>
+    </a>
+    <a href="./aapl-adi" class="contents">
+      <div class="card group bg-gray-50 rounded-lg px-3 py-2 border border-transparent hover:border-gray-300 hover:shadow-[0_2px_4px_rgba(0,0,0,0.1)] transition-all duration-300 cursor-pointer w-full hover:-translate-y-0.5">
+        <div class="flex items-center justify-between">
+          <div style="margin: 15px;">
+           <p class="text-sm font-medium text-gray-700 text-base font-bold group-hover:text-blue-600 transition truncate max-w-[180px] overflow-hidden whitespace-nowrap" style="margin-bottom: 5px;">
+                Analog Devices vs Apple
+            </p>
+
+            <p class="text-xs text-gray-500">ADI vs AAPL</p>
+          </div>
+          <svg xmlns="http://www.w3.org/2000/svg"
+            class="w-5 h-5 text-gray-400 mr-1 transition-all duration-300 group-hover:text-blue-600 group-hover:translate-x-1"
+            viewBox="0 -960 960 960" fill="currentColor">
+            <path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z" />
+          </svg>
+          <div
+          class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-[14px] font-medium rounded px-2 py-1 whitespace-nowrap shadow-lg transition-opacity duration-100 opacity-0 group-hover:opacity-100 -top-8 right-0">
+                Analog Devices vs Apple
+          </div>
+        </div>
+      </div>
+    </a>
+    <a href="./adbe-adsk" class="contents">
+      <div class="card group bg-gray-50 rounded-lg px-3 py-2 border border-transparent hover:border-gray-300 hover:shadow-[0_2px_4px_rgba(0,0,0,0.1)] transition-all duration-300 cursor-pointer w-full hover:-translate-y-0.5">
+        <div class="flex items-center justify-between">
+          <div style="margin: 15px;">
+           <p class="text-sm font-medium text-gray-700 text-base font-bold group-hover:text-blue-600 transition truncate max-w-[180px] overflow-hidden whitespace-nowrap" style="margin-bottom: 5px;">
+                Autodesk vs Adobe
+            </p>
+
+            <p class="text-xs text-gray-500">ADSK vs ADBE</p>
+          </div>
+          <svg xmlns="http://www.w3.org/2000/svg"
+            class="w-5 h-5 text-gray-400 mr-1 transition-all duration-300 group-hover:text-blue-600 group-hover:translate-x-1"
+            viewBox="0 -960 960 960" fill="currentColor">
+            <path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z" />
+          </svg>
+          <div
+          class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-[14px] font-medium rounded px-2 py-1 whitespace-nowrap shadow-lg transition-opacity duration-100 opacity-0 group-hover:opacity-100 -top-8 right-0">
+                Autodesk vs Adobe
           </div>
         </div>
       </div>
@@ -1067,13 +1062,10 @@
         <!-- show more ts -->
         <!-- Buttons -->
      <div class="flex justify-center mt-6">
-      <a href="./tech-titans" class="text-sm font-semibold text-blue-600 hover:underline transition">
+      <a href="./tech-titans" class="text-sm font-semibold text-blue-600 underline">
         View All
       </a>
     </div>
-      </div>
-
-
 
       <!-- show more ts end-->
 
@@ -1098,15 +1090,15 @@
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 max-w-7xl mx-auto px-4 pt-2 pb-4">
 
        
-    <a href="#" class="contents">
+    <a href="./bkng-csgp" class="contents">
       <div class="card-fs group bg-gray-50 rounded-lg px-3 py-2 border border-transparent hover:border-gray-300 hover:shadow-[0_2px_4px_rgba(0,0,0,0.1)] transition-all duration-300 cursor-pointer w-full hover:-translate-y-0.5">
         <div class="flex items-center justify-between">
           <div style="margin: 15px;">
            <p class="text-sm font-medium text-gray-700 text-base font-bold group-hover:text-blue-600 transition truncate max-w-[180px] overflow-hidden whitespace-nowrap" style="margin-bottom: 5px;">
-                Amazon vs Booking
+                Booking vs CoStar Group
             </p>
 
-            <p class="text-xs text-gray-500">AMZN vs BKNG</p>
+            <p class="text-xs text-gray-500">BKNG vs CSGP</p>
           </div>
           <svg xmlns="http://www.w3.org/2000/svg"
             class="w-5 h-5 text-gray-400 mr-1 transition-all duration-300 group-hover:text-blue-600 group-hover:translate-x-1"
@@ -1115,7 +1107,29 @@
           </svg>
           <div
           class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-[14px] font-medium rounded px-2 py-1 whitespace-nowrap shadow-lg transition-opacity duration-100 opacity-0 group-hover:opacity-100 -top-8 right-0">
-                Amazon vs Booking
+                Booking vs CoStar Group
+          </div>
+        </div>
+      </div>
+    </a>
+    <a href="./cost-cprt" class="contents">
+      <div class="card-fs group bg-gray-50 rounded-lg px-3 py-2 border border-transparent hover:border-gray-300 hover:shadow-[0_2px_4px_rgba(0,0,0,0.1)] transition-all duration-300 cursor-pointer w-full hover:-translate-y-0.5">
+        <div class="flex items-center justify-between">
+          <div style="margin: 15px;">
+           <p class="text-sm font-medium text-gray-700 text-base font-bold group-hover:text-blue-600 transition truncate max-w-[180px] overflow-hidden whitespace-nowrap" style="margin-bottom: 5px;">
+                Costco vs Copart
+            </p>
+
+            <p class="text-xs text-gray-500">COST vs CPRT</p>
+          </div>
+          <svg xmlns="http://www.w3.org/2000/svg"
+            class="w-5 h-5 text-gray-400 mr-1 transition-all duration-300 group-hover:text-blue-600 group-hover:translate-x-1"
+            viewBox="0 -960 960 960" fill="currentColor">
+            <path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z" />
+          </svg>
+          <div
+          class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-[14px] font-medium rounded px-2 py-1 whitespace-nowrap shadow-lg transition-opacity duration-100 opacity-0 group-hover:opacity-100 -top-8 right-0">
+                Costco vs Copart
           </div>
         </div>
       </div>
@@ -1125,10 +1139,10 @@
         <div class="flex items-center justify-between">
           <div style="margin: 15px;">
            <p class="text-sm font-medium text-gray-700 text-base font-bold group-hover:text-blue-600 transition truncate max-w-[180px] overflow-hidden whitespace-nowrap" style="margin-bottom: 5px;">
-                Amazon vs Costco
+                Costco vs MercadoLibre
             </p>
 
-            <p class="text-xs text-gray-500">AMZN vs COST</p>
+            <p class="text-xs text-gray-500">COST vs MELI</p>
           </div>
           <svg xmlns="http://www.w3.org/2000/svg"
             class="w-5 h-5 text-gray-400 mr-1 transition-all duration-300 group-hover:text-blue-600 group-hover:translate-x-1"
@@ -1137,7 +1151,51 @@
           </svg>
           <div
           class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-[14px] font-medium rounded px-2 py-1 whitespace-nowrap shadow-lg transition-opacity duration-100 opacity-0 group-hover:opacity-100 -top-8 right-0">
-                Amazon vs Costco
+                Costco vs MercadoLibre
+          </div>
+        </div>
+      </div>
+    </a>
+    <a href="./amzn-cost" class="contents">
+      <div class="card-fs group bg-gray-50 rounded-lg px-3 py-2 border border-transparent hover:border-gray-300 hover:shadow-[0_2px_4px_rgba(0,0,0,0.1)] transition-all duration-300 cursor-pointer w-full hover:-translate-y-0.5">
+        <div class="flex items-center justify-between">
+          <div style="margin: 15px;">
+           <p class="text-sm font-medium text-gray-700 text-base font-bold group-hover:text-blue-600 transition truncate max-w-[180px] overflow-hidden whitespace-nowrap" style="margin-bottom: 5px;">
+                Costco vs Amazon
+            </p>
+
+            <p class="text-xs text-gray-500">COST vs AMZN</p>
+          </div>
+          <svg xmlns="http://www.w3.org/2000/svg"
+            class="w-5 h-5 text-gray-400 mr-1 transition-all duration-300 group-hover:text-blue-600 group-hover:translate-x-1"
+            viewBox="0 -960 960 960" fill="currentColor">
+            <path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z" />
+          </svg>
+          <div
+          class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-[14px] font-medium rounded px-2 py-1 whitespace-nowrap shadow-lg transition-opacity duration-100 opacity-0 group-hover:opacity-100 -top-8 right-0">
+                Costco vs Amazon
+          </div>
+        </div>
+      </div>
+    </a>
+    <a href="./cost-fast" class="contents">
+      <div class="card-fs group bg-gray-50 rounded-lg px-3 py-2 border border-transparent hover:border-gray-300 hover:shadow-[0_2px_4px_rgba(0,0,0,0.1)] transition-all duration-300 cursor-pointer w-full hover:-translate-y-0.5">
+        <div class="flex items-center justify-between">
+          <div style="margin: 15px;">
+           <p class="text-sm font-medium text-gray-700 text-base font-bold group-hover:text-blue-600 transition truncate max-w-[180px] overflow-hidden whitespace-nowrap" style="margin-bottom: 5px;">
+                Costco vs Fastenal
+            </p>
+
+            <p class="text-xs text-gray-500">COST vs FAST</p>
+          </div>
+          <svg xmlns="http://www.w3.org/2000/svg"
+            class="w-5 h-5 text-gray-400 mr-1 transition-all duration-300 group-hover:text-blue-600 group-hover:translate-x-1"
+            viewBox="0 -960 960 960" fill="currentColor">
+            <path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z" />
+          </svg>
+          <div
+          class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-[14px] font-medium rounded px-2 py-1 whitespace-nowrap shadow-lg transition-opacity duration-100 opacity-0 group-hover:opacity-100 -top-8 right-0">
+                Costco vs Fastenal
           </div>
         </div>
       </div>
@@ -1147,10 +1205,10 @@
         <div class="flex items-center justify-between">
           <div style="margin: 15px;">
            <p class="text-sm font-medium text-gray-700 text-base font-bold group-hover:text-blue-600 transition truncate max-w-[180px] overflow-hidden whitespace-nowrap" style="margin-bottom: 5px;">
-                Amazon vs Copart
+                Costco vs Lululemon
             </p>
 
-            <p class="text-xs text-gray-500">AMZN vs CPRT</p>
+            <p class="text-xs text-gray-500">COST vs LULU</p>
           </div>
           <svg xmlns="http://www.w3.org/2000/svg"
             class="w-5 h-5 text-gray-400 mr-1 transition-all duration-300 group-hover:text-blue-600 group-hover:translate-x-1"
@@ -1159,7 +1217,7 @@
           </svg>
           <div
           class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-[14px] font-medium rounded px-2 py-1 whitespace-nowrap shadow-lg transition-opacity duration-100 opacity-0 group-hover:opacity-100 -top-8 right-0">
-                Amazon vs Copart
+                Costco vs Lululemon
           </div>
         </div>
       </div>
@@ -1169,10 +1227,10 @@
         <div class="flex items-center justify-between">
           <div style="margin: 15px;">
            <p class="text-sm font-medium text-gray-700 text-base font-bold group-hover:text-blue-600 transition truncate max-w-[180px] overflow-hidden whitespace-nowrap" style="margin-bottom: 5px;">
-                Amazon vs CoStar Group
+                Costco vs Marriott
             </p>
 
-            <p class="text-xs text-gray-500">AMZN vs CSGP</p>
+            <p class="text-xs text-gray-500">COST vs MAR</p>
           </div>
           <svg xmlns="http://www.w3.org/2000/svg"
             class="w-5 h-5 text-gray-400 mr-1 transition-all duration-300 group-hover:text-blue-600 group-hover:translate-x-1"
@@ -1181,7 +1239,7 @@
           </svg>
           <div
           class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-[14px] font-medium rounded px-2 py-1 whitespace-nowrap shadow-lg transition-opacity duration-100 opacity-0 group-hover:opacity-100 -top-8 right-0">
-                Amazon vs CoStar Group
+                Costco vs Marriott
           </div>
         </div>
       </div>
@@ -1191,10 +1249,10 @@
         <div class="flex items-center justify-between">
           <div style="margin: 15px;">
            <p class="text-sm font-medium text-gray-700 text-base font-bold group-hover:text-blue-600 transition truncate max-w-[180px] overflow-hidden whitespace-nowrap" style="margin-bottom: 5px;">
-                Amazon vs Cintas
+                Costco vs Netflix
             </p>
 
-            <p class="text-xs text-gray-500">AMZN vs CTAS</p>
+            <p class="text-xs text-gray-500">COST vs NFLX</p>
           </div>
           <svg xmlns="http://www.w3.org/2000/svg"
             class="w-5 h-5 text-gray-400 mr-1 transition-all duration-300 group-hover:text-blue-600 group-hover:translate-x-1"
@@ -1203,73 +1261,7 @@
           </svg>
           <div
           class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-[14px] font-medium rounded px-2 py-1 whitespace-nowrap shadow-lg transition-opacity duration-100 opacity-0 group-hover:opacity-100 -top-8 right-0">
-                Amazon vs Cintas
-          </div>
-        </div>
-      </div>
-    </a>
-    <a href="#" class="contents">
-      <div class="card-fs group bg-gray-50 rounded-lg px-3 py-2 border border-transparent hover:border-gray-300 hover:shadow-[0_2px_4px_rgba(0,0,0,0.1)] transition-all duration-300 cursor-pointer w-full hover:-translate-y-0.5">
-        <div class="flex items-center justify-between">
-          <div style="margin: 15px;">
-           <p class="text-sm font-medium text-gray-700 text-base font-bold group-hover:text-blue-600 transition truncate max-w-[180px] overflow-hidden whitespace-nowrap" style="margin-bottom: 5px;">
-                Amazon vs Fastenal
-            </p>
-
-            <p class="text-xs text-gray-500">AMZN vs FAST</p>
-          </div>
-          <svg xmlns="http://www.w3.org/2000/svg"
-            class="w-5 h-5 text-gray-400 mr-1 transition-all duration-300 group-hover:text-blue-600 group-hover:translate-x-1"
-            viewBox="0 -960 960 960" fill="currentColor">
-            <path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z" />
-          </svg>
-          <div
-          class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-[14px] font-medium rounded px-2 py-1 whitespace-nowrap shadow-lg transition-opacity duration-100 opacity-0 group-hover:opacity-100 -top-8 right-0">
-                Amazon vs Fastenal
-          </div>
-        </div>
-      </div>
-    </a>
-    <a href="#" class="contents">
-      <div class="card-fs group bg-gray-50 rounded-lg px-3 py-2 border border-transparent hover:border-gray-300 hover:shadow-[0_2px_4px_rgba(0,0,0,0.1)] transition-all duration-300 cursor-pointer w-full hover:-translate-y-0.5">
-        <div class="flex items-center justify-between">
-          <div style="margin: 15px;">
-           <p class="text-sm font-medium text-gray-700 text-base font-bold group-hover:text-blue-600 transition truncate max-w-[180px] overflow-hidden whitespace-nowrap" style="margin-bottom: 5px;">
-                Amazon vs Lululemon
-            </p>
-
-            <p class="text-xs text-gray-500">AMZN vs LULU</p>
-          </div>
-          <svg xmlns="http://www.w3.org/2000/svg"
-            class="w-5 h-5 text-gray-400 mr-1 transition-all duration-300 group-hover:text-blue-600 group-hover:translate-x-1"
-            viewBox="0 -960 960 960" fill="currentColor">
-            <path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z" />
-          </svg>
-          <div
-          class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-[14px] font-medium rounded px-2 py-1 whitespace-nowrap shadow-lg transition-opacity duration-100 opacity-0 group-hover:opacity-100 -top-8 right-0">
-                Amazon vs Lululemon
-          </div>
-        </div>
-      </div>
-    </a>
-    <a href="#" class="contents">
-      <div class="card-fs group bg-gray-50 rounded-lg px-3 py-2 border border-transparent hover:border-gray-300 hover:shadow-[0_2px_4px_rgba(0,0,0,0.1)] transition-all duration-300 cursor-pointer w-full hover:-translate-y-0.5">
-        <div class="flex items-center justify-between">
-          <div style="margin: 15px;">
-           <p class="text-sm font-medium text-gray-700 text-base font-bold group-hover:text-blue-600 transition truncate max-w-[180px] overflow-hidden whitespace-nowrap" style="margin-bottom: 5px;">
-                Amazon vs Marriott
-            </p>
-
-            <p class="text-xs text-gray-500">AMZN vs MAR</p>
-          </div>
-          <svg xmlns="http://www.w3.org/2000/svg"
-            class="w-5 h-5 text-gray-400 mr-1 transition-all duration-300 group-hover:text-blue-600 group-hover:translate-x-1"
-            viewBox="0 -960 960 960" fill="currentColor">
-            <path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z" />
-          </svg>
-          <div
-          class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-[14px] font-medium rounded px-2 py-1 whitespace-nowrap shadow-lg transition-opacity duration-100 opacity-0 group-hover:opacity-100 -top-8 right-0">
-                Amazon vs Marriott
+                Costco vs Netflix
           </div>
         </div>
       </div>
@@ -1280,13 +1272,11 @@
       <!-- show more fs -->
       <!-- Buttons -->
       <div class="flex justify-center mt-6">
-      <a href="./discretionary-brands" class="text-sm font-semibold text-blue-600 hover:underline transition">
+      <a href="./discretionary-brands" class="text-sm font-semibold text-blue-600 underline">
         View All
       </a>
     </div>
   
-    </div>
-
     <!-- consumer sector end -->
 
     <!-- healthcare start -->
@@ -1310,29 +1300,7 @@
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 max-w-7xl mx-auto px-4 pt-2 pb-4">
 
       
-    <a href="#" class="contents">
-      <div class="card-hs group bg-gray-50 rounded-lg px-3 py-2 border border-transparent hover:border-gray-300 hover:shadow-[0_2px_4px_rgba(0,0,0,0.1)] transition-all duration-300 cursor-pointer w-full hover:-translate-y-0.5">
-        <div class="flex items-center justify-between">
-          <div style="margin: 15px;">
-           <p class="text-sm font-medium text-gray-700 text-base font-bold group-hover:text-blue-600 transition truncate max-w-[180px] overflow-hidden whitespace-nowrap" style="margin-bottom: 5px;">
-                Amgen vs AstraZeneca
-            </p>
-
-            <p class="text-xs text-gray-500">AMGN vs AZN</p>
-          </div>
-          <svg xmlns="http://www.w3.org/2000/svg"
-            class="w-5 h-5 text-gray-400 mr-1 transition-all duration-300 group-hover:text-blue-600 group-hover:translate-x-1"
-            viewBox="0 -960 960 960" fill="currentColor">
-            <path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z" />
-          </svg>
-          <div
-          class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-[14px] font-medium rounded px-2 py-1 whitespace-nowrap shadow-lg transition-opacity duration-100 opacity-0 group-hover:opacity-100 -top-8 right-0">
-                Amgen vs AstraZeneca
-          </div>
-        </div>
-      </div>
-    </a>
-    <a href="#" class="contents">
+    <a href="./amgn-biib" class="contents">
       <div class="card-hs group bg-gray-50 rounded-lg px-3 py-2 border border-transparent hover:border-gray-300 hover:shadow-[0_2px_4px_rgba(0,0,0,0.1)] transition-all duration-300 cursor-pointer w-full hover:-translate-y-0.5">
         <div class="flex items-center justify-between">
           <div style="margin: 15px;">
@@ -1354,15 +1322,15 @@
         </div>
       </div>
     </a>
-    <a href="#" class="contents">
+    <a href="./amgn-azn" class="contents">
       <div class="card-hs group bg-gray-50 rounded-lg px-3 py-2 border border-transparent hover:border-gray-300 hover:shadow-[0_2px_4px_rgba(0,0,0,0.1)] transition-all duration-300 cursor-pointer w-full hover:-translate-y-0.5">
         <div class="flex items-center justify-between">
           <div style="margin: 15px;">
            <p class="text-sm font-medium text-gray-700 text-base font-bold group-hover:text-blue-600 transition truncate max-w-[180px] overflow-hidden whitespace-nowrap" style="margin-bottom: 5px;">
-                Amgen vs DexCom
+                Amgen vs AstraZeneca
             </p>
 
-            <p class="text-xs text-gray-500">AMGN vs DXCM</p>
+            <p class="text-xs text-gray-500">AMGN vs AZN</p>
           </div>
           <svg xmlns="http://www.w3.org/2000/svg"
             class="w-5 h-5 text-gray-400 mr-1 transition-all duration-300 group-hover:text-blue-600 group-hover:translate-x-1"
@@ -1371,20 +1339,20 @@
           </svg>
           <div
           class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-[14px] font-medium rounded px-2 py-1 whitespace-nowrap shadow-lg transition-opacity duration-100 opacity-0 group-hover:opacity-100 -top-8 right-0">
-                Amgen vs DexCom
+                Amgen vs AstraZeneca
           </div>
         </div>
       </div>
     </a>
-    <a href="#" class="contents">
+    <a href="./azn-biib" class="contents">
       <div class="card-hs group bg-gray-50 rounded-lg px-3 py-2 border border-transparent hover:border-gray-300 hover:shadow-[0_2px_4px_rgba(0,0,0,0.1)] transition-all duration-300 cursor-pointer w-full hover:-translate-y-0.5">
         <div class="flex items-center justify-between">
           <div style="margin: 15px;">
            <p class="text-sm font-medium text-gray-700 text-base font-bold group-hover:text-blue-600 transition truncate max-w-[180px] overflow-hidden whitespace-nowrap" style="margin-bottom: 5px;">
-                Amgen vs Gilead Sciences
+                AstraZeneca vs Biogen
             </p>
 
-            <p class="text-xs text-gray-500">AMGN vs GILD</p>
+            <p class="text-xs text-gray-500">AZN vs BIIB</p>
           </div>
           <svg xmlns="http://www.w3.org/2000/svg"
             class="w-5 h-5 text-gray-400 mr-1 transition-all duration-300 group-hover:text-blue-600 group-hover:translate-x-1"
@@ -1393,73 +1361,7 @@
           </svg>
           <div
           class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-[14px] font-medium rounded px-2 py-1 whitespace-nowrap shadow-lg transition-opacity duration-100 opacity-0 group-hover:opacity-100 -top-8 right-0">
-                Amgen vs Gilead Sciences
-          </div>
-        </div>
-      </div>
-    </a>
-    <a href="#" class="contents">
-      <div class="card-hs group bg-gray-50 rounded-lg px-3 py-2 border border-transparent hover:border-gray-300 hover:shadow-[0_2px_4px_rgba(0,0,0,0.1)] transition-all duration-300 cursor-pointer w-full hover:-translate-y-0.5">
-        <div class="flex items-center justify-between">
-          <div style="margin: 15px;">
-           <p class="text-sm font-medium text-gray-700 text-base font-bold group-hover:text-blue-600 transition truncate max-w-[180px] overflow-hidden whitespace-nowrap" style="margin-bottom: 5px;">
-                Amgen vs IDEXX
-            </p>
-
-            <p class="text-xs text-gray-500">AMGN vs IDXX</p>
-          </div>
-          <svg xmlns="http://www.w3.org/2000/svg"
-            class="w-5 h-5 text-gray-400 mr-1 transition-all duration-300 group-hover:text-blue-600 group-hover:translate-x-1"
-            viewBox="0 -960 960 960" fill="currentColor">
-            <path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z" />
-          </svg>
-          <div
-          class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-[14px] font-medium rounded px-2 py-1 whitespace-nowrap shadow-lg transition-opacity duration-100 opacity-0 group-hover:opacity-100 -top-8 right-0">
-                Amgen vs IDEXX
-          </div>
-        </div>
-      </div>
-    </a>
-    <a href="#" class="contents">
-      <div class="card-hs group bg-gray-50 rounded-lg px-3 py-2 border border-transparent hover:border-gray-300 hover:shadow-[0_2px_4px_rgba(0,0,0,0.1)] transition-all duration-300 cursor-pointer w-full hover:-translate-y-0.5">
-        <div class="flex items-center justify-between">
-          <div style="margin: 15px;">
-           <p class="text-sm font-medium text-gray-700 text-base font-bold group-hover:text-blue-600 transition truncate max-w-[180px] overflow-hidden whitespace-nowrap" style="margin-bottom: 5px;">
-                Amgen vs Intuitive Surgical
-            </p>
-
-            <p class="text-xs text-gray-500">AMGN vs ISRG</p>
-          </div>
-          <svg xmlns="http://www.w3.org/2000/svg"
-            class="w-5 h-5 text-gray-400 mr-1 transition-all duration-300 group-hover:text-blue-600 group-hover:translate-x-1"
-            viewBox="0 -960 960 960" fill="currentColor">
-            <path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z" />
-          </svg>
-          <div
-          class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-[14px] font-medium rounded px-2 py-1 whitespace-nowrap shadow-lg transition-opacity duration-100 opacity-0 group-hover:opacity-100 -top-8 right-0">
-                Amgen vs Intuitive Surgical
-          </div>
-        </div>
-      </div>
-    </a>
-    <a href="#" class="contents">
-      <div class="card-hs group bg-gray-50 rounded-lg px-3 py-2 border border-transparent hover:border-gray-300 hover:shadow-[0_2px_4px_rgba(0,0,0,0.1)] transition-all duration-300 cursor-pointer w-full hover:-translate-y-0.5">
-        <div class="flex items-center justify-between">
-          <div style="margin: 15px;">
-           <p class="text-sm font-medium text-gray-700 text-base font-bold group-hover:text-blue-600 transition truncate max-w-[180px] overflow-hidden whitespace-nowrap" style="margin-bottom: 5px;">
-                Amgen vs Regeneron
-            </p>
-
-            <p class="text-xs text-gray-500">AMGN vs REGN</p>
-          </div>
-          <svg xmlns="http://www.w3.org/2000/svg"
-            class="w-5 h-5 text-gray-400 mr-1 transition-all duration-300 group-hover:text-blue-600 group-hover:translate-x-1"
-            viewBox="0 -960 960 960" fill="currentColor">
-            <path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z" />
-          </svg>
-          <div
-          class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-[14px] font-medium rounded px-2 py-1 whitespace-nowrap shadow-lg transition-opacity duration-100 opacity-0 group-hover:opacity-100 -top-8 right-0">
-                Amgen vs Regeneron
+                AstraZeneca vs Biogen
           </div>
         </div>
       </div>
@@ -1486,15 +1388,102 @@
         </div>
       </div>
     </a>
+    <a href="./amgn-gild" class="contents">
+      <div class="card-hs group bg-gray-50 rounded-lg px-3 py-2 border border-transparent hover:border-gray-300 hover:shadow-[0_2px_4px_rgba(0,0,0,0.1)] transition-all duration-300 cursor-pointer w-full hover:-translate-y-0.5">
+        <div class="flex items-center justify-between">
+          <div style="margin: 15px;">
+           <p class="text-sm font-medium text-gray-700 text-base font-bold group-hover:text-blue-600 transition truncate max-w-[180px] overflow-hidden whitespace-nowrap" style="margin-bottom: 5px;">
+                Amgen vs Gilead Sciences
+            </p>
+
+            <p class="text-xs text-gray-500">AMGN vs GILD</p>
+          </div>
+          <svg xmlns="http://www.w3.org/2000/svg"
+            class="w-5 h-5 text-gray-400 mr-1 transition-all duration-300 group-hover:text-blue-600 group-hover:translate-x-1"
+            viewBox="0 -960 960 960" fill="currentColor">
+            <path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z" />
+          </svg>
+          <div
+          class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-[14px] font-medium rounded px-2 py-1 whitespace-nowrap shadow-lg transition-opacity duration-100 opacity-0 group-hover:opacity-100 -top-8 right-0">
+                Amgen vs Gilead Sciences
+          </div>
+        </div>
+      </div>
+    </a>
+    <a href="#" class="contents">
+      <div class="card-hs group bg-gray-50 rounded-lg px-3 py-2 border border-transparent hover:border-gray-300 hover:shadow-[0_2px_4px_rgba(0,0,0,0.1)] transition-all duration-300 cursor-pointer w-full hover:-translate-y-0.5">
+        <div class="flex items-center justify-between">
+          <div style="margin: 15px;">
+           <p class="text-sm font-medium text-gray-700 text-base font-bold group-hover:text-blue-600 transition truncate max-w-[180px] overflow-hidden whitespace-nowrap" style="margin-bottom: 5px;">
+                Amgen vs Intuitive Surgical
+            </p>
+
+            <p class="text-xs text-gray-500">AMGN vs ISRG</p>
+          </div>
+          <svg xmlns="http://www.w3.org/2000/svg"
+            class="w-5 h-5 text-gray-400 mr-1 transition-all duration-300 group-hover:text-blue-600 group-hover:translate-x-1"
+            viewBox="0 -960 960 960" fill="currentColor">
+            <path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z" />
+          </svg>
+          <div
+          class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-[14px] font-medium rounded px-2 py-1 whitespace-nowrap shadow-lg transition-opacity duration-100 opacity-0 group-hover:opacity-100 -top-8 right-0">
+                Amgen vs Intuitive Surgical
+          </div>
+        </div>
+      </div>
+    </a>
+    <a href="./amgn-dxcm" class="contents">
+      <div class="card-hs group bg-gray-50 rounded-lg px-3 py-2 border border-transparent hover:border-gray-300 hover:shadow-[0_2px_4px_rgba(0,0,0,0.1)] transition-all duration-300 cursor-pointer w-full hover:-translate-y-0.5">
+        <div class="flex items-center justify-between">
+          <div style="margin: 15px;">
+           <p class="text-sm font-medium text-gray-700 text-base font-bold group-hover:text-blue-600 transition truncate max-w-[180px] overflow-hidden whitespace-nowrap" style="margin-bottom: 5px;">
+                Amgen vs DexCom
+            </p>
+
+            <p class="text-xs text-gray-500">AMGN vs DXCM</p>
+          </div>
+          <svg xmlns="http://www.w3.org/2000/svg"
+            class="w-5 h-5 text-gray-400 mr-1 transition-all duration-300 group-hover:text-blue-600 group-hover:translate-x-1"
+            viewBox="0 -960 960 960" fill="currentColor">
+            <path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z" />
+          </svg>
+          <div
+          class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-[14px] font-medium rounded px-2 py-1 whitespace-nowrap shadow-lg transition-opacity duration-100 opacity-0 group-hover:opacity-100 -top-8 right-0">
+                Amgen vs DexCom
+          </div>
+        </div>
+      </div>
+    </a>
+    <a href="./amgn-idxx" class="contents">
+      <div class="card-hs group bg-gray-50 rounded-lg px-3 py-2 border border-transparent hover:border-gray-300 hover:shadow-[0_2px_4px_rgba(0,0,0,0.1)] transition-all duration-300 cursor-pointer w-full hover:-translate-y-0.5">
+        <div class="flex items-center justify-between">
+          <div style="margin: 15px;">
+           <p class="text-sm font-medium text-gray-700 text-base font-bold group-hover:text-blue-600 transition truncate max-w-[180px] overflow-hidden whitespace-nowrap" style="margin-bottom: 5px;">
+                Amgen vs IDEXX
+            </p>
+
+            <p class="text-xs text-gray-500">AMGN vs IDXX</p>
+          </div>
+          <svg xmlns="http://www.w3.org/2000/svg"
+            class="w-5 h-5 text-gray-400 mr-1 transition-all duration-300 group-hover:text-blue-600 group-hover:translate-x-1"
+            viewBox="0 -960 960 960" fill="currentColor">
+            <path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z" />
+          </svg>
+          <div
+          class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-[14px] font-medium rounded px-2 py-1 whitespace-nowrap shadow-lg transition-opacity duration-100 opacity-0 group-hover:opacity-100 -top-8 right-0">
+                Amgen vs IDEXX
+          </div>
+        </div>
+      </div>
+    </a>
     </div>
     <!-- show more hs -->
     <!-- Buttons -->
     <div class="flex justify-center mt-6">
-      <a href="./healthcare" class="text-sm font-semibold text-blue-600 hover:underline transition">
+      <a href="./healthcare" class="text-sm font-semibold text-blue-600 underline">
         View All
       </a>
     </div>
-  </div>
 
   <!-- show more hs end-->
   <!-- healthcare end -->
@@ -1519,29 +1508,7 @@
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 max-w-7xl mx-auto px-4 pt-2 pb-4">
 
     
-    <a href="#" class="contents">
-      <div class="card-tele group bg-gray-50 rounded-lg px-3 py-2 border border-transparent hover:border-gray-300 hover:shadow-[0_2px_4px_rgba(0,0,0,0.1)] transition-all duration-300 cursor-pointer w-full hover:-translate-y-0.5">
-        <div class="flex items-center justify-between">
-          <div style="margin: 15px;">
-           <p class="text-sm font-medium text-gray-700 text-base font-bold group-hover:text-blue-600 transition truncate max-w-[180px] overflow-hidden whitespace-nowrap" style="margin-bottom: 5px;">
-                Charter Communications vs Comcast
-            </p>
-
-            <p class="text-xs text-gray-500">CHTR vs CMCSA</p>
-          </div>
-          <svg xmlns="http://www.w3.org/2000/svg"
-            class="w-5 h-5 text-gray-400 mr-1 transition-all duration-300 group-hover:text-blue-600 group-hover:translate-x-1"
-            viewBox="0 -960 960 960" fill="currentColor">
-            <path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z" />
-          </svg>
-          <div
-          class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-[14px] font-medium rounded px-2 py-1 whitespace-nowrap shadow-lg transition-opacity duration-100 opacity-0 group-hover:opacity-100 -top-8 right-0">
-                Charter Communications vs Comcast
-          </div>
-        </div>
-      </div>
-    </a>
-    <a href="#" class="contents">
+    <a href="./chtr-csco" class="contents">
       <div class="card-tele group bg-gray-50 rounded-lg px-3 py-2 border border-transparent hover:border-gray-300 hover:shadow-[0_2px_4px_rgba(0,0,0,0.1)] transition-all duration-300 cursor-pointer w-full hover:-translate-y-0.5">
         <div class="flex items-center justify-between">
           <div style="margin: 15px;">
@@ -1585,15 +1552,15 @@
         </div>
       </div>
     </a>
-    <a href="#" class="contents">
+    <a href="./chtr-cmcsa" class="contents">
       <div class="card-tele group bg-gray-50 rounded-lg px-3 py-2 border border-transparent hover:border-gray-300 hover:shadow-[0_2px_4px_rgba(0,0,0,0.1)] transition-all duration-300 cursor-pointer w-full hover:-translate-y-0.5">
         <div class="flex items-center justify-between">
           <div style="margin: 15px;">
            <p class="text-sm font-medium text-gray-700 text-base font-bold group-hover:text-blue-600 transition truncate max-w-[180px] overflow-hidden whitespace-nowrap" style="margin-bottom: 5px;">
-                Comcast vs Cisco
+                Charter Communications vs Comcast
             </p>
 
-            <p class="text-xs text-gray-500">CMCSA vs CSCO</p>
+            <p class="text-xs text-gray-500">CHTR vs CMCSA</p>
           </div>
           <svg xmlns="http://www.w3.org/2000/svg"
             class="w-5 h-5 text-gray-400 mr-1 transition-all duration-300 group-hover:text-blue-600 group-hover:translate-x-1"
@@ -1602,29 +1569,7 @@
           </svg>
           <div
           class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-[14px] font-medium rounded px-2 py-1 whitespace-nowrap shadow-lg transition-opacity duration-100 opacity-0 group-hover:opacity-100 -top-8 right-0">
-                Comcast vs Cisco
-          </div>
-        </div>
-      </div>
-    </a>
-    <a href="#" class="contents">
-      <div class="card-tele group bg-gray-50 rounded-lg px-3 py-2 border border-transparent hover:border-gray-300 hover:shadow-[0_2px_4px_rgba(0,0,0,0.1)] transition-all duration-300 cursor-pointer w-full hover:-translate-y-0.5">
-        <div class="flex items-center justify-between">
-          <div style="margin: 15px;">
-           <p class="text-sm font-medium text-gray-700 text-base font-bold group-hover:text-blue-600 transition truncate max-w-[180px] overflow-hidden whitespace-nowrap" style="margin-bottom: 5px;">
-                Comcast vs T-Mobile
-            </p>
-
-            <p class="text-xs text-gray-500">CMCSA vs TMUS</p>
-          </div>
-          <svg xmlns="http://www.w3.org/2000/svg"
-            class="w-5 h-5 text-gray-400 mr-1 transition-all duration-300 group-hover:text-blue-600 group-hover:translate-x-1"
-            viewBox="0 -960 960 960" fill="currentColor">
-            <path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z" />
-          </svg>
-          <div
-          class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-[14px] font-medium rounded px-2 py-1 whitespace-nowrap shadow-lg transition-opacity duration-100 opacity-0 group-hover:opacity-100 -top-8 right-0">
-                Comcast vs T-Mobile
+                Charter Communications vs Comcast
           </div>
         </div>
       </div>
@@ -1651,11 +1596,55 @@
         </div>
       </div>
     </a>
+    <a href="./cmcsa-csco" class="contents">
+      <div class="card-tele group bg-gray-50 rounded-lg px-3 py-2 border border-transparent hover:border-gray-300 hover:shadow-[0_2px_4px_rgba(0,0,0,0.1)] transition-all duration-300 cursor-pointer w-full hover:-translate-y-0.5">
+        <div class="flex items-center justify-between">
+          <div style="margin: 15px;">
+           <p class="text-sm font-medium text-gray-700 text-base font-bold group-hover:text-blue-600 transition truncate max-w-[180px] overflow-hidden whitespace-nowrap" style="margin-bottom: 5px;">
+                Cisco vs Comcast
+            </p>
+
+            <p class="text-xs text-gray-500">CSCO vs CMCSA</p>
+          </div>
+          <svg xmlns="http://www.w3.org/2000/svg"
+            class="w-5 h-5 text-gray-400 mr-1 transition-all duration-300 group-hover:text-blue-600 group-hover:translate-x-1"
+            viewBox="0 -960 960 960" fill="currentColor">
+            <path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z" />
+          </svg>
+          <div
+          class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-[14px] font-medium rounded px-2 py-1 whitespace-nowrap shadow-lg transition-opacity duration-100 opacity-0 group-hover:opacity-100 -top-8 right-0">
+                Cisco vs Comcast
+          </div>
+        </div>
+      </div>
+    </a>
+    <a href="#" class="contents">
+      <div class="card-tele group bg-gray-50 rounded-lg px-3 py-2 border border-transparent hover:border-gray-300 hover:shadow-[0_2px_4px_rgba(0,0,0,0.1)] transition-all duration-300 cursor-pointer w-full hover:-translate-y-0.5">
+        <div class="flex items-center justify-between">
+          <div style="margin: 15px;">
+           <p class="text-sm font-medium text-gray-700 text-base font-bold group-hover:text-blue-600 transition truncate max-w-[180px] overflow-hidden whitespace-nowrap" style="margin-bottom: 5px;">
+                T-Mobile vs Comcast
+            </p>
+
+            <p class="text-xs text-gray-500">TMUS vs CMCSA</p>
+          </div>
+          <svg xmlns="http://www.w3.org/2000/svg"
+            class="w-5 h-5 text-gray-400 mr-1 transition-all duration-300 group-hover:text-blue-600 group-hover:translate-x-1"
+            viewBox="0 -960 960 960" fill="currentColor">
+            <path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z" />
+          </svg>
+          <div
+          class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-[14px] font-medium rounded px-2 py-1 whitespace-nowrap shadow-lg transition-opacity duration-100 opacity-0 group-hover:opacity-100 -top-8 right-0">
+                T-Mobile vs Comcast
+          </div>
+        </div>
+      </div>
+    </a>
 
   </div>
   <!-- button -->
      <div class="flex justify-center mt-6">
-      <a href="./telecom-sector" class="text-sm font-semibold text-blue-600 hover:underline transition">
+      <a href="./telecom-sector" class="text-sm font-semibold text-blue-600 underline">
         View All
       </a>
     </div>
@@ -1688,10 +1677,10 @@
         <div class="flex items-center justify-between">
           <div style="margin: 15px;">
            <p class="text-sm font-medium text-gray-700 text-base font-bold group-hover:text-blue-600 transition truncate max-w-[180px] overflow-hidden whitespace-nowrap" style="margin-bottom: 5px;">
-                Axon vs CSX
+                CSX vs Old Dominion Freight Line
             </p>
 
-            <p class="text-xs text-gray-500">AXON vs CSX</p>
+            <p class="text-xs text-gray-500">CSX vs ODFL</p>
           </div>
           <svg xmlns="http://www.w3.org/2000/svg"
             class="w-5 h-5 text-gray-400 mr-1 transition-all duration-300 group-hover:text-blue-600 group-hover:translate-x-1"
@@ -1700,20 +1689,20 @@
           </svg>
           <div
           class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-[14px] font-medium rounded px-2 py-1 whitespace-nowrap shadow-lg transition-opacity duration-100 opacity-0 group-hover:opacity-100 -top-8 right-0">
-                Axon vs CSX
+                CSX vs Old Dominion Freight Line
           </div>
         </div>
       </div>
     </a>
-    <a href="#" class="contents">
+    <a href="./axon-csx" class="contents">
       <div class="card-es group bg-gray-50 rounded-lg px-3 py-2 border border-transparent hover:border-gray-300 hover:shadow-[0_2px_4px_rgba(0,0,0,0.1)] transition-all duration-300 cursor-pointer w-full hover:-translate-y-0.5">
         <div class="flex items-center justify-between">
           <div style="margin: 15px;">
            <p class="text-sm font-medium text-gray-700 text-base font-bold group-hover:text-blue-600 transition truncate max-w-[180px] overflow-hidden whitespace-nowrap" style="margin-bottom: 5px;">
-                Axon vs Honeywell
+                CSX vs Axon
             </p>
 
-            <p class="text-xs text-gray-500">AXON vs HON</p>
+            <p class="text-xs text-gray-500">CSX vs AXON</p>
           </div>
           <svg xmlns="http://www.w3.org/2000/svg"
             class="w-5 h-5 text-gray-400 mr-1 transition-all duration-300 group-hover:text-blue-600 group-hover:translate-x-1"
@@ -1722,34 +1711,12 @@
           </svg>
           <div
           class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-[14px] font-medium rounded px-2 py-1 whitespace-nowrap shadow-lg transition-opacity duration-100 opacity-0 group-hover:opacity-100 -top-8 right-0">
-                Axon vs Honeywell
+                CSX vs Axon
           </div>
         </div>
       </div>
     </a>
-    <a href="#" class="contents">
-      <div class="card-es group bg-gray-50 rounded-lg px-3 py-2 border border-transparent hover:border-gray-300 hover:shadow-[0_2px_4px_rgba(0,0,0,0.1)] transition-all duration-300 cursor-pointer w-full hover:-translate-y-0.5">
-        <div class="flex items-center justify-between">
-          <div style="margin: 15px;">
-           <p class="text-sm font-medium text-gray-700 text-base font-bold group-hover:text-blue-600 transition truncate max-w-[180px] overflow-hidden whitespace-nowrap" style="margin-bottom: 5px;">
-                Axon vs Old Dominion Freight Line
-            </p>
-
-            <p class="text-xs text-gray-500">AXON vs ODFL</p>
-          </div>
-          <svg xmlns="http://www.w3.org/2000/svg"
-            class="w-5 h-5 text-gray-400 mr-1 transition-all duration-300 group-hover:text-blue-600 group-hover:translate-x-1"
-            viewBox="0 -960 960 960" fill="currentColor">
-            <path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z" />
-          </svg>
-          <div
-          class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-[14px] font-medium rounded px-2 py-1 whitespace-nowrap shadow-lg transition-opacity duration-100 opacity-0 group-hover:opacity-100 -top-8 right-0">
-                Axon vs Old Dominion Freight Line
-          </div>
-        </div>
-      </div>
-    </a>
-    <a href="#" class="contents">
+    <a href="./csx-hon" class="contents">
       <div class="card-es group bg-gray-50 rounded-lg px-3 py-2 border border-transparent hover:border-gray-300 hover:shadow-[0_2px_4px_rgba(0,0,0,0.1)] transition-all duration-300 cursor-pointer w-full hover:-translate-y-0.5">
         <div class="flex items-center justify-between">
           <div style="margin: 15px;">
@@ -1776,10 +1743,10 @@
         <div class="flex items-center justify-between">
           <div style="margin: 15px;">
            <p class="text-sm font-medium text-gray-700 text-base font-bold group-hover:text-blue-600 transition truncate max-w-[180px] overflow-hidden whitespace-nowrap" style="margin-bottom: 5px;">
-                CSX vs Old Dominion Freight Line
+                Old Dominion Freight Line vs Axon
             </p>
 
-            <p class="text-xs text-gray-500">CSX vs ODFL</p>
+            <p class="text-xs text-gray-500">ODFL vs AXON</p>
           </div>
           <svg xmlns="http://www.w3.org/2000/svg"
             class="w-5 h-5 text-gray-400 mr-1 transition-all duration-300 group-hover:text-blue-600 group-hover:translate-x-1"
@@ -1788,7 +1755,7 @@
           </svg>
           <div
           class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-[14px] font-medium rounded px-2 py-1 whitespace-nowrap shadow-lg transition-opacity duration-100 opacity-0 group-hover:opacity-100 -top-8 right-0">
-                CSX vs Old Dominion Freight Line
+                Old Dominion Freight Line vs Axon
           </div>
         </div>
       </div>
@@ -1798,10 +1765,10 @@
         <div class="flex items-center justify-between">
           <div style="margin: 15px;">
            <p class="text-sm font-medium text-gray-700 text-base font-bold group-hover:text-blue-600 transition truncate max-w-[180px] overflow-hidden whitespace-nowrap" style="margin-bottom: 5px;">
-                Honeywell vs Old Dominion Freight Line
+                Old Dominion Freight Line vs Honeywell
             </p>
 
-            <p class="text-xs text-gray-500">HON vs ODFL</p>
+            <p class="text-xs text-gray-500">ODFL vs HON</p>
           </div>
           <svg xmlns="http://www.w3.org/2000/svg"
             class="w-5 h-5 text-gray-400 mr-1 transition-all duration-300 group-hover:text-blue-600 group-hover:translate-x-1"
@@ -1810,7 +1777,29 @@
           </svg>
           <div
           class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-[14px] font-medium rounded px-2 py-1 whitespace-nowrap shadow-lg transition-opacity duration-100 opacity-0 group-hover:opacity-100 -top-8 right-0">
-                Honeywell vs Old Dominion Freight Line
+                Old Dominion Freight Line vs Honeywell
+          </div>
+        </div>
+      </div>
+    </a>
+    <a href="./axon-hon" class="contents">
+      <div class="card-es group bg-gray-50 rounded-lg px-3 py-2 border border-transparent hover:border-gray-300 hover:shadow-[0_2px_4px_rgba(0,0,0,0.1)] transition-all duration-300 cursor-pointer w-full hover:-translate-y-0.5">
+        <div class="flex items-center justify-between">
+          <div style="margin: 15px;">
+           <p class="text-sm font-medium text-gray-700 text-base font-bold group-hover:text-blue-600 transition truncate max-w-[180px] overflow-hidden whitespace-nowrap" style="margin-bottom: 5px;">
+                Axon vs Honeywell
+            </p>
+
+            <p class="text-xs text-gray-500">AXON vs HON</p>
+          </div>
+          <svg xmlns="http://www.w3.org/2000/svg"
+            class="w-5 h-5 text-gray-400 mr-1 transition-all duration-300 group-hover:text-blue-600 group-hover:translate-x-1"
+            viewBox="0 -960 960 960" fill="currentColor">
+            <path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z" />
+          </svg>
+          <div
+          class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-[14px] font-medium rounded px-2 py-1 whitespace-nowrap shadow-lg transition-opacity duration-100 opacity-0 group-hover:opacity-100 -top-8 right-0">
+                Axon vs Honeywell
           </div>
         </div>
       </div>
@@ -1819,7 +1808,7 @@
   </div>
 
    <div class="flex justify-center mt-6">
-      <a href="./industry-leaders" class="text-sm font-semibold text-blue-600 hover:underline transition">
+      <a href="./industry-leaders" class="text-sm font-semibold text-blue-600 underline">
         View All
       </a>
     </div>
@@ -1846,94 +1835,6 @@
         <div class="flex items-center justify-between">
           <div style="margin: 15px;">
            <p class="text-sm font-medium text-gray-700 text-base font-bold group-hover:text-blue-600 transition truncate max-w-[180px] overflow-hidden whitespace-nowrap" style="margin-bottom: 5px;">
-                Keurig Dr Pepper vs Kraft Heinz
-            </p>
-
-            <p class="text-xs text-gray-500">KDP vs KHC</p>
-          </div>
-          <svg xmlns="http://www.w3.org/2000/svg"
-            class="w-5 h-5 text-gray-400 mr-1 transition-all duration-300 group-hover:text-blue-600 group-hover:translate-x-1"
-            viewBox="0 -960 960 960" fill="currentColor">
-            <path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z" />
-          </svg>
-          <div
-          class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-[14px] font-medium rounded px-2 py-1 whitespace-nowrap shadow-lg transition-opacity duration-100 opacity-0 group-hover:opacity-100 -top-8 right-0">
-                Keurig Dr Pepper vs Kraft Heinz
-          </div>
-        </div>
-      </div>
-    </a>
-    <a href="#" class="contents">
-      <div class="card-cs group bg-gray-50 rounded-lg px-3 py-2 border border-transparent hover:border-gray-300 hover:shadow-[0_2px_4px_rgba(0,0,0,0.1)] transition-all duration-300 cursor-pointer w-full hover:-translate-y-0.5">
-        <div class="flex items-center justify-between">
-          <div style="margin: 15px;">
-           <p class="text-sm font-medium text-gray-700 text-base font-bold group-hover:text-blue-600 transition truncate max-w-[180px] overflow-hidden whitespace-nowrap" style="margin-bottom: 5px;">
-                Keurig Dr Pepper vs Mondelez
-            </p>
-
-            <p class="text-xs text-gray-500">KDP vs MDLZ</p>
-          </div>
-          <svg xmlns="http://www.w3.org/2000/svg"
-            class="w-5 h-5 text-gray-400 mr-1 transition-all duration-300 group-hover:text-blue-600 group-hover:translate-x-1"
-            viewBox="0 -960 960 960" fill="currentColor">
-            <path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z" />
-          </svg>
-          <div
-          class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-[14px] font-medium rounded px-2 py-1 whitespace-nowrap shadow-lg transition-opacity duration-100 opacity-0 group-hover:opacity-100 -top-8 right-0">
-                Keurig Dr Pepper vs Mondelez
-          </div>
-        </div>
-      </div>
-    </a>
-    <a href="#" class="contents">
-      <div class="card-cs group bg-gray-50 rounded-lg px-3 py-2 border border-transparent hover:border-gray-300 hover:shadow-[0_2px_4px_rgba(0,0,0,0.1)] transition-all duration-300 cursor-pointer w-full hover:-translate-y-0.5">
-        <div class="flex items-center justify-between">
-          <div style="margin: 15px;">
-           <p class="text-sm font-medium text-gray-700 text-base font-bold group-hover:text-blue-600 transition truncate max-w-[180px] overflow-hidden whitespace-nowrap" style="margin-bottom: 5px;">
-                Keurig Dr Pepper vs Monster Beverage
-            </p>
-
-            <p class="text-xs text-gray-500">KDP vs MNST</p>
-          </div>
-          <svg xmlns="http://www.w3.org/2000/svg"
-            class="w-5 h-5 text-gray-400 mr-1 transition-all duration-300 group-hover:text-blue-600 group-hover:translate-x-1"
-            viewBox="0 -960 960 960" fill="currentColor">
-            <path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z" />
-          </svg>
-          <div
-          class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-[14px] font-medium rounded px-2 py-1 whitespace-nowrap shadow-lg transition-opacity duration-100 opacity-0 group-hover:opacity-100 -top-8 right-0">
-                Keurig Dr Pepper vs Monster Beverage
-          </div>
-        </div>
-      </div>
-    </a>
-    <a href="#" class="contents">
-      <div class="card-cs group bg-gray-50 rounded-lg px-3 py-2 border border-transparent hover:border-gray-300 hover:shadow-[0_2px_4px_rgba(0,0,0,0.1)] transition-all duration-300 cursor-pointer w-full hover:-translate-y-0.5">
-        <div class="flex items-center justify-between">
-          <div style="margin: 15px;">
-           <p class="text-sm font-medium text-gray-700 text-base font-bold group-hover:text-blue-600 transition truncate max-w-[180px] overflow-hidden whitespace-nowrap" style="margin-bottom: 5px;">
-                Keurig Dr Pepper vs PepsiCo
-            </p>
-
-            <p class="text-xs text-gray-500">KDP vs PEP</p>
-          </div>
-          <svg xmlns="http://www.w3.org/2000/svg"
-            class="w-5 h-5 text-gray-400 mr-1 transition-all duration-300 group-hover:text-blue-600 group-hover:translate-x-1"
-            viewBox="0 -960 960 960" fill="currentColor">
-            <path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z" />
-          </svg>
-          <div
-          class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-[14px] font-medium rounded px-2 py-1 whitespace-nowrap shadow-lg transition-opacity duration-100 opacity-0 group-hover:opacity-100 -top-8 right-0">
-                Keurig Dr Pepper vs PepsiCo
-          </div>
-        </div>
-      </div>
-    </a>
-    <a href="#" class="contents">
-      <div class="card-cs group bg-gray-50 rounded-lg px-3 py-2 border border-transparent hover:border-gray-300 hover:shadow-[0_2px_4px_rgba(0,0,0,0.1)] transition-all duration-300 cursor-pointer w-full hover:-translate-y-0.5">
-        <div class="flex items-center justify-between">
-          <div style="margin: 15px;">
-           <p class="text-sm font-medium text-gray-700 text-base font-bold group-hover:text-blue-600 transition truncate max-w-[180px] overflow-hidden whitespace-nowrap" style="margin-bottom: 5px;">
                 Kraft Heinz vs Mondelez
             </p>
 
@@ -1947,28 +1848,6 @@
           <div
           class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-[14px] font-medium rounded px-2 py-1 whitespace-nowrap shadow-lg transition-opacity duration-100 opacity-0 group-hover:opacity-100 -top-8 right-0">
                 Kraft Heinz vs Mondelez
-          </div>
-        </div>
-      </div>
-    </a>
-    <a href="#" class="contents">
-      <div class="card-cs group bg-gray-50 rounded-lg px-3 py-2 border border-transparent hover:border-gray-300 hover:shadow-[0_2px_4px_rgba(0,0,0,0.1)] transition-all duration-300 cursor-pointer w-full hover:-translate-y-0.5">
-        <div class="flex items-center justify-between">
-          <div style="margin: 15px;">
-           <p class="text-sm font-medium text-gray-700 text-base font-bold group-hover:text-blue-600 transition truncate max-w-[180px] overflow-hidden whitespace-nowrap" style="margin-bottom: 5px;">
-                Kraft Heinz vs Monster Beverage
-            </p>
-
-            <p class="text-xs text-gray-500">KHC vs MNST</p>
-          </div>
-          <svg xmlns="http://www.w3.org/2000/svg"
-            class="w-5 h-5 text-gray-400 mr-1 transition-all duration-300 group-hover:text-blue-600 group-hover:translate-x-1"
-            viewBox="0 -960 960 960" fill="currentColor">
-            <path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z" />
-          </svg>
-          <div
-          class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-[14px] font-medium rounded px-2 py-1 whitespace-nowrap shadow-lg transition-opacity duration-100 opacity-0 group-hover:opacity-100 -top-8 right-0">
-                Kraft Heinz vs Monster Beverage
           </div>
         </div>
       </div>
@@ -2000,6 +1879,94 @@
         <div class="flex items-center justify-between">
           <div style="margin: 15px;">
            <p class="text-sm font-medium text-gray-700 text-base font-bold group-hover:text-blue-600 transition truncate max-w-[180px] overflow-hidden whitespace-nowrap" style="margin-bottom: 5px;">
+                Kraft Heinz vs Keurig Dr Pepper
+            </p>
+
+            <p class="text-xs text-gray-500">KHC vs KDP</p>
+          </div>
+          <svg xmlns="http://www.w3.org/2000/svg"
+            class="w-5 h-5 text-gray-400 mr-1 transition-all duration-300 group-hover:text-blue-600 group-hover:translate-x-1"
+            viewBox="0 -960 960 960" fill="currentColor">
+            <path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z" />
+          </svg>
+          <div
+          class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-[14px] font-medium rounded px-2 py-1 whitespace-nowrap shadow-lg transition-opacity duration-100 opacity-0 group-hover:opacity-100 -top-8 right-0">
+                Kraft Heinz vs Keurig Dr Pepper
+          </div>
+        </div>
+      </div>
+    </a>
+    <a href="#" class="contents">
+      <div class="card-cs group bg-gray-50 rounded-lg px-3 py-2 border border-transparent hover:border-gray-300 hover:shadow-[0_2px_4px_rgba(0,0,0,0.1)] transition-all duration-300 cursor-pointer w-full hover:-translate-y-0.5">
+        <div class="flex items-center justify-between">
+          <div style="margin: 15px;">
+           <p class="text-sm font-medium text-gray-700 text-base font-bold group-hover:text-blue-600 transition truncate max-w-[180px] overflow-hidden whitespace-nowrap" style="margin-bottom: 5px;">
+                Kraft Heinz vs Monster Beverage
+            </p>
+
+            <p class="text-xs text-gray-500">KHC vs MNST</p>
+          </div>
+          <svg xmlns="http://www.w3.org/2000/svg"
+            class="w-5 h-5 text-gray-400 mr-1 transition-all duration-300 group-hover:text-blue-600 group-hover:translate-x-1"
+            viewBox="0 -960 960 960" fill="currentColor">
+            <path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z" />
+          </svg>
+          <div
+          class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-[14px] font-medium rounded px-2 py-1 whitespace-nowrap shadow-lg transition-opacity duration-100 opacity-0 group-hover:opacity-100 -top-8 right-0">
+                Kraft Heinz vs Monster Beverage
+          </div>
+        </div>
+      </div>
+    </a>
+    <a href="#" class="contents">
+      <div class="card-cs group bg-gray-50 rounded-lg px-3 py-2 border border-transparent hover:border-gray-300 hover:shadow-[0_2px_4px_rgba(0,0,0,0.1)] transition-all duration-300 cursor-pointer w-full hover:-translate-y-0.5">
+        <div class="flex items-center justify-between">
+          <div style="margin: 15px;">
+           <p class="text-sm font-medium text-gray-700 text-base font-bold group-hover:text-blue-600 transition truncate max-w-[180px] overflow-hidden whitespace-nowrap" style="margin-bottom: 5px;">
+                Mondelez vs PepsiCo
+            </p>
+
+            <p class="text-xs text-gray-500">MDLZ vs PEP</p>
+          </div>
+          <svg xmlns="http://www.w3.org/2000/svg"
+            class="w-5 h-5 text-gray-400 mr-1 transition-all duration-300 group-hover:text-blue-600 group-hover:translate-x-1"
+            viewBox="0 -960 960 960" fill="currentColor">
+            <path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z" />
+          </svg>
+          <div
+          class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-[14px] font-medium rounded px-2 py-1 whitespace-nowrap shadow-lg transition-opacity duration-100 opacity-0 group-hover:opacity-100 -top-8 right-0">
+                Mondelez vs PepsiCo
+          </div>
+        </div>
+      </div>
+    </a>
+    <a href="#" class="contents">
+      <div class="card-cs group bg-gray-50 rounded-lg px-3 py-2 border border-transparent hover:border-gray-300 hover:shadow-[0_2px_4px_rgba(0,0,0,0.1)] transition-all duration-300 cursor-pointer w-full hover:-translate-y-0.5">
+        <div class="flex items-center justify-between">
+          <div style="margin: 15px;">
+           <p class="text-sm font-medium text-gray-700 text-base font-bold group-hover:text-blue-600 transition truncate max-w-[180px] overflow-hidden whitespace-nowrap" style="margin-bottom: 5px;">
+                Mondelez vs Keurig Dr Pepper
+            </p>
+
+            <p class="text-xs text-gray-500">MDLZ vs KDP</p>
+          </div>
+          <svg xmlns="http://www.w3.org/2000/svg"
+            class="w-5 h-5 text-gray-400 mr-1 transition-all duration-300 group-hover:text-blue-600 group-hover:translate-x-1"
+            viewBox="0 -960 960 960" fill="currentColor">
+            <path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z" />
+          </svg>
+          <div
+          class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-[14px] font-medium rounded px-2 py-1 whitespace-nowrap shadow-lg transition-opacity duration-100 opacity-0 group-hover:opacity-100 -top-8 right-0">
+                Mondelez vs Keurig Dr Pepper
+          </div>
+        </div>
+      </div>
+    </a>
+    <a href="#" class="contents">
+      <div class="card-cs group bg-gray-50 rounded-lg px-3 py-2 border border-transparent hover:border-gray-300 hover:shadow-[0_2px_4px_rgba(0,0,0,0.1)] transition-all duration-300 cursor-pointer w-full hover:-translate-y-0.5">
+        <div class="flex items-center justify-between">
+          <div style="margin: 15px;">
+           <p class="text-sm font-medium text-gray-700 text-base font-bold group-hover:text-blue-600 transition truncate max-w-[180px] overflow-hidden whitespace-nowrap" style="margin-bottom: 5px;">
                 Mondelez vs Monster Beverage
             </p>
 
@@ -2017,11 +1984,33 @@
         </div>
       </div>
     </a>
+    <a href="#" class="contents">
+      <div class="card-cs group bg-gray-50 rounded-lg px-3 py-2 border border-transparent hover:border-gray-300 hover:shadow-[0_2px_4px_rgba(0,0,0,0.1)] transition-all duration-300 cursor-pointer w-full hover:-translate-y-0.5">
+        <div class="flex items-center justify-between">
+          <div style="margin: 15px;">
+           <p class="text-sm font-medium text-gray-700 text-base font-bold group-hover:text-blue-600 transition truncate max-w-[180px] overflow-hidden whitespace-nowrap" style="margin-bottom: 5px;">
+                PepsiCo vs Keurig Dr Pepper
+            </p>
+
+            <p class="text-xs text-gray-500">PEP vs KDP</p>
+          </div>
+          <svg xmlns="http://www.w3.org/2000/svg"
+            class="w-5 h-5 text-gray-400 mr-1 transition-all duration-300 group-hover:text-blue-600 group-hover:translate-x-1"
+            viewBox="0 -960 960 960" fill="currentColor">
+            <path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z" />
+          </svg>
+          <div
+          class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-[14px] font-medium rounded px-2 py-1 whitespace-nowrap shadow-lg transition-opacity duration-100 opacity-0 group-hover:opacity-100 -top-8 right-0">
+                PepsiCo vs Keurig Dr Pepper
+          </div>
+        </div>
+      </div>
+    </a>
 
     </div>
 
     <div class="flex justify-center mt-6">
-      <a href="./essential-goods" class="text-sm font-semibold text-blue-600 hover:underline transition">
+      <a href="./essential-goods" class="text-sm font-semibold text-blue-600 underline">
         View All
       </a>
     </div>
@@ -2042,7 +2031,29 @@
     </div>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 max-w-7xl mx-auto px-4 pt-2 pb-4">
       
-    <a href="#" class="contents">
+    <a href="./aep-exc" class="contents">
+      <div class="card-ut group bg-gray-50 rounded-lg px-3 py-2 border border-transparent hover:border-gray-300 hover:shadow-[0_2px_4px_rgba(0,0,0,0.1)] transition-all duration-300 cursor-pointer w-full hover:-translate-y-0.5">
+        <div class="flex items-center justify-between">
+          <div style="margin: 15px;">
+           <p class="text-sm font-medium text-gray-700 text-base font-bold group-hover:text-blue-600 transition truncate max-w-[180px] overflow-hidden whitespace-nowrap" style="margin-bottom: 5px;">
+                American Electric Power vs Exelon
+            </p>
+
+            <p class="text-xs text-gray-500">AEP vs EXC</p>
+          </div>
+          <svg xmlns="http://www.w3.org/2000/svg"
+            class="w-5 h-5 text-gray-400 mr-1 transition-all duration-300 group-hover:text-blue-600 group-hover:translate-x-1"
+            viewBox="0 -960 960 960" fill="currentColor">
+            <path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z" />
+          </svg>
+          <div
+          class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-[14px] font-medium rounded px-2 py-1 whitespace-nowrap shadow-lg transition-opacity duration-100 opacity-0 group-hover:opacity-100 -top-8 right-0">
+                American Electric Power vs Exelon
+          </div>
+        </div>
+      </div>
+    </a>
+    <a href="./aep-ceg" class="contents">
       <div class="card-ut group bg-gray-50 rounded-lg px-3 py-2 border border-transparent hover:border-gray-300 hover:shadow-[0_2px_4px_rgba(0,0,0,0.1)] transition-all duration-300 cursor-pointer w-full hover:-translate-y-0.5">
         <div class="flex items-center justify-between">
           <div style="margin: 15px;">
@@ -2069,28 +2080,6 @@
         <div class="flex items-center justify-between">
           <div style="margin: 15px;">
            <p class="text-sm font-medium text-gray-700 text-base font-bold group-hover:text-blue-600 transition truncate max-w-[180px] overflow-hidden whitespace-nowrap" style="margin-bottom: 5px;">
-                American Electric Power vs Exelon
-            </p>
-
-            <p class="text-xs text-gray-500">AEP vs EXC</p>
-          </div>
-          <svg xmlns="http://www.w3.org/2000/svg"
-            class="w-5 h-5 text-gray-400 mr-1 transition-all duration-300 group-hover:text-blue-600 group-hover:translate-x-1"
-            viewBox="0 -960 960 960" fill="currentColor">
-            <path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z" />
-          </svg>
-          <div
-          class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-[14px] font-medium rounded px-2 py-1 whitespace-nowrap shadow-lg transition-opacity duration-100 opacity-0 group-hover:opacity-100 -top-8 right-0">
-                American Electric Power vs Exelon
-          </div>
-        </div>
-      </div>
-    </a>
-    <a href="#" class="contents">
-      <div class="card-ut group bg-gray-50 rounded-lg px-3 py-2 border border-transparent hover:border-gray-300 hover:shadow-[0_2px_4px_rgba(0,0,0,0.1)] transition-all duration-300 cursor-pointer w-full hover:-translate-y-0.5">
-        <div class="flex items-center justify-between">
-          <div style="margin: 15px;">
-           <p class="text-sm font-medium text-gray-700 text-base font-bold group-hover:text-blue-600 transition truncate max-w-[180px] overflow-hidden whitespace-nowrap" style="margin-bottom: 5px;">
                 American Electric Power vs Xcel Energy
             </p>
 
@@ -2108,15 +2097,15 @@
         </div>
       </div>
     </a>
-    <a href="#" class="contents">
+    <a href="./ceg-exc" class="contents">
       <div class="card-ut group bg-gray-50 rounded-lg px-3 py-2 border border-transparent hover:border-gray-300 hover:shadow-[0_2px_4px_rgba(0,0,0,0.1)] transition-all duration-300 cursor-pointer w-full hover:-translate-y-0.5">
         <div class="flex items-center justify-between">
           <div style="margin: 15px;">
            <p class="text-sm font-medium text-gray-700 text-base font-bold group-hover:text-blue-600 transition truncate max-w-[180px] overflow-hidden whitespace-nowrap" style="margin-bottom: 5px;">
-                Constellation Energy vs Exelon
+                Exelon vs Constellation Energy
             </p>
 
-            <p class="text-xs text-gray-500">CEG vs EXC</p>
+            <p class="text-xs text-gray-500">EXC vs CEG</p>
           </div>
           <svg xmlns="http://www.w3.org/2000/svg"
             class="w-5 h-5 text-gray-400 mr-1 transition-all duration-300 group-hover:text-blue-600 group-hover:translate-x-1"
@@ -2125,29 +2114,7 @@
           </svg>
           <div
           class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-[14px] font-medium rounded px-2 py-1 whitespace-nowrap shadow-lg transition-opacity duration-100 opacity-0 group-hover:opacity-100 -top-8 right-0">
-                Constellation Energy vs Exelon
-          </div>
-        </div>
-      </div>
-    </a>
-    <a href="#" class="contents">
-      <div class="card-ut group bg-gray-50 rounded-lg px-3 py-2 border border-transparent hover:border-gray-300 hover:shadow-[0_2px_4px_rgba(0,0,0,0.1)] transition-all duration-300 cursor-pointer w-full hover:-translate-y-0.5">
-        <div class="flex items-center justify-between">
-          <div style="margin: 15px;">
-           <p class="text-sm font-medium text-gray-700 text-base font-bold group-hover:text-blue-600 transition truncate max-w-[180px] overflow-hidden whitespace-nowrap" style="margin-bottom: 5px;">
-                Constellation Energy vs Xcel Energy
-            </p>
-
-            <p class="text-xs text-gray-500">CEG vs XEL</p>
-          </div>
-          <svg xmlns="http://www.w3.org/2000/svg"
-            class="w-5 h-5 text-gray-400 mr-1 transition-all duration-300 group-hover:text-blue-600 group-hover:translate-x-1"
-            viewBox="0 -960 960 960" fill="currentColor">
-            <path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z" />
-          </svg>
-          <div
-          class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-[14px] font-medium rounded px-2 py-1 whitespace-nowrap shadow-lg transition-opacity duration-100 opacity-0 group-hover:opacity-100 -top-8 right-0">
-                Constellation Energy vs Xcel Energy
+                Exelon vs Constellation Energy
           </div>
         </div>
       </div>
@@ -2174,10 +2141,32 @@
         </div>
       </div>
     </a>
+    <a href="#" class="contents">
+      <div class="card-ut group bg-gray-50 rounded-lg px-3 py-2 border border-transparent hover:border-gray-300 hover:shadow-[0_2px_4px_rgba(0,0,0,0.1)] transition-all duration-300 cursor-pointer w-full hover:-translate-y-0.5">
+        <div class="flex items-center justify-between">
+          <div style="margin: 15px;">
+           <p class="text-sm font-medium text-gray-700 text-base font-bold group-hover:text-blue-600 transition truncate max-w-[180px] overflow-hidden whitespace-nowrap" style="margin-bottom: 5px;">
+                Constellation Energy vs Xcel Energy
+            </p>
+
+            <p class="text-xs text-gray-500">CEG vs XEL</p>
+          </div>
+          <svg xmlns="http://www.w3.org/2000/svg"
+            class="w-5 h-5 text-gray-400 mr-1 transition-all duration-300 group-hover:text-blue-600 group-hover:translate-x-1"
+            viewBox="0 -960 960 960" fill="currentColor">
+            <path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z" />
+          </svg>
+          <div
+          class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-[14px] font-medium rounded px-2 py-1 whitespace-nowrap shadow-lg transition-opacity duration-100 opacity-0 group-hover:opacity-100 -top-8 right-0">
+                Constellation Energy vs Xcel Energy
+          </div>
+        </div>
+      </div>
+    </a>
     </div>
 
     <div class="flex justify-center mt-6">
-      <a href="./utility-sector" class="text-sm font-semibold text-blue-600 hover:underline transition">
+      <a href="./utility-sector" class="text-sm font-semibold text-blue-600 underline">
         View All
       </a>
     </div>
@@ -2198,11 +2187,10 @@
     </div>
 
 
-</body>
 
   <!-- popular starts -->
 
-  <div class="flex justify-center mb-8  mt-8">
+  <div class="flex justify-center mb-8  mt-3">
     <div class="flex items-center gap-1 text-white px-3 py-1 rounded-full  shadow-md text-center"
       style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); ">
 
@@ -2213,7 +2201,7 @@
       </svg>
 
       <!-- Text -->
-      <h4 class="text-lg font-semibold text-white">POPULAR BATTLES</h4>
+      <h4 class="text-lg font-semibold text-white">POPULAR STOCK COMPARISONS</h4>
 
     </div>
   </div>
@@ -2239,6 +2227,28 @@
           <div
           class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-[14px] font-medium rounded px-2 py-1 whitespace-nowrap shadow-lg transition-opacity duration-100 opacity-0 group-hover:opacity-100 -top-8 right-0">
                 Apple vs Airbnb
+          </div>
+        </div>
+      </div>
+    </a>
+    <a href="./abnb-ilmn" class="contents">
+      <div class="card-ps group bg-gray-50 rounded-lg px-3 py-2 border border-transparent hover:border-gray-300 hover:shadow-[0_2px_4px_rgba(0,0,0,0.1)] transition-all duration-300 cursor-pointer w-full hover:-translate-y-0.5">
+        <div class="flex items-center justify-between">
+          <div style="margin: 15px;">
+           <p class="text-sm font-medium text-gray-700 text-base font-bold group-hover:text-blue-600 transition truncate max-w-[180px] overflow-hidden whitespace-nowrap" style="margin-bottom: 5px;">
+                Airbnb vs Illumina
+            </p>
+
+            <p class="text-xs text-gray-500">ABNB vs ILMN</p>
+          </div>
+          <svg xmlns="http://www.w3.org/2000/svg"
+            class="w-5 h-5 text-gray-400 mr-1 transition-all duration-300 group-hover:text-blue-600 group-hover:translate-x-1"
+            viewBox="0 -960 960 960" fill="currentColor">
+            <path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z" />
+          </svg>
+          <div
+          class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-[14px] font-medium rounded px-2 py-1 whitespace-nowrap shadow-lg transition-opacity duration-100 opacity-0 group-hover:opacity-100 -top-8 right-0">
+                Airbnb vs Illumina
           </div>
         </div>
       </div>
@@ -2353,28 +2363,6 @@
         </div>
       </div>
     </a>
-    <a href="./adbe-adp" class="contents">
-      <div class="card-ps group bg-gray-50 rounded-lg px-3 py-2 border border-transparent hover:border-gray-300 hover:shadow-[0_2px_4px_rgba(0,0,0,0.1)] transition-all duration-300 cursor-pointer w-full hover:-translate-y-0.5">
-        <div class="flex items-center justify-between">
-          <div style="margin: 15px;">
-           <p class="text-sm font-medium text-gray-700 text-base font-bold group-hover:text-blue-600 transition truncate max-w-[180px] overflow-hidden whitespace-nowrap" style="margin-bottom: 5px;">
-                Adobe vs ADP
-            </p>
-
-            <p class="text-xs text-gray-500">ADBE vs ADP</p>
-          </div>
-          <svg xmlns="http://www.w3.org/2000/svg"
-            class="w-5 h-5 text-gray-400 mr-1 transition-all duration-300 group-hover:text-blue-600 group-hover:translate-x-1"
-            viewBox="0 -960 960 960" fill="currentColor">
-            <path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z" />
-          </svg>
-          <div
-          class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-[14px] font-medium rounded px-2 py-1 whitespace-nowrap shadow-lg transition-opacity duration-100 opacity-0 group-hover:opacity-100 -top-8 right-0">
-                Adobe vs ADP
-          </div>
-        </div>
-      </div>
-    </a>
     <a href="./aapl-adp" class="contents">
       <div class="card-ps group bg-gray-50 rounded-lg px-3 py-2 border border-transparent hover:border-gray-300 hover:shadow-[0_2px_4px_rgba(0,0,0,0.1)] transition-all duration-300 cursor-pointer w-full hover:-translate-y-0.5">
         <div class="flex items-center justify-between">
@@ -2397,8 +2385,30 @@
         </div>
       </div>
     </a>
-    <a href="./aapl-adi" class="contents">
+    <a href="./adbe-adp" class="contents">
       <div class="card-ps group bg-gray-50 rounded-lg px-3 py-2 border border-transparent hover:border-gray-300 hover:shadow-[0_2px_4px_rgba(0,0,0,0.1)] transition-all duration-300 cursor-pointer w-full hover:-translate-y-0.5">
+        <div class="flex items-center justify-between">
+          <div style="margin: 15px;">
+           <p class="text-sm font-medium text-gray-700 text-base font-bold group-hover:text-blue-600 transition truncate max-w-[180px] overflow-hidden whitespace-nowrap" style="margin-bottom: 5px;">
+                Adobe vs ADP
+            </p>
+
+            <p class="text-xs text-gray-500">ADBE vs ADP</p>
+          </div>
+          <svg xmlns="http://www.w3.org/2000/svg"
+            class="w-5 h-5 text-gray-400 mr-1 transition-all duration-300 group-hover:text-blue-600 group-hover:translate-x-1"
+            viewBox="0 -960 960 960" fill="currentColor">
+            <path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z" />
+          </svg>
+          <div
+          class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-[14px] font-medium rounded px-2 py-1 whitespace-nowrap shadow-lg transition-opacity duration-100 opacity-0 group-hover:opacity-100 -top-8 right-0">
+                Adobe vs ADP
+          </div>
+        </div>
+      </div>
+    </a>
+    <a href="./aapl-adi" class="contents">
+      <div class="card-ps hidden group bg-gray-50 rounded-lg px-3 py-2 border border-transparent hover:border-gray-300 hover:shadow-[0_2px_4px_rgba(0,0,0,0.1)] transition-all duration-300 cursor-pointer w-full hover:-translate-y-0.5">
         <div class="flex items-center justify-between">
           <div style="margin: 15px;">
            <p class="text-sm font-medium text-gray-700 text-base font-bold group-hover:text-blue-600 transition truncate max-w-[180px] overflow-hidden whitespace-nowrap" style="margin-bottom: 5px;">
@@ -2507,6 +2517,28 @@
         </div>
       </div>
     </a>
+    <a href="./aapl-azn" class="contents">
+      <div class="card-ps hidden group bg-gray-50 rounded-lg px-3 py-2 border border-transparent hover:border-gray-300 hover:shadow-[0_2px_4px_rgba(0,0,0,0.1)] transition-all duration-300 cursor-pointer w-full hover:-translate-y-0.5">
+        <div class="flex items-center justify-between">
+          <div style="margin: 15px;">
+           <p class="text-sm font-medium text-gray-700 text-base font-bold group-hover:text-blue-600 transition truncate max-w-[180px] overflow-hidden whitespace-nowrap" style="margin-bottom: 5px;">
+                Apple vs AstraZeneca
+            </p>
+
+            <p class="text-xs text-gray-500">AAPL vs AZN</p>
+          </div>
+          <svg xmlns="http://www.w3.org/2000/svg"
+            class="w-5 h-5 text-gray-400 mr-1 transition-all duration-300 group-hover:text-blue-600 group-hover:translate-x-1"
+            viewBox="0 -960 960 960" fill="currentColor">
+            <path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z" />
+          </svg>
+          <div
+          class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-[14px] font-medium rounded px-2 py-1 whitespace-nowrap shadow-lg transition-opacity duration-100 opacity-0 group-hover:opacity-100 -top-8 right-0">
+                Apple vs AstraZeneca
+          </div>
+        </div>
+      </div>
+    </a>
     <a href="./adp-adsk" class="contents">
       <div class="card-ps hidden group bg-gray-50 rounded-lg px-3 py-2 border border-transparent hover:border-gray-300 hover:shadow-[0_2px_4px_rgba(0,0,0,0.1)] transition-all duration-300 cursor-pointer w-full hover:-translate-y-0.5">
         <div class="flex items-center justify-between">
@@ -2551,28 +2583,6 @@
         </div>
       </div>
     </a>
-    <a href="./adbe-amat" class="contents">
-      <div class="card-ps hidden group bg-gray-50 rounded-lg px-3 py-2 border border-transparent hover:border-gray-300 hover:shadow-[0_2px_4px_rgba(0,0,0,0.1)] transition-all duration-300 cursor-pointer w-full hover:-translate-y-0.5">
-        <div class="flex items-center justify-between">
-          <div style="margin: 15px;">
-           <p class="text-sm font-medium text-gray-700 text-base font-bold group-hover:text-blue-600 transition truncate max-w-[180px] overflow-hidden whitespace-nowrap" style="margin-bottom: 5px;">
-                Adobe vs Applied Materials
-            </p>
-
-            <p class="text-xs text-gray-500">ADBE vs AMAT</p>
-          </div>
-          <svg xmlns="http://www.w3.org/2000/svg"
-            class="w-5 h-5 text-gray-400 mr-1 transition-all duration-300 group-hover:text-blue-600 group-hover:translate-x-1"
-            viewBox="0 -960 960 960" fill="currentColor">
-            <path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z" />
-          </svg>
-          <div
-          class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-[14px] font-medium rounded px-2 py-1 whitespace-nowrap shadow-lg transition-opacity duration-100 opacity-0 group-hover:opacity-100 -top-8 right-0">
-                Adobe vs Applied Materials
-          </div>
-        </div>
-      </div>
-    </a>
     <a href="./aapl-amgn" class="contents">
       <div class="card-ps hidden group bg-gray-50 rounded-lg px-3 py-2 border border-transparent hover:border-gray-300 hover:shadow-[0_2px_4px_rgba(0,0,0,0.1)] transition-all duration-300 cursor-pointer w-full hover:-translate-y-0.5">
         <div class="flex items-center justify-between">
@@ -2595,15 +2605,15 @@
         </div>
       </div>
     </a>
-    <a href="./aapl-amzn" class="contents">
+    <a href="./adbe-amat" class="contents">
       <div class="card-ps hidden group bg-gray-50 rounded-lg px-3 py-2 border border-transparent hover:border-gray-300 hover:shadow-[0_2px_4px_rgba(0,0,0,0.1)] transition-all duration-300 cursor-pointer w-full hover:-translate-y-0.5">
         <div class="flex items-center justify-between">
           <div style="margin: 15px;">
            <p class="text-sm font-medium text-gray-700 text-base font-bold group-hover:text-blue-600 transition truncate max-w-[180px] overflow-hidden whitespace-nowrap" style="margin-bottom: 5px;">
-                Apple vs Amazon
+                Adobe vs Applied Materials
             </p>
 
-            <p class="text-xs text-gray-500">AAPL vs AMZN</p>
+            <p class="text-xs text-gray-500">ADBE vs AMAT</p>
           </div>
           <svg xmlns="http://www.w3.org/2000/svg"
             class="w-5 h-5 text-gray-400 mr-1 transition-all duration-300 group-hover:text-blue-600 group-hover:translate-x-1"
@@ -2612,7 +2622,7 @@
           </svg>
           <div
           class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-[14px] font-medium rounded px-2 py-1 whitespace-nowrap shadow-lg transition-opacity duration-100 opacity-0 group-hover:opacity-100 -top-8 right-0">
-                Apple vs Amazon
+                Adobe vs Applied Materials
           </div>
         </div>
       </div>
@@ -2635,28 +2645,6 @@
           <div
           class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-[14px] font-medium rounded px-2 py-1 whitespace-nowrap shadow-lg transition-opacity duration-100 opacity-0 group-hover:opacity-100 -top-8 right-0">
                 Autodesk vs AMD
-          </div>
-        </div>
-      </div>
-    </a>
-    <a href="./abnb-adbe" class="contents">
-      <div class="card-ps hidden group bg-gray-50 rounded-lg px-3 py-2 border border-transparent hover:border-gray-300 hover:shadow-[0_2px_4px_rgba(0,0,0,0.1)] transition-all duration-300 cursor-pointer w-full hover:-translate-y-0.5">
-        <div class="flex items-center justify-between">
-          <div style="margin: 15px;">
-           <p class="text-sm font-medium text-gray-700 text-base font-bold group-hover:text-blue-600 transition truncate max-w-[180px] overflow-hidden whitespace-nowrap" style="margin-bottom: 5px;">
-                Airbnb vs Adobe
-            </p>
-
-            <p class="text-xs text-gray-500">ABNB vs ADBE</p>
-          </div>
-          <svg xmlns="http://www.w3.org/2000/svg"
-            class="w-5 h-5 text-gray-400 mr-1 transition-all duration-300 group-hover:text-blue-600 group-hover:translate-x-1"
-            viewBox="0 -960 960 960" fill="currentColor">
-            <path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z" />
-          </svg>
-          <div
-          class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-[14px] font-medium rounded px-2 py-1 whitespace-nowrap shadow-lg transition-opacity duration-100 opacity-0 group-hover:opacity-100 -top-8 right-0">
-                Airbnb vs Adobe
           </div>
         </div>
       </div>
@@ -2822,6 +2810,11 @@
           </a>
       </li>
 <li>
+          <a href="./abnb-ilmn" class="hover:text-white">
+              ABNB vs ILMN
+          </a>
+      </li>
+<li>
           <a href="./aapl-adsk" class="hover:text-white">
               AAPL vs ADSK
           </a>
@@ -2834,11 +2827,6 @@
 <li>
           <a href="./aapl-adbe" class="hover:text-white">
               AAPL vs ADBE
-          </a>
-      </li>
-<li>
-          <a href="./aapl-amat" class="hover:text-white">
-              AAPL vs AMAT
           </a>
       </li>
         </ul>
