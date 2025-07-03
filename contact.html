@@ -110,23 +110,36 @@
 
 
 
-        <div id="hero" class="relative w-full h-screen bg-cover bg-center"
-            style="background-image: url('images/contact.jpg')">
-            <div class="absolute inset-0 bg-black bg-opacity-60 flex items-center">
-                <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-white text-center">
-                    <h4 class="text-indigo-400 text-sm sm:text-base md:text-lg font-bold uppercase mb-6">
-                        Welcome To Finjovi
-                    </h4>
-                    <h1 class="text-2xl sm:text-2xl md:text-3xl lg:text-4xl font-bold uppercase mb-6">
-                        We are dedicated to delivering quality, creativity, and innovation in everything we do
-                    </h1>
-                    <p class="text-sm sm:text-base md:text-lg lg:text-xl max-w-3xl mx-auto">
-                        Real-time stock comparison to help you make smart investment
-                        decisions.
-                    </p>
-                </div>
-            </div>
-        </div>
+      <div class="relative w-full h-screen bg-black">
+  <div class="absolute w-full h-screen">
+    <div
+      id="heroBg"
+      class="relative w-full h-screen bg-cover bg-center opacity-0 transition-opacity duration-400"
+      style="background-image: url('images/contact.webp')"
+    ></div>
+  </div>
+
+  <div class="absolute inset-0 bg-black bg-opacity-60 flex items-center z-10">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-white text-center">
+      <h4 class="text-indigo-400 text-sm sm:text-base md:text-lg font-bold uppercase mb-6">
+        Welcome To Finjovi
+      </h4>
+      <h1 class="text-2xl sm:text-2xl md:text-3xl lg:text-4xl font-bold uppercase mb-6">
+        We are dedicated to delivering quality, creativity, and innovation in everything we do
+      </h1>
+      <p class="text-sm sm:text-base md:text-lg lg:text-xl max-w-3xl mx-auto">
+        Real-time stock comparison to help you make smart investment
+        decisions.
+      </p>
+    </div>
+  </div>
+</div>
+
+<script>
+  window.addEventListener("load", () => {
+    document.getElementById("heroBg").classList.remove("opacity-0");
+  });
+</script>
 
          <div class="bg-gradient-to-br from-white via-blue-50 to-blue-100 grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8"
             style="padding-top: 40px;padding-bottom: 20px;">

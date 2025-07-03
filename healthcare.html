@@ -123,29 +123,33 @@
     <!-- Navbar script end -->
 
     <!-- Hero Section start -->
+
+       <div class="relative w-full h-screen bg-black">
+  <div class="absolute w-full h-screen">
     <div
-      id="hero"
-      class="relative w-full h-screen bg-cover bg-center"
-      style="background-image: url('./images/healthcare.jpg')"
-    >
-      <div class="absolute inset-0 bg-black bg-opacity-60 flex items-center">
-        <div
-          class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-white text-center"
-        >
-          <h1
-            class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold uppercase mb-6"
-          >
+      id="heroBg"
+      class="relative w-full h-screen bg-cover bg-center opacity-0 transition-opacity duration-400"
+      style="background-image: url('./images/healthcare.webp')"
+    ></div>
+  </div>
+
+  <div class="absolute inset-0 bg-black bg-opacity-60 flex items-center z-10">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-white text-center">
+      <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold uppercase mb-6">
             healthcare Stocks
-          </h1>
-          <p
-            class="text-sm sm:text-base md:text-lg lg:text-xl max-w-3xl mx-auto"
-          >
-            Real-time stock comparison to help you make smart investment
-            decisions.
-          </p>
-        </div>
-      </div>
+      </h1>
+      <p class="text-sm sm:text-base md:text-lg lg:text-xl max-w-3xl mx-auto">
+        Real-time stock comparison to help you make smart investment decisions.
+      </p>
     </div>
+  </div>
+</div>
+
+<script>
+  window.addEventListener("load", () => {
+    document.getElementById("heroBg").classList.remove("opacity-0");
+  });
+</script>
     <!-- Hero Section end -->
 
     <!-- Featured Comparison -->
@@ -201,25 +205,6 @@
 
         
 <div class="relative group">
-  <a href="./azn-biib" class="block p-6 border rounded-xl shadow hover:shadow-lg transition cursor-pointer no-underline text-inherit">
-    <h4 
-      title="AstraZeneca vs Biogen" 
-      class="font-semibold text-lg mb-2 truncate overflow-hidden whitespace-nowrap max-w-[220px]">
-      AstraZeneca vs Biogen
-    </h4>
-  </a> 
-
-  <div
-          class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-[14px] font-medium rounded px-2 py-1 whitespace-nowrap shadow-lg transition-opacity duration-100 opacity-0 group-hover:opacity-100 -top-8 right-0">
-      AstraZeneca vs Biogen
-          </div>
-</div>
-
-
-
-
-        
-<div class="relative group">
   <a href="./amgn-dxcm" class="block p-6 border rounded-xl shadow hover:shadow-lg transition cursor-pointer no-underline text-inherit">
     <h4 
       title="Amgen vs DexCom" 
@@ -231,6 +216,25 @@
   <div
           class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-[14px] font-medium rounded px-2 py-1 whitespace-nowrap shadow-lg transition-opacity duration-100 opacity-0 group-hover:opacity-100 -top-8 right-0">
       Amgen vs DexCom
+          </div>
+</div>
+
+
+
+
+        
+<div class="relative group">
+  <a href="./azn-biib" class="block p-6 border rounded-xl shadow hover:shadow-lg transition cursor-pointer no-underline text-inherit">
+    <h4 
+      title="AstraZeneca vs Biogen" 
+      class="font-semibold text-lg mb-2 truncate overflow-hidden whitespace-nowrap max-w-[220px]">
+      AstraZeneca vs Biogen
+    </h4>
+  </a> 
+
+  <div
+          class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-[14px] font-medium rounded px-2 py-1 whitespace-nowrap shadow-lg transition-opacity duration-100 opacity-0 group-hover:opacity-100 -top-8 right-0">
+      AstraZeneca vs Biogen
           </div>
 </div>
 
@@ -514,13 +518,13 @@
           </a>
       </li>
 <li>
-          <a href="./azn-biib" class="hover:text-white">
-              AZN vs BIIB
+          <a href="./amgn-dxcm" class="hover:text-white">
+              AMGN vs DXCM
           </a>
       </li>
 <li>
-          <a href="./amgn-dxcm" class="hover:text-white">
-              AMGN vs DXCM
+          <a href="./azn-biib" class="hover:text-white">
+              AZN vs BIIB
           </a>
       </li>
 <li>
