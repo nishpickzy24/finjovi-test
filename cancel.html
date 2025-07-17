@@ -12,19 +12,6 @@
       display: none;
     }
   </style>
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const referer = document.referrer;
-
-      if (referer.includes("stripe.com")) {
-        // ✅ Real cancel from Stripe — show failure message
-        document.getElementById("fail-message").style.display = "block";
-      } else {
-        // 🔙 Back button — redirect to home
-        window.location.href = "/sales.html"; // or "/"
-      }
-    });
-  </script>
 </head>
 <body>
   <div id="fail-message">
@@ -32,4 +19,20 @@
     <p>Unfortunately, we couldn’t confirm your payment. Please try again.</p>
   </div>
 </body>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const status = urlParams.get("status");
+
+    if (status === "cancel") {
+      document.getElementById("fail-message").style.display = "block";
+
+      // 🧹 Clean URL after showing message
+      window.history.replaceState({}, document.title, window.location.pathname);
+    } else {
+      window.location.href = "/sales";
+    }
+  });
+</script>
 </html>
