@@ -24,15 +24,17 @@
   document.addEventListener("DOMContentLoaded", () => {
     const urlParams = new URLSearchParams(window.location.search);
     const status = urlParams.get("status");
+    console.log("status",status)
 
-    if (status === "cancel") {
+    if (status !== "cancel") {
       document.getElementById("fail-message").style.display = "block";
-
-      // 🧹 Clean URL after showing message
+      //Clean URL after showing message
       window.history.replaceState({}, document.title, window.location.pathname);
     } else {
-      window.location.href = "/sales";
+      window.location.href = "/sales.html";
     }
   });
 </script>
 </html>
+
+
