@@ -79,6 +79,19 @@
             margin-bottom: 16px;
             display: none;
         }
+
+      
+
+           
+        .success-stripe{
+            background: #d1fae5;
+            color: #059669;
+            border: 1px solid #a7f3d0;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 16px;
+            display: none;
+        }
         
         .form-group {
             margin-bottom: 20px;
@@ -158,6 +171,9 @@
             <!-- Error/Success Messages -->
             <div id="error-message" class="error-message"></div>
             <div id="success-message" class="success-message"></div>
+
+            <div id="success-message-stripe"  class="success-stripe"></div>
+
 
             <!-- Login Form -->
             <form id="login-form" novalidate>
@@ -545,6 +561,25 @@ registerEmailInput.addEventListener('input', function () {
 
    
     </script>
+
+      <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get('status') === 'success') {
+        const successBox = document.getElementById('success-message-stripe');
+        successBox.textContent = 'Login details sent to your email you used for purchase';
+        successBox.style.display = 'block';
+
+        // Remove ?status=success from the URL (no reload)
+        window.history.replaceState(null, '', window.location.pathname);
+
+        // Auto-hide after 5 seconds
+        setTimeout(() => {
+          successBox.style.display = 'none';
+        }, 5000);
+      }
+    });
+  </script>
 
 </body>
 

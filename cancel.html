@@ -1,8 +1,35 @@
 <!DOCTYPE html>
 <html>
-  <head><title>Payment Failed</title></head>
-  <body style="text-align: center; padding-top: 80px;">
+<head>
+  <title>Payment Failed</title>
+  <meta name="robots" content="noindex" />
+  <style>
+    body {
+      text-align: center;
+      padding-top: 80px;
+    }
+    #fail-message {
+      display: none;
+    }
+  </style>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const referer = document.referrer;
+
+      if (referer.includes("stripe.com")) {
+        // ✅ Real cancel from Stripe — show failure message
+        document.getElementById("fail-message").style.display = "block";
+      } else {
+        // 🔙 Back button — redirect to home
+        window.location.href = "/sales.html"; // or "/"
+      }
+    });
+  </script>
+</head>
+<body>
+  <div id="fail-message">
     <h1 style="color: red;">❌ Payment Failed or Cancelled</h1>
     <p>Unfortunately, we couldn’t confirm your payment. Please try again.</p>
-  </body>
+  </div>
+</body>
 </html>
