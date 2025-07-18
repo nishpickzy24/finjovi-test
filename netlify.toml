@@ -2,9 +2,9 @@
 [[redirects]]
   from = "/*.html"
   to = "/:splat"
-  status = 200
+  status = 301
 
 [[redirects]]
-  from = "/:path/*.html"
-  to = "/:path/*"
-  status = 301
+  from = "/*"
+  to = "/:splat.html"
+  status = 200
