@@ -1,18 +1,6 @@
-[build]
-  publish = "."  # Make sure this matches your output folder (same level as index.html)
 
 [[redirects]]
-  from = "/:slug.html"
-  to = "/:slug"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/:slug"
-  to = "/:slug.html"
+  from = "/*"
+  to = "/:splat.html"
   status = 200
 
-[[redirects]]
-  from = "/index.html"
-  to = "/"
-  status = 301
