@@ -1057,7 +1057,7 @@
     spinner.classList.remove('hidden');
 
     try {
-      const res = await fetch("http://0.0.0.0:8000/payment/initiate-payment", {
+      const res = await fetch("https://finjovi-backend.onrender.compayment/initiate-payment", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
