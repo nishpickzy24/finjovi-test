@@ -1,8 +1,0 @@
-# Redirect .html URLs to clean ones
-/:slug.html     /:slug        301
-
-# Serve .html files when accessing clean URLs (rewrite, not visible to user)
-/:slug          /:slug.html   200
-
-# Optional: Redirect root-level index.html to root clean URL
-/index.html     /             301
