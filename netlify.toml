@@ -9,3 +9,8 @@
   from = "/*.html"
   to = "/:splat"
   status = 301
+
+[[redirects]]
+  from = "/:path/*.html"
+  to = "/:path/*"
+  status = 301
