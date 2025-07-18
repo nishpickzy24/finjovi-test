@@ -1,0 +1,2 @@
+/:slug.html  /:slug         301!
+/:slug       /:slug.html    200
