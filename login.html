@@ -268,7 +268,7 @@
         const expiresAt = new Date(session.expiresAt || 0);
 
         if (session.accessToken && new Date() < expiresAt) {
-            window.location.href = 'download.html';
+            window.location.href = 'download';
         }
 
         // Form elements
@@ -418,9 +418,9 @@
 
             setTimeout(() => {
                 if (result.passwordGenerated) {
-                    window.location.href = 'update-password.html';
+                    window.location.href = 'update-password';
                 } else {
-                    window.location.href = 'download.html';
+                    window.location.href = 'download';
                 }
             }, 1000);
         } catch (error) {
