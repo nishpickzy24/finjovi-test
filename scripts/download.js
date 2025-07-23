@@ -1,8 +1,3 @@
-// Check authentication on page load
-if (!checkAuth()) {
-  // Redirect handled in checkAuth
-}
-
 // Authentication check
 function checkAuth() {
   const sessionData = localStorage.getItem("finjovi_session");
@@ -310,6 +305,10 @@ function onSearchKeyDown(event) {
 }
 
 function initializePage() {
+
+if (!checkAuth()) {
+  // Redirect handled in checkAuth
+}
   const sectors = [
     "Technology",
     "Finance",
